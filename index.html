@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kevin Guna Pratama — ATM Repair & Maintenance</title>
+    <meta
+      name="description"
+      content="ATM repair, preventive maintenance, upgrades, and 24/7 support."
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <style>
+      html,
+      * {
+        scroll-behavior: smooth !important;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth !important;
+          scroll-padding-top: calc(var(--header-h) + 20px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header" role="banner" id="home">
+      <div class="topbar">
+        <div class="brand" aria-label="Kevin Guna Pratama">
+          <picture>
+            <source srcset="images/logoKGP.png" type="image/png" />
+            <img class="brand-logo" src="images/logoKGP.jpg" alt="KGP" />
+          </picture>
+          <div class="brand-text">
+            <div class="name">Kevin Guna Pratama</div>
+            <div class="tag">Repair • Maintenance • Upgrades</div>
+          </div>
+        </div>
+
+        <div class="partners" aria-label="Partners">
+          <picture>
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="partner-plain" src="images/logoGCS.jpg" alt="GCS" />
+          </picture>
+          <div
+            class="partner-logo"
+            aria-hidden="true"
+            style="display: grid; place-items: center; width: 90px"
+          >
+            Bank B
+          </div>
+          <div
+            class="partner-logo"
+            aria-hidden="true"
+            style="display: grid; place-items: center; width: 90px"
+          >
+            Vendor C
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html">Home</a></li>
+
+          <li class="nav-item">
+            <a href="#">Products & Services <span class="chev">▼</span></a>
+            <div
+              class="dropdown"
+              role="menu"
+              aria-label="Products & Services submenu"
+            >
+              <a href="mechanical-electrical.html">Mechanical Electrical</a>
+              <a href="logistic-warehouse.html">Logistic & Warehouse</a>
+              <a href="ups-rework.html">UPS Rework</a>
+              <a href="customer-support-engineer.html"
+                >Customer Support Engineer</a
+              >
+              <a href="call-center.html">Call Center</a>
+              <a href="monitoring.html">Monitoring</a>
+              <a href="ducting-system.html">Ducting System</a>
+              <a href="workshop-maintenance-lcd.html"
+                >Workshop Maintenance LCD</a
+              >
+              <a href="cassette-rework.html">Cassette Rework</a>
+              <a href="atm-module-rework.html">ATM Module Rework</a>
+              <a href="plumbing.html">Plumbing</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#service-points">Service Points</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="about.html">About Us</a>
+          </li>
+        </ul>
+
+        <div class="right-tools">
+          <div class="lang-switch" role="radiogroup" aria-label="Language">
+            <button type="button" class="active" aria-pressed="true">EN</button>
+            <button type="button" aria-pressed="false">ID</button>
+          </div>
+          <a class="btn contact" href="contact.html"><span>Contact Us</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Carousel -->
+    <section
+      class="carousel"
+      aria-roledescription="carousel"
+      aria-label="Featured slides"
+      id="carousel"
+    >
+      <div class="carousel-viewport" role="group" aria-live="polite">
+        <div class="carousel-track" id="track">
+          <!-- initial slides (clones are added via JS) -->
+          <article class="slide" aria-label="Slide 1">
+            <img src="images/jumbotron1.jpg" alt="" />
+            <div class="caption">
+              <p class="strap">EVENT</p>
+              <h2>Independence Day Celebration in KGP</h2>
+              <a
+                href="https://www.instagram.com/p/DN0kMjA3kGP/"
+                class="cta-outline"
+                ><span>LEARN MORE</span></a
+              >
+            </div>
+          </article>
+          <article class="slide" aria-label="Slide 2">
+            <img src="images/jumbotron2.jpg" alt="" />
+            <div class="caption">
+              <p class="strap">INFORMATIONAL</p>
+              <h2>Different Types of ATMs</h2>
+              <a
+                href="https://www.instagram.com/p/DN0DjI23qmN/?img_index=1"
+                class="cta-outline"
+                ><span>LEARN MORE</span></a
+              >
+            </div>
+          </article>
+          <article class="slide" aria-label="Slide 3">
+            <img src="images/jumbotron3.jpg" alt="" />
+            <div class="caption">
+              <p class="strap">INFORMATIONAL</p>
+              <h2>Logistics Division - Daily Activity</h2>
+              <a
+                href="https://www.instagram.com/kevin.gunapratama/reel/DNAn7FMMox1/"
+                class="cta-outline"
+                ><span>LEARN MORE</span></a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Matching arrows -->
+      <button class="arrow prev" aria-label="Previous slide" id="prev">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
+      </button>
+      <button class="arrow next" aria-label="Next slide" id="next">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+        </svg>
+      </button>
+    </section>
+    <section class="service-points" id="service-points">
+      <div class="container-fluid">
+        <div class="service-header">
+          <h2>Our Service Points</h2>
+          <p>
+            We provide ATM maintenance services across Indonesia's major cities
+          </p>
+        </div>
+
+        <div class="map-container">
+          <img
+            src="images/mapIndonesia.svg"
+            alt="Indonesia Map"
+            class="indonesia-map"
+          />
+
+          <!-- Repositioned markers for better accuracy -->
+          <div
+            class="location-marker"
+            data-city="Jawa"
+            style="top: 63%; left: 38%"
+          >
+            <img src="images/locationIcon.svg" alt="Jawa" />
+          </div>
+          <div
+            class="location-marker"
+            data-city="Sumatra"
+            style="top: 37%; left: 20%"
+          >
+            <img src="images/locationIcon.svg" alt="Sumatra" />
+          </div>
+          <div
+            class="location-marker"
+            data-city="Nusa Tenggara"
+            style="top: 70%; left: 55%"
+          >
+            <img src="images/locationIcon.svg" alt="Nusa Tenggara" />
+          </div>
+          <div
+            class="location-marker"
+            data-city="Papua"
+            style="top: 52%; left: 90%"
+          >
+            <img src="images/locationIcon.svg" alt="Papua" />
+          </div>
+          <div
+            class="location-marker"
+            data-city="Kalimantan"
+            style="top: 40%; left: 42%"
+          >
+            <img src="images/locationIcon.svg" alt="Kalimantan" />
+          </div>
+          <div
+            class="location-marker"
+            data-city="Maluku"
+            style="top: 31%; left: 69%"
+          >
+            <img src="images/locationIcon.svg" alt="Maluku" />
+          </div>
+          <div
+            class="location-marker"
+            data-city="Sulawesi"
+            style="top: 43%; left: 55%"
+          >
+            <img src="images/locationIcon.svg" alt="Sulawesi" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Popup Modal -->
+      <div id="location-popup" class="popup-overlay">
+        <div class="popup-content">
+          <button class="popup-close" aria-label="Close popup">&times;</button>
+          <h3 id="popup-city"></h3>
+          <div
+            id="popup-description"
+            class="popup-description"
+            aria-live="polite"
+          ></div>
+          <!-- Thumbnails container (one image per island) -->
+          <div id="popup-images" class="popup-images" aria-live="polite"></div>
+
+          <!-- Inner image modal (appears on top of popup-content) -->
+          <div
+            id="image-modal"
+            class="image-modal"
+            aria-hidden="true"
+            role="dialog"
+            aria-label="Image preview"
+          >
+            <button class="image-modal-close" aria-label="Close image">
+              &times;
+            </button>
+            <img id="image-modal-img" src="" alt="Service point preview" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Goal Section -->
+    <section id="goal" class="section goal">
+      <div class="goal-inner">
+        <div class="goal-copy">
+          <p class="goal-kicker">What Do We Aim to Achieve?</p>
+          <h2 class="goal-title">Goal</h2>
+          <p class="goal-text">
+            Deliver reliable, fast, and secure ATM services across Indonesia to
+            maximize uptime and satisfaction for partners and cardholders.
+          </p>
+        </div>
+
+        <figure class="goal-figure">
+          <img
+            src="images/goalIllustration.svg"
+            alt="Team aiming at a target to represent organizational goal"
+            loading="lazy"
+            width="700"
+            height="520"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <!-- Products & Services Section -->
+    <section class="section products-services">
+      <div class="products-section-inner">
+        <div class="products-section-header">
+          <h2>Products & Services</h2>
+        </div>
+        <div class="products-section-carousel">
+          <button
+            class="products-carousel-arrow products-prev"
+            onclick="moveProductsCarousel(-1)"
+            id="productsPrevBtn"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
+          </button>
+          <div class="products-carousel-container">
+            <div class="products-carousel-track" id="productsCarouselTrack">
+              <a href="mechanical-electrical.html" class="products-slide">
+                <img
+                  src="images/mechanicalElectricalImage.jpg"
+                  alt="Mechanical Electrical"
+                />
+              </a>
+              <a href="logistic-warehouse.html" class="products-slide">
+                <img
+                  src="images/logisticImage.jpg"
+                  alt="Logistic & Warehouse"
+                />
+              </a>
+              <a href="ups-network.html" class="products-slide">
+                <img src="images/UPSImage.jpg" alt="UPS Network" />
+              </a>
+              <a href="customer-support.html" class="products-slide">
+                <img
+                  src="images/customerSupportImage.jpg"
+                  alt="Customer Support Engineer"
+                />
+              </a>
+              <a href="call-center.html" class="products-slide">
+                <img src="images/callCenterImage.jpg" alt="Call Center" />
+              </a>
+              <a href="monitoring.html" class="products-slide">
+                <img src="images/monitoringImage.jpg" alt="Monitoring" />
+              </a>
+              <a href="ducting-system.html" class="products-slide">
+                <img src="images/ductingSystemImage.jpg" alt="Ducting System" />
+              </a>
+              <a href="workshop-maintenance.html" class="products-slide">
+                <img
+                  src="images/workshopImage.jpg"
+                  alt="Workshop Maintenance LCD"
+                />
+              </a>
+              <a href="cassette-rework.html" class="products-slide">
+                <img src="images/cassetteImage.jpg" alt="Cassette Rework" />
+              </a>
+              <a href="atm-module-rework.html" class="products-slide">
+                <img
+                  src="images/moduleReworkImage.jpg"
+                  alt="ATM Module Rework"
+                />
+              </a>
+              <a href="plumbing.html" class="products-slide">
+                <img src="images/plumbingImage.jpg" alt="Plumbing" />
+              </a>
+            </div>
+          </div>
+          <button
+            class="products-carousel-arrow products-next"
+            onclick="moveProductsCarousel(1)"
+            id="productsNextBtn"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Clients Section -->
+    <section class="section clients">
+      <div class="clients-inner">
+        <h2>Our Clients</h2>
+        <p>Trusted by leading organizations across Indonesia</p>
+        <div class="clients-grid">
+          <a href="https://atm-intl.com/" target="_blank" class="client-logo">
+            <img src="images/logoATMi.png" alt="ATMi" />
+          </a>
+          <a href="https://bbw.co.id/" target="_blank" class="client-logo">
+            <img src="images/logoBBW.png" alt="BBW" />
+          </a>
+          <a
+            href="https://www.dieboldnixdorf.com/en-us/"
+            target="_blank"
+            class="client-logo"
+          >
+            <img src="images/logoDn.png" alt="Diebold Nixdorf" />
+          </a>
+          <a
+            href="https://www.intisoft-solusi.com/"
+            target="_blank"
+            class="client-logo"
+          >
+            <img src="images/logoIntisoft.png" alt="Intisoft" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Company Info Section -->
+        <div class="footer-section">
+          <img
+            src="images/logoKGP.png"
+            alt="PT. Kevin Guna Pratama"
+            class="footer-logo"
+          />
+          <p>
+            PT. Kevin Guna Pratama is Indonesia's leading ATM maintenance and
+            technical service provider. We specialize in comprehensive repair,
+            maintenance, and support services for ATM terminals across major
+            Indonesian cities, ensuring maximum uptime and compliance with
+            industry standards.
+          </p>
+          <p>
+            With our fix-first, replace-last philosophy, we deliver
+            cost-effective solutions while maintaining the highest service
+            quality standards in the financial technology sector.
+          </p>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="footer-section footer-nav">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#service-points">Service Points</a></li>
+            <li><a href="#about">About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Products & Services Section -->
+        <div class="footer-section footer-services">
+          <h3>Products & Services</h3>
+          <ul>
+            <li><a href="#services">Mechanical Electrical</a></li>
+            <li><a href="#services">Logistic & Warehouse</a></li>
+            <li><a href="#services">UPS Rework</a></li>
+            <li><a href="#services">Customer Support Engineer</a></li>
+            <li><a href="#services">Call Center</a></li>
+            <li><a href="#services">Monitoring</a></li>
+            <li><a href="#services">Ducting System</a></li>
+            <li><a href="#services">Workshop Maintenance LCD</a></li>
+            <li><a href="#services">Cassette Rework</a></li>
+            <li><a href="#services">ATM Module Rework</a></li>
+            <li><a href="#services">Plumbing</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <div class="contact-item">
+            <i>✉</i>
+            <div>
+              <strong>Email:</strong><br />
+              support@kevingunapratama.com
+            </div>
+          </div>
+          <div class="contact-item">
+            <i>📍</i>
+            <div>
+              <strong>Location:</strong><br />
+              Jl. Karya Utama No.19, RT.3/RW.6, Srengseng, Kec. Kembangan, Kota
+              Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630
+            </div>
+          </div>
+
+          <div class="social-buttons">
+            <a
+              href="https://wa.me/6285282801856"
+              target="_blank"
+              class="social-btn"
+            >
+              <img src="images/logoWhatsApp.png" alt="WhatsApp" />
+            </a>
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              class="social-btn"
+              target="_blank"
+            >
+              <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; <a id="y"></a> PT. Kevin Guna Pratama. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Year
+      document.getElementById("y").textContent = new Date().getFullYear();
+      // Measure header height to size the hero carousel to full screen beneath it
+      (function initHeaderModule() {
+        const root = document.documentElement;
+        const header = document.querySelector(".site-header");
+
+        // Measure header height only if a header exists
+        function setHeaderHeight() {
+          const h = header ? header.offsetHeight || 0 : 0;
+          root.style.setProperty("--header-h", h + "px");
+        }
+
+        if (header) {
+          window.addEventListener("load", setHeaderHeight, { passive: true });
+          window.addEventListener("resize", setHeaderHeight);
+          setHeaderHeight();
+
+          // Hide on downward scroll; unhide on upward scroll anywhere on the page
+          let lastY = window.scrollY || 0;
+          const DOWN_HIDE_OFFSET = 80;
+          const DIR_THRESHOLD = 6;
+
+          function onScroll() {
+            const y = window.scrollY || 0;
+            if (y < DOWN_HIDE_OFFSET) {
+              header.classList.remove("hide");
+            } else {
+              if (y > lastY + DIR_THRESHOLD) header.classList.add("hide");
+              else if (y < lastY - DIR_THRESHOLD)
+                header.classList.remove("hide");
+            }
+            lastY = y;
+          }
+
+          window.addEventListener(
+            "scroll",
+            () => requestAnimationFrame(onScroll),
+            { passive: true } // keeps scrolling smooth; we never call preventDefault
+          );
+        } else {
+          // Ensure dependent layouts have a sane value when no header exists
+          root.style.setProperty("--header-h", "0px");
+        }
+
+        // Language visual toggle — scoped per .lang-switch group
+        document.querySelectorAll(".lang-switch").forEach((group) => {
+          const buttons = group.querySelectorAll("button");
+          if (!buttons.length) return;
+
+          group.addEventListener("click", (e) => {
+            const btn = e.target.closest("button");
+            if (!btn || !group.contains(btn)) return;
+            buttons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+          });
+        });
+      })();
+
+      // ===== Fixed Infinite carousel with clones + autoplay + drag + unified 1s cooldown =====
+      (function () {
+        const track = document.getElementById("track");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+        const carousel = document.querySelector(".carousel");
+
+        // Get original slides
+        const originals = Array.from(track.children);
+
+        // Clone first and last slides for seamless wrap
+        const firstClone = originals[0].cloneNode(true);
+        const lastClone = originals[originals.length - 1].cloneNode(true);
+
+        // Add clones to track
+        track.appendChild(firstClone);
+        track.insertBefore(lastClone, originals[0]);
+
+        // Update slides array with clones
+        let allSlides = Array.from(track.children);
+        let index = 1; // start at first real slide (after lastClone)
+        let busy = false;
+
+        // Unified cooldown system: prevents ALL interactions for 1 second
+        let globalCooldown = false;
+        const COOLDOWN_TIME = 1000; // 1 second
+
+        function goToSlide(i, animate = true) {
+          index = i;
+          track.style.transition = animate ? "transform .6s ease" : "none";
+          track.style.transform = `translateX(${-index * 100}%)`;
+        }
+
+        // Initialize at first real slide
+        goToSlide(1, false);
+
+        // Handle seamless looping after transition
+        track.addEventListener("transitionend", () => {
+          if (index === 0) {
+            // At lastClone, jump to last real slide
+            goToSlide(allSlides.length - 2, false);
+          } else if (index === allSlides.length - 1) {
+            // At firstClone, jump to first real slide
+            goToSlide(1, false);
+          }
+          busy = false;
+        });
+
+        // Start cooldown and update visual state
+        function startCooldown() {
+          globalCooldown = true;
+          // Add disabled visual state to buttons
+          prev.classList.add("disabled");
+          next.classList.add("disabled");
+
+          setTimeout(() => {
+            globalCooldown = false;
+            // Remove disabled visual state
+            prev.classList.remove("disabled");
+            next.classList.remove("disabled");
+          }, COOLDOWN_TIME);
+        }
+
+        // Navigation controls with unified cooldown
+        prev.addEventListener("click", () => {
+          if (busy || globalCooldown) return;
+          busy = true;
+          goToSlide(index - 1, true);
+          startCooldown();
+          resetAutoplay();
+        });
+
+        next.addEventListener("click", () => {
+          if (busy || globalCooldown) return;
+          busy = true;
+          goToSlide(index + 1, true);
+          startCooldown();
+          resetAutoplay();
+        });
+
+        // Autoplay functionality (not affected by cooldown)
+        let autoplayTimer = setInterval(() => {
+          // Autoplay ignores cooldown but still respects busy state
+          if (!busy) {
+            busy = true;
+            goToSlide(index + 1, true);
+          }
+        }, 5000);
+
+        function resetAutoplay() {
+          clearInterval(autoplayTimer);
+          autoplayTimer = setInterval(() => {
+            if (!busy) {
+              busy = true;
+              goToSlide(index + 1, true);
+            }
+          }, 5000);
+        }
+
+        // Pause autoplay on hover
+        carousel.addEventListener("mouseenter", () =>
+          clearInterval(autoplayTimer)
+        );
+        carousel.addEventListener("mouseleave", resetAutoplay);
+
+        // Touch and drag support with unified cooldown
+        let isDragging = false;
+        let startX = 0;
+        let deltaX = 0;
+        let startIndex = 1;
+
+        function handleStart(clientX) {
+          if (globalCooldown) return; // Block if in cooldown
+          isDragging = true;
+          startX = clientX;
+          deltaX = 0;
+          startIndex = index;
+          track.style.transition = "none";
+          clearInterval(autoplayTimer);
+        }
+
+        function handleMove(clientX) {
+          if (!isDragging || globalCooldown) return;
+          deltaX = clientX - startX;
+          const percent =
+            -startIndex * 100 + (deltaX / window.innerWidth) * 100;
+          track.style.transform = `translateX(${percent}%)`;
+        }
+
+        function handleEnd() {
+          if (!isDragging || globalCooldown) return;
+          isDragging = false;
+          const threshold = window.innerWidth * 0.12;
+
+          busy = true;
+          if (deltaX > threshold) {
+            goToSlide(index - 1, true);
+            startCooldown(); // Start cooldown after slide change
+          } else if (deltaX < -threshold) {
+            goToSlide(index + 1, true);
+            startCooldown(); // Start cooldown after slide change
+          } else {
+            goToSlide(index, true);
+            busy = false;
+          }
+          resetAutoplay();
+        }
+
+        // Mouse events
+        carousel.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          handleStart(e.clientX);
+        });
+
+        window.addEventListener("mousemove", (e) => handleMove(e.clientX));
+        window.addEventListener("mouseup", handleEnd);
+
+        // Touch events
+        carousel.addEventListener(
+          "touchstart",
+          (e) => {
+            handleStart(e.touches[0].clientX);
+          },
+          { passive: true }
+        );
+
+        window.addEventListener(
+          "touchmove",
+          (e) => {
+            handleMove(e.touches[0].clientX);
+          },
+          { passive: true }
+        );
+
+        window.addEventListener("touchend", handleEnd);
+
+        // Prevent image dragging
+        allSlides.forEach((slide) => {
+          slide.querySelectorAll("img").forEach((img) => {
+            img.addEventListener("dragstart", (e) => e.preventDefault());
+          });
+        });
+      })();
+      const locationData = {
+        Jawa: {
+          description:
+            "Island-wide coverage on Java with quick turnarounds and genuine parts. Visit our service points in cities such as:\n\n• Kudus\n• Pemalang\n• Magelang\n• Pekalongan\n• Keraton\n• Semarang\n• Pemapang\n• Purwokerto\n• Malang\n• Kediri\n• Probolinggo\n• Malang\n• Banyuwangi\n• Surabaya\n• etc.\n\nPrefer on-site pickup? We can arrange it in select areas—ask our team for details.",
+          link: "jawa-services.html",
+        },
+        Sumatra: {
+          description:
+            "We have service points across Sumatra to keep you up and running—fast diagnostics, reliable repairs, and friendly support in cities such as: \n\n• Lampung \n• Labuhanbatu \n• Gunungsitoli \n• Samosir \n• Padang\n• etc.\n\nNeed help nearby? Chat with us to find the closest location and available hours.",
+          link: "sumatra-services.html",
+        },
+        "Nusa Tenggara": {
+          description:
+            "Reliable service across Kalimantan, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Lombok Barat\n• Kupang\n• Mataram\n• Manggarai\n• etc.\n\nMessage us to confirm coverage in your district and schedule a visit.",
+          link: "nusaTenggara-services.html",
+        },
+        Papua: {
+          description:
+            "We have service points across Papua to keep you up and running—fast diagnostics, reliable repairs, and friendly support in cities such as: \n\n• Karang Mulia \n• Sorong \n• Jayapura \n• Merauke \n• Pulau Biak\n• Sorong\n• Mimika\n• etc.\n\nNeed help nearby? Chat with us to find the closest location and available hours.",
+          link: "papua-services.html",
+        },
+        Kalimantan: {
+          description:
+            "Reliable service across Kalimantan, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Ketapang\n• Banjarmasin\n• Balikpapan\n• Pointanak\n• Samarinda\n• Kotawaringin\n• Palangkaraya\n• Tabalong\n• Barabai\n• Tanjung Selor\n• etc.\n\nMessage us to confirm coverage in your district and schedule a visit.",
+          link: "Kalimantan-services.html",
+        },
+        Maluku: {
+          description:
+            "Reliable service across Maluku, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Ternate\n• Sofifi\n• Langgur\n• Ambon\n• Tiakur\n• etc.\n\nMessage us to confirm coverage in your district and schedule a visit.",
+          link: "maluku-services.html",
+        },
+        Sulawesi: {
+          description:
+            "Island-wide coverage on Sulawesi with quick turnarounds and genuine parts. Visit our service points in cities such as:\n\n• Tomohon\n• Katobu\n• Manado\n• Palu\n• Poso\n• Tolitoli\n• Kendari\n• Mamuju\n• Makassar\n• Palopo\n• etc.\n\nPrefer on-site pickup? We can arrange it in select areas—ask our team for details.",
+          link: "sulawesi-services.html",
+        },
+      };
+
+      // --- popup elements ---
+      const popup = document.getElementById("location-popup");
+      const popupCity = document.getElementById("popup-city");
+      const popupDescription = document.getElementById("popup-description");
+      const popupClose = document.querySelector(".popup-close");
+
+      // images: map city names to image file paths (place images under your images/ folder)
+      const imageMap = {
+        Jawa: "images/jawaServicePoint.webp",
+        Sumatra: "images/sumatraServicePoint.webp",
+        Kalimantan: "images/kalimantanServicePoint.webp",
+        Sulawesi: "images/sulawesiServicePoint.webp",
+        Maluku: "images/malukuServicePoint.webp",
+        Papua: "images/papuaServicePoint.webp",
+        "Nusa Tenggara": "images/NTBServicePoint.webp",
+      };
+
+      const popupImages = document.getElementById("popup-images");
+      const imageModal = document.getElementById("image-modal");
+      const imageModalImg = document.getElementById("image-modal-img");
+      const imageModalClose = document.querySelector(".image-modal-close");
+
+      // Render the thumbnail(s) for a city (currently one per island as requested)
+      function renderPopupImages(city) {
+        popupImages.innerHTML = "";
+        const imgSrc = imageMap[city];
+        if (!imgSrc) return;
+
+        const thumb = document.createElement("img");
+        thumb.className = "popup-thumb";
+        thumb.src = imgSrc;
+        thumb.alt = city + " service point";
+        thumb.setAttribute("data-full", imgSrc);
+        // append thumbnail (if you later want multiple images, push more elements here)
+        popupImages.appendChild(thumb);
+      }
+
+      // Open inner image modal
+      function openImageModal(src, alt) {
+        imageModalImg.src = src;
+        imageModalImg.alt = alt || "Preview";
+        imageModal.setAttribute("aria-hidden", "false");
+        imageModal.classList.add("open");
+        // trap focus could be added later for accessibility if needed
+      }
+
+      function closeImageModal() {
+        imageModal.classList.remove("open");
+        imageModal.setAttribute("aria-hidden", "true");
+        imageModalImg.src = "";
+      }
+
+      // click thumbnails (delegation)
+      popupImages.addEventListener("click", (e) => {
+        const t = e.target.closest("img.popup-thumb");
+        if (!t) return;
+        openImageModal(t.dataset.full, t.alt);
+      });
+
+      // close inner image modal
+      imageModalClose.addEventListener("click", closeImageModal);
+      imageModal.addEventListener("click", (e) => {
+        if (e.target === imageModal) closeImageModal();
+      });
+
+      // Add click events to markers (this replaces any code that previously set popup-link)
+      document.querySelectorAll(".location-marker").forEach((marker) => {
+        marker.addEventListener("click", function () {
+          const city = this.dataset.city;
+          const data = locationData[city] || { description: "", link: "#" };
+
+          popupCity.textContent = city;
+          popupDescription.textContent = data.description || "";
+
+          // Render the correct island image thumbnail(s)
+          renderPopupImages(city);
+
+          popup.style.display = "block";
+          document.body.style.overflow = "hidden"; // Prevent background scrolling
+        });
+      });
+
+      // Close popup events
+      popupClose.addEventListener("click", closePopup);
+      popup.addEventListener("click", function (e) {
+        // clicking outside popup-content will close the popup (same as before)
+        if (e.target === popup) closePopup();
+      });
+
+      // ESC key to close inner modal first, then popup
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          if (imageModal.classList.contains("open")) {
+            closeImageModal();
+          } else {
+            closePopup();
+          }
+        }
+      });
+
+      function closePopup() {
+        // ensure inner modal is closed too
+        closeImageModal();
+        popup.style.display = "none";
+        document.body.style.overflow = ""; // Restore scrolling
+      }
+      // Add click events to markers
+      document.querySelectorAll(".location-marker").forEach((marker) => {
+        marker.addEventListener("click", function () {
+          const city = this.dataset.city;
+          const data = locationData[city];
+
+          popupCity.textContent = city;
+          function renderPopupDescription(raw) {
+            // find the block that contains the bullet lines (lines that start with "•")
+            const blocks = raw.split("\n\n");
+            let intro = "";
+            let bulletsBlock = "";
+            let after = "";
+
+            // choose the first block that starts with the bullet char
+            let bulletIndex = blocks.findIndex((b) => b.trim().startsWith("•"));
+            if (bulletIndex === -1) {
+              // fallback: no bullets detected — render all as a single paragraph
+              popupDescription.textContent = raw;
+              return;
+            }
+
+            intro = blocks.slice(0, bulletIndex).join("\n\n").trim();
+            // collect contiguous bullet blocks (in case there are extra blank lines)
+            let i = bulletIndex;
+            const bulletsParts = [];
+            while (i < blocks.length && blocks[i].trim().startsWith("•")) {
+              bulletsParts.push(blocks[i]);
+              i++;
+            }
+            bulletsBlock = bulletsParts.join("\n\n").trim();
+            after = blocks.slice(i).join("\n\n").trim();
+
+            // empty container first
+            popupDescription.innerHTML = "";
+
+            if (intro) {
+              const pIntro = document.createElement("p");
+              pIntro.textContent = intro;
+              popupDescription.appendChild(pIntro);
+            }
+
+            // build UL from bullet lines
+            const ul = document.createElement("ul");
+            ul.className = "popup-bullet-columns";
+            // split by newline and take only lines that start with bullet or non-empty lines
+            const bulletLines = bulletsBlock
+              .split("\n")
+              .map((l) => l.trim())
+              .filter(Boolean);
+            bulletLines.forEach((line) => {
+              // remove leading bullet glyphs and whitespace
+              const text = line.replace(/^[•\-\u2022\*\s]+/, "").trim();
+              const li = document.createElement("li");
+              li.textContent = text;
+              ul.appendChild(li);
+            });
+            popupDescription.appendChild(ul);
+
+            if (after) {
+              const pAfter = document.createElement("p");
+              pAfter.textContent = after;
+              popupDescription.appendChild(pAfter);
+            }
+          }
+
+          // usage where you currently set textContent:
+          renderPopupDescription(data.description);
+
+          popupLink.href = data.link;
+
+          popup.style.display = "block";
+          document.body.style.overflow = "hidden"; // Prevent background scrolling
+        });
+      });
+
+      // Close popup events
+      popupClose.addEventListener("click", closePopup);
+      popup.addEventListener("click", function (e) {
+        if (e.target === popup) closePopup();
+      });
+
+      // ESC key to close popup
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closePopup();
+      });
+
+      function closePopup() {
+        popup.style.display = "none";
+        document.body.style.overflow = ""; // Restore scrolling
+      }
+      let productsCurrentIndex = 0;
+      const productsTotalSlides = 11;
+      const productsSlidesPerView = 4;
+      const productsMaxIndex = productsTotalSlides - productsSlidesPerView;
+
+      function moveProductsCarousel(direction) {
+        const track = document.getElementById("productsCarouselTrack");
+        const prevArrow = document.getElementById("productsPrevBtn");
+        const nextArrow = document.getElementById("productsNextBtn");
+
+        // Prevent movement if button is disabled
+        if (direction === -1 && prevArrow.disabled) return;
+        if (direction === 1 && nextArrow.disabled) return;
+
+        // Check if movement is allowed
+        const newIndex = productsCurrentIndex + direction;
+
+        if (newIndex < 0 || newIndex > productsMaxIndex) {
+          return; // Don't move if it would go out of bounds
+        }
+
+        productsCurrentIndex = newIndex;
+
+        // Calculate translation - move by exactly 1 slide
+        const slideWidth = 100 / productsTotalSlides; // Each slide is 1/11 of total width
+        const translateX = -(productsCurrentIndex * slideWidth);
+        track.style.transform = `translateX(${translateX}%)`;
+
+        // Update arrow states
+        updateProductsArrows();
+      }
+
+      function updateProductsArrows() {
+        const prevArrow = document.getElementById("productsPrevBtn");
+        const nextArrow = document.getElementById("productsNextBtn");
+
+        // Update previous arrow
+        if (productsCurrentIndex === 0) {
+          prevArrow.disabled = true;
+          prevArrow.style.opacity = "0.4";
+          prevArrow.style.cursor = "not-allowed";
+        } else {
+          prevArrow.disabled = false;
+          prevArrow.style.opacity = "1";
+          prevArrow.style.cursor = "pointer";
+        }
+
+        // Update next arrow
+        if (productsCurrentIndex >= productsMaxIndex) {
+          nextArrow.disabled = true;
+          nextArrow.style.opacity = "0.4";
+          nextArrow.style.cursor = "not-allowed";
+        } else {
+          nextArrow.disabled = false;
+          nextArrow.style.opacity = "1";
+          nextArrow.style.cursor = "pointer";
+        }
+      }
+
+      // Initialize arrows on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateProductsArrows();
+      });
+    </script>
+  </body>
+</html>

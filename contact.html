@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact Us — Kevin Guna Pratama ATM Services</title>
+    <meta
+      name="description"
+      content="Contact Kevin Guna Pratama for ATM repair, maintenance, and support services."
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .contact-detail svg {
+        /* Fixed dimensions - prevents shrinking */
+        width: 18px;
+        height: 18px;
+        min-width: 18px; /* Ensures minimum width */
+        min-height: 18px; /* Ensures minimum height */
+        flex-shrink: 0; /* Prevents the SVG from shrinking in flexbox */
+        margin-top: 2px; /* Optional: slight top margin for better alignment */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header" role="banner">
+      <div class="topbar">
+        <div class="brand" aria-label="Kevin Guna Pratama">
+          <picture>
+            <source srcset="images/logoKGP.png" type="image/png" />
+            <img class="brand-logo" src="images/logoKGP.jpg" alt="KGP" />
+          </picture>
+          <div class="brand-text">
+            <div class="name">Kevin Guna Pratama</div>
+            <div class="tag">Repair • Maintenance • Upgrades</div>
+          </div>
+        </div>
+        <div class="partners" aria-label="Partners">
+          <picture>
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="partner-plain" src="images/logoGCS.jpg" alt="GCS" />
+          </picture>
+          <div
+            class="partner-logo"
+            aria-hidden="true"
+            style="display: grid; place-items: center; width: 90px"
+          >
+            Bank B
+          </div>
+          <div
+            class="partner-logo"
+            aria-hidden="true"
+            style="display: grid; place-items: center; width: 90px"
+          >
+            Vendor C
+          </div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html">Home</a></li>
+          <li class="nav-item">
+            <a href="#">Products & Services <span class="chev">▼</span></a>
+            <div
+              class="dropdown"
+              role="menu"
+              aria-label="Products & Services submenu"
+            >
+              <a href="mechanical-electrical.html">Mechanical Electrical</a>
+              <a href="logistic-warehouse.html">Logistic & Warehouse</a>
+              <a href="ups-rework.html">UPS Rework</a>
+              <a href="customer-support-engineer.html"
+                >Customer Support Engineer</a
+              >
+              <a href="call-center.html">Call Center</a>
+              <a href="monitoring.html">Monitoring</a>
+              <a href="ducting-system.html">Ducting System</a>
+              <a href="workshop-maintenance-lcd.html"
+                >Workshop Maintenance LCD</a
+              >
+              <a href="cassette-rework.html">Cassette Rework</a>
+              <a href="atm-module-rework.html">ATM Module Rework</a>
+              <a href="plumbing.html">Plumbing</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#service-points">Service Points</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html">About Us</a>
+          </li>
+        </ul>
+        <div class="right-tools">
+          <div class="lang-switch" role="radiogroup" aria-label="Language">
+            <button type="button" class="active" aria-pressed="true">EN</button>
+            <button type="button" aria-pressed="false">ID</button>
+          </div>
+          <a class="btn contact" href="contact.html"><span>Contact Us</span></a>
+        </div>
+      </nav>
+    </header>
+    <!-- Contact Main -->
+    <main class="contact-main">
+      <div class="contact-image">
+        <img src="images/contactUsImage.jpg" alt="ATM Service Technician" />
+      </div>
+      <div class="contact-form-section">
+        <div class="form-header">
+          <h1>Get in Touch</h1>
+          <p>
+            Ready to discuss your ATM service needs? Send us a message and we'll
+            get back to you promptly.
+          </p>
+        </div>
+        <form
+          id="contact-form"
+          class="contact-form"
+          action="https://script.google.com/macros/s/AKfycbxYF0VY7ja3yhIsEZWxXL6ziJjd-LZ6TLU8AxHaYbmOCyCl6CjIF0i3sjKw4DQbxhJo/exec"
+          method="POST"
+        >
+          <div class="form-group">
+            <label class="form-label" for="name">Full Name *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-input"
+              required
+              placeholder="Enter your full name"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              required
+              placeholder="Enter your email address"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-textarea"
+              required
+              placeholder="Tell us about your ATM service needs, location, and any specific requirements..."
+            ></textarea>
+          </div>
+          <button type="submit" class="btn">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M22 2L11 13"></path>
+              <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+            </svg>
+            Send Message
+          </button>
+        </form>
+        <div class="contact-info">
+          <h3>Direct Contact</h3>
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+              />
+            </svg>
+            <a>support@kevingunapratama.com</a>
+          </div>
+          </div>
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+              />
+            </svg>
+            <a
+              >Jl. Karya Utama No.19, RT.3/RW.6, Srengseng, Kec. Kembangan, Kota
+              Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630</a
+            >
+          </div>
+          <div class="contact-detail social-links">
+            <a
+              href="http://wa.me/6285282801856"
+              target="_blank"
+              aria-label="WhatsApp"
+              class="social-btn circle-btn"
+            >
+              <img src="images/logoWhatsApp.png" alt="WhatsApp" />
+            </a>
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+              class="social-btn circle-btn"
+            >
+              <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Company Info Section -->
+        <div class="footer-section">
+          <img
+            src="images/logoKGP.png"
+            alt="PT. Kevin Guna Pratama"
+            class="footer-logo"
+          />
+          <p>
+            PT. Kevin Guna Pratama is Indonesia's leading ATM maintenance and
+            technical service provider. We specialize in comprehensive repair,
+            maintenance, and support services for ATM terminals across major
+            Indonesian cities, ensuring maximum uptime and compliance with
+            industry standards.
+          </p>
+          <p>
+            With our fix-first, replace-last philosophy, we deliver
+            cost-effective solutions while maintaining the highest service
+            quality standards in the financial technology sector.
+          </p>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="footer-section footer-nav">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#service-points">Service Points</a></li>
+            <li><a href="#about">About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Products & Services Section -->
+        <div class="footer-section footer-services">
+          <h3>Products & Services</h3>
+          <ul>
+            <li><a href="#services">Mechanical Electrical</a></li>
+            <li><a href="#services">Logistic & Warehouse</a></li>
+            <li><a href="#services">UPS Rework</a></li>
+            <li><a href="#services">Customer Support Engineer</a></li>
+            <li><a href="#services">Call Center</a></li>
+            <li><a href="#services">Monitoring</a></li>
+            <li><a href="#services">Ducting System</a></li>
+            <li><a href="#services">Workshop Maintenance LCD</a></li>
+            <li><a href="#services">Cassette Rework</a></li>
+            <li><a href="#services">ATM Module Rework</a></li>
+            <li><a href="#services">Plumbing</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <div class="contact-item">
+            <i>✉</i>
+            <div>
+              <strong>Email:</strong><br />
+              support@kevingunapratama.com
+            </div>
+          </div>
+          <div class="contact-item">
+            <i>📍</i>
+            <div>
+              <strong>Location:</strong><br />
+              Jl. Karya Utama No.19, RT.3/RW.6, Srengseng, Kec. Kembangan, Kota
+              Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630
+            </div>
+          </div>
+
+          <div class="social-buttons">
+            <a href="http://wa.me/6285282801856" target="_blank" class="social-btn">
+              <img src="images/logoWhatsApp.png" alt="WhatsApp" />
+            </a>
+            <a
+              href="https://instagram.com/kevin.gunapratama" target="_blank"
+              class="social-btn"
+            >
+              <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; <e id="y"></e> PT. Kevin Guna Pratama. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Set current year in footer
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      // Handle form submission
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault(); // Prevent default form submission
+
+          const form = e.target;
+          const btn = form.querySelector('button[type="submit"]');
+          const originalContent = btn.innerHTML;
+
+          // Update button state
+          btn.disabled = true;
+          btn.innerHTML = "Sending…";
+
+          // Prepare form data
+          const formData = new FormData(form);
+
+          try {
+            const response = await fetch(form.action, {
+              method: "POST",
+              body: formData,
+              mode: "no-cors", // Important for Google Apps Script
+            });
+
+            // Since we're using no-cors mode, we can't read the response
+            // So we'll assume success if no error is thrown
+            btn.innerHTML = "✓ Message Sent!";
+            form.reset();
+
+            // Show success message for longer
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.innerHTML = originalContent;
+            }, 3000);
+          } catch (error) {
+            console.error("Form submission error:", error);
+            btn.innerHTML = "❌ Error occurred";
+
+            // Restore button after error
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.innerHTML = originalContent;
+            }, 3000);
+          }
+        });
+    </script>
+  </body>
+</html>
