@@ -348,6 +348,17 @@
       // Set current year in footer
       document.getElementById("y").textContent = new Date().getFullYear();
 
+      const burger = document.querySelector(".burger");
+      const navList = document.querySelector(".nav-list");
+
+      if (burger && navList) {
+        burger.addEventListener("click", () => {
+          const expanded = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!expanded));
+          navList.classList.toggle("open");
+        });
+      }
+
       // Handle form submission
       document
         .getElementById("contact-form")
