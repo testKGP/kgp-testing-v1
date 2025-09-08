@@ -136,6 +136,7 @@
               <a
                 href="https://www.instagram.com/p/DN0kMjA3kGP/"
                 class="cta-outline"
+                target="_blank"
                 ><span>LEARN MORE</span></a
               >
             </div>
@@ -148,6 +149,7 @@
               <a
                 href="https://www.instagram.com/p/DN0DjI23qmN/?img_index=1"
                 class="cta-outline"
+                target="_blank"
                 ><span>LEARN MORE</span></a
               >
             </div>
@@ -160,6 +162,7 @@
               <a
                 href="https://www.instagram.com/kevin.gunapratama/reel/DNAn7FMMox1/"
                 class="cta-outline"
+                target="_blank"
                 ><span>LEARN MORE</span></a
               >
             </div>
@@ -754,17 +757,17 @@
       const locationData = {
         Jawa: {
           description:
-            "Island-wide coverage on Java with quick turnarounds and genuine parts. Visit our service points in cities such as:\n\n• Kudus\n• Pemalang\n• Magelang\n• Pekalongan\n• Keraton\n• Semarang\n• Pemapang\n• Purwokerto\n• Malang\n• Kediri\n• Probolinggo\n• Malang\n• Banyuwangi\n• Surabaya\n• etc.\n\nPrefer on-site pickup? We can arrange it in select areas—ask our team for details.",
+            "Island-wide coverage on Java with quick turnarounds and genuine parts. Visit our service points in cities such as:\n\n• Kudus\n• Pemalang\n• Magelang\n• Pekalongan\n• Keraton\n• Semarang\n• Pemapang\n• Purwokerto\n• Bandung\n• Surabaya\n• Jakarta\n• etc.\n\nPrefer on-site pickup? We can arrange it in select areas—ask our team for details.",
           link: "jawa-services.html",
         },
         Sumatra: {
           description:
-            "We have service points across Sumatra to keep you up and running—fast diagnostics, reliable repairs, and friendly support in cities such as: \n\n• Lampung \n• Labuhanbatu \n• Gunungsitoli \n• Samosir \n• Padang\n• etc.\n\nNeed help nearby? Chat with us to find the closest location and available hours.",
+            "We have service points across Sumatra to keep you up and running—fast diagnostics, reliable repairs, and friendly support in cities such as: \n\n• Lampung \n• Labuhanbatu \n• Gunungsitoli \n• Samosir \n• Padang\n• Banda Aceh\n• Pidie\n• Meulaboh\n• Lhokseumawe\n• Sidikalang\n• Balige\n• etc.\n\nNeed help nearby? Chat with us to find the closest location and available hours.",
           link: "sumatra-services.html",
         },
         "Nusa Tenggara": {
           description:
-            "Reliable service across Kalimantan, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Lombok Barat\n• Kupang\n• Mataram\n• Manggarai\n• etc.\n\nMessage us to confirm coverage in your district and schedule a visit.",
+            "Reliable service across Kalimantan, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Lombok Barat\n• Kupang\n• Mataram\n• Manggarai\n• Denpasar\n• Maumere\n• Singaraja\n• Sumba\n• Ruteng\n• Bima\n\nMessage us to confirm coverage in your district and schedule a visit.",
           link: "nusaTenggara-services.html",
         },
         Papua: {
@@ -774,7 +777,7 @@
         },
         Kalimantan: {
           description:
-            "Reliable service across Kalimantan, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Ketapang\n• Banjarmasin\n• Balikpapan\n• Pointanak\n• Samarinda\n• Kotawaringin\n• Palangkaraya\n• Tabalong\n• Barabai\n• Tanjung Selor\n• etc.\n\nMessage us to confirm coverage in your district and schedule a visit.",
+            "Reliable service across Kalimantan, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Ketapang\n• Banjarmasin\n• Balikpapan\n• Pontianak\n• Samarinda\n• Kotawaringin\n• Palangkaraya\n• Tabalong\n• Barabai\n• Tanjung Selor\n• Pangkalan Bun\n• etc.\n\nMessage us to confirm coverage in your district and schedule a visit.",
           link: "Kalimantan-services.html",
         },
         Maluku: {
@@ -784,7 +787,7 @@
         },
         Sulawesi: {
           description:
-            "Island-wide coverage on Sulawesi with quick turnarounds and genuine parts. Visit our service points in cities such as:\n\n• Tomohon\n• Katobu\n• Manado\n• Palu\n• Poso\n• Tolitoli\n• Kendari\n• Mamuju\n• Makassar\n• Palopo\n• etc.\n\nPrefer on-site pickup? We can arrange it in select areas—ask our team for details.",
+            "Island-wide coverage on Sulawesi with quick turnarounds and genuine parts. Visit our service points in cities such as:\n\n• Tomohon\n• Katobu\n• Manado\n• Palu\n• Poso\n• Tolitoli\n• Kendari\n• Mamuju\n• Makassar\n• Palopo\n• Kota Mobagu\n• etc.\n\nPrefer on-site pickup? We can arrange it in select areas—ask our team for details.",
           link: "sulawesi-services.html",
         },
       };
@@ -903,22 +906,22 @@
 
           popupCity.textContent = city;
           function renderPopupDescription(raw) {
-            // find the block that contains the bullet lines (lines that start with "•")
+            if (typeof raw !== "string") return;
             const blocks = raw.split("\n\n");
             let intro = "";
             let bulletsBlock = "";
             let after = "";
 
-            // choose the first block that starts with the bullet char
             let bulletIndex = blocks.findIndex((b) => b.trim().startsWith("•"));
             if (bulletIndex === -1) {
-              // fallback: no bullets detected — render all as a single paragraph
-              popupDescription.textContent = raw;
+              if (typeof popupDescription !== "undefined" && popupDescription) {
+                popupDescription.textContent = raw;
+              }
               return;
             }
 
             intro = blocks.slice(0, bulletIndex).join("\n\n").trim();
-            // collect contiguous bullet blocks (in case there are extra blank lines)
+
             let i = bulletIndex;
             const bulletsParts = [];
             while (i < blocks.length && blocks[i].trim().startsWith("•")) {
@@ -928,7 +931,8 @@
             bulletsBlock = bulletsParts.join("\n\n").trim();
             after = blocks.slice(i).join("\n\n").trim();
 
-            // empty container first
+            if (typeof popupDescription === "undefined" || !popupDescription)
+              return;
             popupDescription.innerHTML = "";
 
             if (intro) {
@@ -937,22 +941,37 @@
               popupDescription.appendChild(pIntro);
             }
 
-            // build UL from bullet lines
-            const ul = document.createElement("ul");
-            ul.className = "popup-bullet-columns";
-            // split by newline and take only lines that start with bullet or non-empty lines
             const bulletLines = bulletsBlock
               .split("\n")
               .map((l) => l.trim())
               .filter(Boolean);
-            bulletLines.forEach((line) => {
-              // remove leading bullet glyphs and whitespace
-              const text = line.replace(/^[•\-\u2022\*\s]+/, "").trim();
-              const li = document.createElement("li");
-              li.textContent = text;
-              ul.appendChild(li);
-            });
-            popupDescription.appendChild(ul);
+
+            const MAX_PER_COL = 6;
+            const MAX_COLS = 6;
+            const colsNeeded = Math.min(
+              MAX_COLS,
+              Math.max(1, Math.ceil(bulletLines.length / MAX_PER_COL))
+            );
+
+            const grid = document.createElement("div");
+            grid.className = "popup-bullet-grid";
+            grid.style.setProperty("--popup-bullet-cols", colsNeeded);
+
+            for (let c = 0; c < colsNeeded; c++) {
+              const ul = document.createElement("ul");
+              const start = c * MAX_PER_COL;
+              const end = start + MAX_PER_COL;
+              const slice = bulletLines.slice(start, end);
+              slice.forEach((line) => {
+                const text = line.replace(/^[•\-\u2022\*\s]+/, "").trim();
+                const li = document.createElement("li");
+                li.textContent = text;
+                ul.appendChild(li);
+              });
+              grid.appendChild(ul);
+            }
+
+            popupDescription.appendChild(grid);
 
             if (after) {
               const pAfter = document.createElement("p");
@@ -961,8 +980,422 @@
             }
           }
 
-          // usage where you currently set textContent:
-          renderPopupDescription(data.description);
+          // Render description if data and popupDescription are available
+          if (
+            typeof data !== "undefined" &&
+            typeof popupDescription !== "undefined" &&
+            popupDescription
+          ) {
+            renderPopupDescription(data.description);
+          }
+
+          (function injectEtcForCity(city) {
+            if (typeof popup === "undefined" || !popup) return;
+
+            const minimalEtcMap = {
+              Jawa: [
+                "Subang",
+                "Cirebon",
+                "Kuningan",
+                "Bekasi",
+                "Cibitung",
+                "Cikarang",
+                "Cibarusah",
+                "Cileungsi",
+                "Bogor",
+                "Depok",
+                "Cibinong",
+                "Parung",
+                "Karawang",
+                "Sukabumi",
+                "Cianjur",
+                "Rumpin",
+                "Solo",
+                "Yogyakarta",
+                "Demak",
+                "Kendal",
+                "Tegal",
+                "Cilacap",
+                "Banyumas",
+                "Purbalingga",
+                "Gresik",
+                "Mojokerto",
+                "Pasuruan",
+                "Jember",
+                "Madiun",
+                "Blitar",
+                "Tuban",
+                "Madura",
+                "Lamongan",
+                "Sidoarjo",
+                "Probolinggo",
+                "Purwakarta",
+                "Banyuwangi",
+                "Kediri",
+              ],
+              Sumatra: [
+                "Rantau Prapat",
+                "Pematang Siantar",
+                "Batam",
+                "Tanjung Pinang",
+                "Pekan Baru",
+                "Dumai",
+                "Duri",
+                "Padang",
+                "Bukit tinggi",
+                "Lubuk Linggau",
+                "Bengkulu",
+                "Palembang",
+                "Kota Bumi",
+                "Metro",
+                "Nias",
+                "Medan",
+                "Padangsidempuan",
+                "Kisaran",
+              ],
+              Kalimantan: [
+                "Sintang",
+                "Tanjung",
+                "Muara Tweh",
+                "Tarakan",
+                "Batulicin",
+              ],
+              Sulawesi: [
+                "Gorontalo",
+                "Luwuk",
+                "Polewali Mandar",
+                "Bau Bau",
+                "Bone",
+                "Makassar",
+                "Pare Pare",
+                "Luwuk",
+                "Maros",
+                "Bulukumba",
+                "Sidrap",
+              ],
+              Papua: ["Jayapura", "Sorong", "Merauke"],
+              Maluku: ["Ambon", "Ternate"],
+              "Nusa Tenggara": ["Mataram", "Kupang"],
+            };
+
+            // remove previously injected items
+            popup
+              .querySelectorAll(".etc-injected")
+              .forEach((el) => el.remove());
+
+            const list = minimalEtcMap[city] || [];
+            if (!list.length) return;
+
+            // find a list item that contains 'etc' (case-insensitive)
+            const liNodes = Array.from(
+              popup.querySelectorAll(
+                ".popup-bullet-grid li, .popup-bullet-columns li, .popup-description li"
+              )
+            );
+
+            let etcLi = liNodes.find((li) => {
+              const t = li.textContent ? li.textContent.trim() : "";
+              return /^etc\.?$/i.test(t);
+            });
+
+            /* Replace the old adjustFlip with this enhanced version */
+            function adjustFlip(hostEl, popupCard) {
+              if (!hostEl || !popupCard) return;
+
+              const container =
+                popup.querySelector(".popup-content") || document.body;
+              const containerRect = container.getBoundingClientRect();
+              const hostRect = hostEl.getBoundingClientRect();
+
+              // Force layout before measuring
+              const popupW =
+                popupCard.offsetWidth ||
+                popupCard.getBoundingClientRect().width ||
+                260;
+              const popupH =
+                popupCard.offsetHeight ||
+                popupCard.getBoundingClientRect().height ||
+                160;
+
+              // If container is very narrow OR popup is wider than container minus margin,
+              // center the popup inside the container (prevents overflow / cut-off).
+              const MOBILE_BREAKPOINT = 560;
+              const MIN_MARGIN = 16; // px
+
+              if (
+                containerRect.width <= MOBILE_BREAKPOINT ||
+                popupW >= containerRect.width - MIN_MARGIN * 2
+              ) {
+                // center horizontally & vertically inside container
+                popupCard.style.position = "absolute";
+                popupCard.style.left =
+                  Math.round((containerRect.width - popupW) / 2) + "px";
+                popupCard.style.top =
+                  Math.round((containerRect.height - popupH) / 2) + "px";
+                popupCard.style.right = "auto";
+                popupCard.style.bottom = "auto";
+                // remove any flip classes that might alter visuals
+                popupCard.classList.remove(
+                  "etc-popup--flip-left",
+                  "etc-popup--flip-right"
+                );
+                // stop further flip/clamp math
+                return;
+              }
+
+              // === Original logic: vertically center near host and clamp inside container ===
+              const hostCenterY_relContainer =
+                hostRect.top - containerRect.top + hostRect.height / 2;
+              let desiredTop = Math.round(
+                hostCenterY_relContainer - popupH / 2
+              );
+
+              const minTop = 8;
+              const maxTop = Math.max(8, containerRect.height - popupH - 8);
+              if (desiredTop < minTop) desiredTop = minTop;
+              if (desiredTop > maxTop) desiredTop = maxTop;
+
+              popupCard.style.position = "absolute";
+              popupCard.style.top = desiredTop + "px";
+
+              // Horizontal: prefer right, flip left if not enough space
+              const gap = 12;
+              const hostRight_relContainer =
+                hostRect.right - containerRect.left;
+              const hostLeft_relContainer = hostRect.left - containerRect.left;
+
+              const spaceRight = containerRect.width - hostRight_relContainer;
+              const spaceLeft = hostLeft_relContainer;
+
+              let placeOnLeft = false;
+              if (spaceRight < popupW + gap && spaceLeft >= popupW + gap) {
+                placeOnLeft = true;
+              }
+
+              let leftPx;
+              if (!placeOnLeft) {
+                // place to the right of host
+                leftPx = Math.round(hostRight_relContainer + gap);
+                // clamp so popup never goes past container's right edge
+                if (leftPx + popupW + 8 > containerRect.width) {
+                  leftPx = Math.max(8, containerRect.width - popupW - 8);
+                }
+                popupCard.classList.remove("etc-popup--flip-left");
+              } else {
+                // place to the left of host
+                leftPx = Math.round(hostLeft_relContainer - popupW - gap);
+                // clamp so popup never goes past container's left edge
+                if (leftPx < 8) leftPx = 8;
+                popupCard.classList.add("etc-popup--flip-left");
+              }
+
+              popupCard.style.left = leftPx + "px";
+            }
+
+            /* Small helper to close any open etc popups when tapping outside */
+            function closeAllEtcPopups() {
+              document.querySelectorAll(".etc-popup.open").forEach((p) => {
+                p.classList.remove("open");
+              });
+            }
+
+            /* Attach tap/click handlers for touch-friendly toggling.
+   This block assumes you still create the trigger (etc-trigger) and popupCard the same way;
+   we add an event listener to the trigger to toggle .open and call adjustFlip(). */
+            function wireEtcToggle(trigger, popupCard) {
+              if (!trigger || !popupCard) return;
+
+              // make trigger accessible
+              trigger.setAttribute("role", "button");
+              trigger.setAttribute("tabindex", "0");
+              trigger.setAttribute("aria-expanded", "false");
+              trigger.setAttribute("aria-controls", popupCard.id || "");
+
+              // toggle on click/tap
+              const toggle = (ev) => {
+                ev.preventDefault();
+                const opening = !popupCard.classList.contains("open");
+                closeAllEtcPopups(); // close others
+                if (opening) {
+                  popupCard.classList.add("open");
+                  trigger.setAttribute("aria-expanded", "true");
+                  // position it now (compute dims)
+                  requestAnimationFrame(() => adjustFlip(trigger, popupCard));
+                } else {
+                  popupCard.classList.remove("open");
+                  trigger.setAttribute("aria-expanded", "false");
+                }
+              };
+
+              // Use click for both mouse & touch (touchstart can be added if you need instant response)
+              // Only attach click/tap toggling on devices that don't have a hover-capable pointer
+              const prefersHover =
+                window.matchMedia &&
+                window.matchMedia("(hover: hover)").matches;
+              const supportsTouch =
+                "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+              if (!prefersHover || supportsTouch) {
+                // touch or non-hover: use click to toggle
+                trigger.addEventListener("click", toggle);
+              } else {
+                // hover-capable desktop: do NOT attach click toggle so popup remains hover-only
+                // keep keyboard access though (keydown handler below handles Enter/Space)
+              }
+
+              // Keyboard support: Enter/Space toggles
+              trigger.addEventListener("keydown", (ev) => {
+                if (ev.key === "Enter" || ev.key === " ") {
+                  ev.preventDefault();
+                  toggle(ev);
+                } else if (ev.key === "Escape") {
+                  popupCard.classList.remove("open");
+                  trigger.setAttribute("aria-expanded", "false");
+                }
+              });
+
+              // Close when clicking outside popup or pressing Escape
+              document.addEventListener("click", (ev) => {
+                if (!popupCard.contains(ev.target) && ev.target !== trigger) {
+                  popupCard.classList.remove("open");
+                  trigger.setAttribute("aria-expanded", "false");
+                }
+              });
+
+              document.addEventListener("keydown", (ev) => {
+                if (ev.key === "Escape") {
+                  popupCard.classList.remove("open");
+                  trigger.setAttribute("aria-expanded", "false");
+                }
+              });
+            }
+
+            if (etcLi) {
+              etcLi.classList.add("etc-injected-host");
+              etcLi.innerHTML = "";
+
+              const trigger = document.createElement("span");
+              trigger.className = "etc-trigger etc-injected";
+              trigger.setAttribute("tabindex", "-1");
+              trigger.textContent = "etc.";
+
+              const popupCard = document.createElement("div");
+              popupCard.className = "etc-popup etc-injected";
+
+              const ul = document.createElement("ul");
+              list.forEach((name) => {
+                const li = document.createElement("li");
+                li.textContent = name;
+                ul.appendChild(li);
+              });
+              popupCard.appendChild(ul);
+
+              etcLi.appendChild(trigger);
+              etcLi.appendChild(popupCard);
+              // ensure our popupCard has an id (used by aria-controls)
+              if (!popupCard.id)
+                popupCard.id =
+                  "etc-popup-" + Math.random().toString(36).slice(2, 8);
+
+              // wire touch/click toggle for mobile and keyboard
+              wireEtcToggle(trigger, popupCard);
+
+              // initial positioning
+              requestAnimationFrame(() => adjustFlip(etcLi, popupCard));
+
+              // update position on resize and popup scroll
+              const onResize = () => adjustFlip(etcLi, popupCard);
+              window.addEventListener("resize", onResize);
+              // keep it live while popup is open; the cleanup listener you already emit ('popupclose.cleanup') will remove the listener
+
+              etcLi.style.position = "relative";
+
+              requestAnimationFrame(() => adjustFlip(etcLi, popupCard));
+
+              popup.addEventListener(
+                "popupclose.cleanup",
+                () => {
+                  window.removeEventListener("resize", onResize);
+                },
+                { once: true }
+              );
+            } else {
+              // fallback: append a wrapper inside popup-content
+              const prev = popup.querySelector(".etc-wrapper");
+              if (prev) prev.remove();
+
+              const wrapper = document.createElement("div");
+              wrapper.className = "etc-wrapper etc-injected";
+
+              const trigger = document.createElement("span");
+              trigger.className = "etc-trigger";
+              trigger.setAttribute("tabindex", "-1");
+              trigger.textContent = "etc.";
+
+              const popupCard = document.createElement("div");
+              popupCard.className = "etc-popup";
+
+              const ul = document.createElement("ul");
+              list.forEach((name) => {
+                const li = document.createElement("li");
+                li.textContent = name;
+                ul.appendChild(li);
+              });
+
+              popupCard.appendChild(ul);
+              wrapper.appendChild(trigger);
+              wrapper.appendChild(popupCard);
+              const popupContentEl = popup.querySelector(".popup-content");
+              if (popupContentEl) {
+                // Append the card into the modal content so absolute positioning is relative to it
+                popupContentEl.appendChild(popupCard);
+              } else {
+                // fallback: append to body (shouldn't happen for your setup)
+                document.body.appendChild(popupCard);
+              }
+
+              // Give the popupCard a stable id (useful for aria-controls)
+              if (!popupCard.id)
+                popupCard.id =
+                  "etc-popup-" + Math.random().toString(36).slice(2, 8);
+
+              const contentEl =
+                popup.querySelector(".popup-content") ||
+                document.querySelector(".popup-content");
+              if (contentEl) contentEl.appendChild(wrapper);
+
+              requestAnimationFrame(() => {
+                adjustFlip(wrapper, popupCard);
+              });
+
+              const onResizeWrapper = () => adjustFlip(wrapper, popupCard);
+              window.addEventListener("resize", onResizeWrapper);
+              popup.addEventListener(
+                "popupclose.cleanup",
+                () => {
+                  window.removeEventListener("resize", onResizeWrapper);
+                },
+                { once: true }
+              );
+            }
+          })(typeof city !== "undefined" ? city : "");
+
+          function closePopup() {
+            if (typeof closeImageModal === "function") {
+              try {
+                closeImageModal();
+              } catch (e) {
+                /* ignore */
+              }
+            }
+            if (typeof popup !== "undefined" && popup) {
+              popup.style.display = "none";
+              popup.dispatchEvent(new Event("popupclose.cleanup"));
+            }
+            if (typeof document !== "undefined" && document.body) {
+              document.body.style.overflow = "";
+            }
+          }
 
           popupLink.href = data.link;
 
