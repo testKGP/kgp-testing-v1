@@ -1698,11 +1698,39 @@ html {
   }
 }
 /* popup bullets: always two columns (simple column-based flow) */
+/* ---------- popup bullet GRID (dynamic columns up to 8) ---------- */
+/* container used when we create a multi-column grid via JS */
+.popup-bullet-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--popup-bullet-cols, 2), minmax(0, 1fr));
+  gap: 0 36px; /* vertical gap 0, horizontal gap 36px between columns */
+  align-items: start;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+/* each column is a UL */
+.popup-bullet-grid ul {
+  list-style: disc inside;
+  margin: 0;
+  padding-left: 1.05rem;
+  color: inherit;
+  line-height: 1.35;
+  font-size: 0.95rem;
+}
+
+/* each LI is a positioning context so the per-item popup can be absolutely positioned relative to it */
+.popup-bullet-grid li {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+/* backward-compatible selector: if old code still writes popup-bullet-columns (single UL flow), keep it usable */
 .popup-description ul.popup-bullet-columns {
   list-style: disc inside;
-  column-count: 2; /* ALWAYS two columns */
+  column-count: 2; /* fallback only */
   column-gap: 0.9rem;
-  column-width: 140px; /* helps columns wrap reasonably on narrow screens */
+  column-width: 140px;
   -webkit-column-break-inside: avoid;
   -moz-column-break-inside: avoid;
   break-inside: avoid-column;
@@ -1712,12 +1740,150 @@ html {
   color: #666666;
 }
 
-/* remove/replace any previous media rule that set column-count:1 */
-/* optionally tweak spacing on very small devices */
-@media (max-width: 420px) {
-  .popup-description ul.popup-bullet-columns {
-    column-gap: 0.5rem;
-    column-width: 120px;
-    font-size: 0.95rem;
+/* ---------- lightweight "etc" hover card (keeps card inside popup and next to the list item) ---------- */
+
+/* the etc trigger (inline, underlined) */
+.etc-trigger {
+  display: inline-block;
+  cursor: default;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+  pointer-events: auto;
+  user-select: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* === ETC POPUP: centered vertically relative to host === */
+/* the etc trigger (inline, underlined) */
+.etc-trigger {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+  pointer-events: auto;
+  user-select: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* card (absolute relative to the host LI) — default placed to the right, vertically centered */
+.etc-popup {
+  position: absolute;
+  left: calc(100% + 12px); /* sits to the right by default */
+  top: 50%; /* center vertically to host */
+  transform: translateY(-50%) translateX(6px); /* center + small entrance offset */
+  min-width: 180px;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 8px 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.14s ease;
+  pointer-events: none;
+  max-height: 60vh;
+  overflow: auto;
+  color: #111;
+  font-size: 13px;
+}
+
+/* show on trigger hover/focus (sibling) - keep hover only on devices that support it */
+@media (hover: hover) {
+  .etc-trigger:hover + .etc-popup,
+  .etc-trigger:focus + .etc-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0); /* snap into place horizontally */
+    pointer-events: auto;
+  }
+}
+
+/* flip to left when we detect not enough space on right */
+.etc-popup.etc-popup--flip-left {
+  left: auto;
+  right: calc(100% + 12px);
+  transform: translateY(-50%) translateX(-6px); /* shift from left */
+}
+
+/* When visible via JS toggle (tap on mobile), use .open */
+.etc-popup.open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(-50%) translateX(0) !important;
+  pointer-events: auto !important;
+}
+
+/* Mobile/small screens: keep popup inside popup-content.
+   We'll prefer absolute positioning relative to .popup-content and JS will compute vertical placement.
+*/
+@media (max-width: 560px) {
+  /* Ensure popup-content is a positioning context (already set in your CSS) */
+  .popup-content {
+    position: relative;
+  }
+
+  .etc-popup {
+    /* We let JS calculate top/left for small screens; but provide reasonable defaults */
+    position: absolute !important;
+    left: 50% !important;
+    top: auto !important;
+    bottom: 12vh !important;
+    transform: translateX(-50%) translateY(0) !important;
+    max-width: calc(100% - 32px) !important;
+    width: auto !important;
+    pointer-events: auto !important;
+  }
+}
+/* --- Force center popup on small screens --- */
+@media (max-width: 560px) {
+  .popup-content {
+    position: relative;
+  } /* ensure positioning context */
+  .etc-popup {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    max-width: calc(100% - 32px) !important;
+    width: auto !important;
+    pointer-events: auto !important;
+  }
+}
+/* fallback positioning if JS doesn't run */
+@media (max-width: 560px) {
+  .etc-popup {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+/* fallback: keep injected etc-popup centered on small screens */
+@media (max-width: 560px) {
+  .popup-content {
+    position: relative;
+  }
+  .popup-bullet-grid li .etc-popup,
+  .popup-bullet-grid .etc-popup,
+  .popup-description .etc-popup {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    right: auto !important;
+    bottom: auto !important;
+    max-width: calc(100% - 32px) !important;
+    width: auto !important;
   }
 }
