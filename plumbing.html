@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Plumbing — Kevin Guna Pratama ATM Services</title>
+    <meta name="description" content="" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Page-scoped CTA: only affects mechanical-electrical.html */
+      body.mechanical-page .cta-section {
+        background: #ffffff; /* white like the top sections */
+        color: var(--ink-900); /* dark text color */
+        border-top: 1px solid #e9ecf8; /* subtle divider matching other sections */
+        padding: clamp(28px, 5vw, 56px) var(--padX); /* match .section spacing */
+      }
+
+      /* Ensure headings / paragraphs inside CTA are readable */
+      body.mechanical-page .cta-section .cta-container h2,
+      body.mechanical-page .cta-section .cta-container p {
+        color: var(--ink-900);
+      }
+
+      /* Make primary button visible on white background */
+      body.mechanical-page .cta-section .btn.primary {
+        background: var(--brand);
+        color: #fff;
+        border-color: var(--brand);
+      }
+
+      /* Secondary button styled to be visible on white too */
+      body.mechanical-page .cta-section .btn.secondary {
+        background: transparent;
+        color: var(--brand);
+        border-color: var(--brand);
+      }
+
+      /* Slight adjustment for the CTA text alignment and spacing (keeps original layout) */
+      body.mechanical-page .cta-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="mechanical-page">
+    <!-- Header -->
+    <header class="site-header" role="banner">
+      <div class="topbar">
+        <div class="brand" aria-label="Kevin Guna Pratama">
+          <picture>
+            <source srcset="images/logoKGP.png" type="image/png" />
+            <img class="brand-logo" src="images/logoKGP.jpg" alt="KGP" />
+          </picture>
+          <div class="brand-text">
+            <div class="name">Kevin Guna Pratama</div>
+            <div class="tag">Repair • Maintenance • Upgrades</div>
+          </div>
+        </div>
+        <div class="partners" aria-label="Partners">
+          <picture>
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="partner-plain" src="images/logoGCS.jpg" alt="GCS" />
+          </picture>
+          <div
+            class="partner-logo"
+            aria-hidden="true"
+            style="display: grid; place-items: center; width: 90px"
+          >
+            Bank B
+          </div>
+          <div
+            class="partner-logo"
+            aria-hidden="true"
+            style="display: grid; place-items: center; width: 90px"
+          >
+            Vendor C
+          </div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <button class="burger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html">Home</a></li>
+          <li class="nav-item">
+            <a href="#">Products & Services <span class="chev">▼</span></a>
+            <div
+              class="dropdown"
+              role="menu"
+              aria-label="Products & Services submenu"
+            >
+              <a href="mechanical-electrical.html">Mechanical Electrical</a>
+              <a href="logistic-warehouse.html">Logistic & Warehouse</a>
+              <a href="ups-rework.html">UPS Rework</a>
+              <a href="customer-support-engineer.html"
+                >Customer Support Engineer</a
+              >
+              <a href="call-center.html">Call Center</a>
+              <a href="monitoring.html">Monitoring</a>
+              <a href="ducting-system.html">Ducting System</a>
+              <a href="workshop-maintenance-lcd.html"
+                >Workshop Maintenance LCD</a
+              >
+              <a href="cassette-rework.html">Cassette Rework</a>
+              <a href="atm-module-rework.html">ATM Module Rework</a>
+              <a href="plumbing.html">Plumbing</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#service-points">Service Points</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="active">About Us</a>
+          </li>
+        </ul>
+        <div class="right-tools">
+          <div class="lang-switch" role="radiogroup" aria-label="Language">
+            <button type="button" class="active" aria-pressed="true">EN</button>
+            <button type="button" aria-pressed="false">ID</button>
+          </div>
+          <a class="btn contact" href="contact.html"><span>Contact Us</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION WITH BACKGROUND IMAGE -->
+    <section class="mechanical-hero">
+      <div class="mechanical-hero-image">
+        <img
+          src="images/mechanical-bg.jpg"
+          alt="Mechanical Electrical Background"
+        />
+      </div>
+      <div class="mechanical-hero-content">
+        <h1>Mechanical Electrical</h1>
+        <p>
+          Expert MEP (Mechanical, Electrical, and Plumbing) systems solutions
+          for Indonesia's growing construction sector. We provide comprehensive
+          design, installation, and maintenance services for critical building
+          infrastructure.
+        </p>
+      </div>
+    </section>
+
+    <!-- OUR SERVICES SECTION -->
+    <section class="section">
+      <div class="services-container">
+        <h2>Our Services</h2>
+        <p>
+          Comprehensive MEP solutions tailored to meet your building
+          infrastructure needs
+        </p>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-image">
+              <img src="mechanical-systems.jpg" alt="Mechanical Systems" />
+            </div>
+            <div class="service-content">
+              <h3>Mechanical Systems</h3>
+              <p>
+                Complete HVAC design, installation, and maintenance services
+                including ventilation, heating, and cooling systems for optimal
+                building comfort and energy efficiency.
+              </p>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-image">
+              <img src="electrical-systems.jpg" alt="Electrical Systems" />
+            </div>
+            <div class="service-content">
+              <h3>Electrical Systems</h3>
+              <p>
+                Professional electrical installation, power distribution,
+                lighting systems, and emergency backup solutions to ensure safe
+                and reliable electrical infrastructure.
+              </p>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-image">
+              <img src="plumbing-systems.jpg" alt="Plumbing Systems" />
+            </div>
+            <div class="service-content">
+              <h3>Plumbing Systems</h3>
+              <p>
+                Expert plumbing solutions including water supply, drainage,
+                sewage systems, and fixtures installation with focus on
+                durability and efficiency.
+              </p>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-image">
+              <img src="ac-ducting.jpg" alt="AC Ducting Systems" />
+            </div>
+            <div class="service-content">
+              <h3>AC Ducting Systems</h3>
+              <p>
+                Specialized air conditioning ducting installation for large
+                multi-story buildings with central AC systems and extensive cool
+                air distribution networks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPLEMENTATION TIMELINE SECTION -->
+    <section class="section timeline-section">
+      <div class="timeline-container">
+        <h2>Estimated Time of Implementation</h2>
+        <p>
+          Our structured approach ensures efficient project delivery with clear
+          milestones
+        </p>
+
+        <div class="timeline-grid">
+          <div class="timeline-stage">
+            <div class="stage-number">01</div>
+            <h3>Planning & Design</h3>
+            <div class="stage-duration">2-4 Weeks</div>
+            <p>
+              Site assessment, technical analysis, system design, and detailed
+              project planning including permits and approvals.
+            </p>
+          </div>
+
+          <div class="timeline-stage">
+            <div class="stage-number">02</div>
+            <h3>Installation & Construction</h3>
+            <div class="stage-duration">4-12 Weeks</div>
+            <p>
+              Professional installation of MEP systems, construction work,
+              testing phases, and quality assurance throughout the process.
+            </p>
+          </div>
+
+          <div class="timeline-stage">
+            <div class="stage-number">03</div>
+            <h3>Testing & Commissioning</h3>
+            <div class="stage-duration">1-2 Weeks</div>
+            <p>
+              Comprehensive system testing, commissioning, staff training,
+              documentation handover, and warranty activation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA SECTION -->
+    <section class="section cta-section">
+      <div class="cta-container">
+        <h2>Need Help?</h2>
+        <p>
+          Ready to start your MEP project? Our expert team is here to provide
+          you with comprehensive solutions tailored to your specific needs.
+        </p>
+        <div class="cta-buttons">
+          <a href="contact.html" class="btn primary">Contact Us Today</a>
+          <a href="tel:+621234567890" class="btn secondary">Call Now</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Company Info Section -->
+        <div class="footer-section">
+          <img
+            src="images/logoKGP.png"
+            alt="PT. Kevin Guna Pratama"
+            class="footer-logo"
+          />
+          <p>
+            PT. Kevin Guna Pratama is Indonesia's leading ATM maintenance and
+            technical service provider. We specialize in comprehensive repair,
+            maintenance, and support services for ATM terminals across major
+            Indonesian cities, ensuring maximum uptime and compliance with
+            industry standards.
+          </p>
+          <p>
+            With our fix-first, replace-last philosophy, we deliver
+            cost-effective solutions while maintaining the highest service
+            quality standards in the financial technology sector.
+          </p>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="footer-section footer-nav">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#service-points">Service Points</a></li>
+            <li><a href="#about">About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Products & Services Section -->
+        <div class="footer-section footer-services">
+          <h3>Products & Services</h3>
+          <ul>
+            <li>
+              <a href="mechanical-electrical.html">Mechanical Electrical</a>
+            </li>
+            <li><a href="logistic-warehouse.html">Logistic & Warehouse</a></li>
+            <li><a href="ups-rework.html">UPS Rework</a></li>
+            <li>
+              <a href="customer-support-engineer.html"
+                >Customer Support Engineer</a
+              >
+            </li>
+            <li><a href="call-center.html">Call Center</a></li>
+            <li><a href="monitoring.html">Monitoring</a></li>
+            <li><a href="ducting-system.html">Ducting System</a></li>
+            <li>
+              <a href="workshop-maintenance-lcd.html"
+                >Workshop Maintenance LCD</a
+              >
+            </li>
+            <li><a href="cassette-rework.html">Cassette Rework</a></li>
+            <li><a href="atm-module-rework.html">ATM Module Rework</a></li>
+            <li><a href="plumbing.html">Plumbing</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <div class="contact-item">
+            <i>✉</i>
+            <div>
+              <strong>Email:</strong><br />
+              support@kevingunapratama.com
+            </div>
+          </div>
+          <div class="contact-item">
+            <i>📍</i>
+            <div>
+              <strong>Location:</strong><br />
+              Jl. Karya Utama No.19, RT.3/RW.6, Srengseng, Kec. Kembangan, Kota
+              Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630
+            </div>
+          </div>
+
+          <!-- replace the existing .social-buttons block in the footer with this -->
+          <div class="social-buttons">
+            <a
+              href="https://wa.me/6285282801856"
+              target="_blank"
+              aria-label="WhatsApp"
+              class="social-btn"
+            >
+              <img src="images/logoWhatsApp.png" alt="WhatsApp" />
+            </a>
+
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+              class="social-btn"
+            >
+              <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+
+            <!-- Maps button (same footer style) -->
+            <a
+              href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              aria-label="Maps"
+              class="social-btn"
+            >
+              <img src="images/logoMaps.png" alt="Maps" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; <a id="y"></a> PT. Kevin Guna Pratama. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Year
+      document.getElementById("y").textContent = new Date().getFullYear();
+      const burger = document.querySelector(".burger");
+      const navList = document.querySelector(".nav-list");
+
+      if (burger && navList) {
+        burger.addEventListener("click", () => {
+          const expanded = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!expanded));
+          navList.classList.toggle("open");
+        });
+      }
+    </script>
+  </body>
+</html>
