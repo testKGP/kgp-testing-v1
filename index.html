@@ -71,6 +71,11 @@
       </div>
 
       <nav class="nav" aria-label="Primary">
+        <button class="burger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <ul class="nav-list">
           <li class="nav-item"><a href="index.html">Home</a></li>
 
@@ -453,17 +458,27 @@
         <div class="footer-section footer-services">
           <h3>Products & Services</h3>
           <ul>
-            <li><a href="#services">Mechanical Electrical</a></li>
-            <li><a href="#services">Logistic & Warehouse</a></li>
-            <li><a href="#services">UPS Rework</a></li>
-            <li><a href="#services">Customer Support Engineer</a></li>
-            <li><a href="#services">Call Center</a></li>
-            <li><a href="#services">Monitoring</a></li>
-            <li><a href="#services">Ducting System</a></li>
-            <li><a href="#services">Workshop Maintenance LCD</a></li>
-            <li><a href="#services">Cassette Rework</a></li>
-            <li><a href="#services">ATM Module Rework</a></li>
-            <li><a href="#services">Plumbing</a></li>
+            <li>
+              <a href="mechanical-electrical.html">Mechanical Electrical</a>
+            </li>
+            <li><a href="logistic-warehouse.html">Logistic & Warehouse</a></li>
+            <li><a href="ups-rework.html">UPS Rework</a></li>
+            <li>
+              <a href="customer-support-engineer.html"
+                >Customer Support Engineer</a
+              >
+            </li>
+            <li><a href="call-center.html">Call Center</a></li>
+            <li><a href="monitoring.html">Monitoring</a></li>
+            <li><a href="ducting-system.html">Ducting System</a></li>
+            <li>
+              <a href="workshop-maintenance-lcd.html"
+                >Workshop Maintenance LCD</a
+              >
+            </li>
+            <li><a href="cassette-rework.html">Cassette Rework</a></li>
+            <li><a href="atm-module-rework.html">ATM Module Rework</a></li>
+            <li><a href="plumbing.html">Plumbing</a></li>
           </ul>
         </div>
 
@@ -486,20 +501,34 @@
             </div>
           </div>
 
+          <!-- replace the existing .social-buttons block in the footer with this -->
           <div class="social-buttons">
             <a
               href="https://wa.me/6285282801856"
               target="_blank"
+              aria-label="WhatsApp"
               class="social-btn"
             >
               <img src="images/logoWhatsApp.png" alt="WhatsApp" />
             </a>
+
             <a
               href="https://instagram.com/kevin.gunapratama"
-              class="social-btn"
               target="_blank"
+              aria-label="Instagram"
+              class="social-btn"
             >
               <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+
+            <!-- Maps button (same footer style) -->
+            <a
+              href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              aria-label="Maps"
+              class="social-btn"
+            >
+              <img src="images/logoMaps.png" alt="Maps" />
             </a>
           </div>
         </div>
@@ -514,6 +543,21 @@
     <script>
       // Year
       document.getElementById("y").textContent = new Date().getFullYear();
+      // Initialize arrows on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateProductsArrows();
+      });
+      const burger = document.querySelector(".burger");
+      const navList = document.querySelector(".nav-list");
+
+      if (burger && navList) {
+        burger.addEventListener("click", () => {
+          const expanded = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!expanded));
+          navList.classList.toggle("open");
+        });
+      }
+
       // Measure header height to size the hero carousel to full screen beneath it
       (function initHeaderModule() {
         const root = document.documentElement;
@@ -772,7 +816,7 @@
         },
         Papua: {
           description:
-            "We have service points across Papua to keep you up and running—fast diagnostics, reliable repairs, and friendly support in cities such as: \n\n• Karang Mulia \n• Sorong \n• Jayapura \n• Merauke \n• Pulau Biak\n• Sorong\n• Mimika\n• etc.\n\nNeed help nearby? Chat with us to find the closest location and available hours.",
+            "We have service points across Papua to keep you up and running—fast diagnostics, reliable repairs, and friendly support in cities such as: \n\n• Karang Mulia \n• Sorong \n• Jayapura \n• Merauke \n• Pulau Biak\n• Sorong\n• Mimika\n• Nabire\n• Timika\n• Manokwari\n\nNeed help nearby? Chat with us to find the closest location and available hours.",
           link: "papua-services.html",
         },
         Kalimantan: {
@@ -782,7 +826,7 @@
         },
         Maluku: {
           description:
-            "Reliable service across Maluku, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Ternate\n• Sofifi\n• Langgur\n• Ambon\n• Tiakur\n• etc.\n\nMessage us to confirm coverage in your district and schedule a visit.",
+            "Reliable service across Maluku, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Ternate\n• Sofifi\n• Langgur\n• Ambon\n• Tiakur\n• Saum Laki\n• Biak\n• Tual\n\nMessage us to confirm coverage in your district and schedule a visit.",
           link: "maluku-services.html",
         },
         Sulawesi: {
@@ -1073,9 +1117,6 @@
                 "Bulukumba",
                 "Sidrap",
               ],
-              Papua: ["Jayapura", "Sorong", "Merauke"],
-              Maluku: ["Ambon", "Ternate"],
-              "Nusa Tenggara": ["Mataram", "Kupang"],
             };
 
             // remove previously injected items
@@ -1477,11 +1518,6 @@
           nextArrow.style.cursor = "pointer";
         }
       }
-
-      // Initialize arrows on page load
-      document.addEventListener("DOMContentLoaded", function () {
-        updateProductsArrows();
-      });
     </script>
   </body>
 </html>
