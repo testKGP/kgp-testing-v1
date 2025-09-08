@@ -878,14 +878,13 @@ svg {
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 15px 20px;
-  border-radius: 15px;
-  max-width: 600px;
-  width: calc(100% - 40px);
-  text-align: justify;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  white-space: pre-wrap;
-  line-height: 1.3;
+  padding: 12px 16px; /* reduced padding */
+  border-radius: 12px; /* slightly smaller corners */
+  max-width: 480px; /* was 600px, tighter width */
+  width: calc(100% - 24px); /* was 100% - 40px, allows less overflow */
+  text-align: left; /* left align text instead of justify */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25); /* lighter shadow */
+  line-height: 1.4;
 }
 
 .popup-close {
@@ -903,18 +902,14 @@ svg {
 
 .popup-content h3 {
   color: #003e8a;
-  margin: 0 0 8px 0;
-  font-size: clamp(1.4rem, 4vw, 1.8rem);
-  text-align: center;
-  line-height: 1.2;
+  margin: 0 0 6px 0;
+  font-size: clamp(1.2rem, 4vw, 1.6rem); /* slightly smaller */
 }
 
 .popup-content p {
-  color: #666;
-  margin-bottom: 10px;
-  line-height: 1.3;
-  font-size: 14px;
-  text-align: justify;
+  margin-bottom: 6px;
+  font-size: 13px;
+  line-height: 1.35;
 }
 
 .popup-content p:last-of-type {
@@ -1885,5 +1880,371 @@ html {
     bottom: auto !important;
     max-width: calc(100% - 32px) !important;
     width: auto !important;
+  }
+}
+/* Burger button */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.burger span {
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile menu */
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--brand);
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 8px;
+  }
+  .nav-list.open {
+    display: flex;
+  }
+
+  /* make parallelogram longer on small screens */
+  .topbar::before {
+    width: 90vw; /* was clamp(300px, 26vw, 520px) */
+  }
+}
+
+/* Mechanical Hero Section */
+.mechanical-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.mechanical-hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.mechanical-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+}
+
+.mechanical-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 var(--padX);
+}
+
+.mechanical-hero-content h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  margin: 0 0 16px;
+  font-weight: 800;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.mechanical-hero-content p {
+  font-size: clamp(16px, 2.5vw, 20px);
+  margin: 0;
+  line-height: 1.6;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0.95;
+}
+
+/* Services Grid */
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.services-container h2 {
+  margin-bottom: 8px;
+}
+
+.services-container p {
+  margin-bottom: 40px;
+  color: var(--muted);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.service-card {
+  background: #fff;
+  border: 1.5px solid #dbe1f6;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(26, 53, 125, 0.15);
+  border-color: var(--brand-300);
+}
+
+.service-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.05);
+}
+
+.service-content {
+  padding: 20px;
+  text-align: left;
+}
+
+.service-content h3 {
+  color: var(--brand);
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.service-content p {
+  color: var(--ink-700);
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Timeline Section */
+.timeline-section {
+  background: #f8f9ff;
+  border-top: 1px solid #e9ecf8;
+}
+
+.timeline-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.timeline-container h2 {
+  margin-bottom: 8px;
+}
+
+.timeline-container > p {
+  margin-bottom: 40px;
+  color: var(--muted);
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.timeline-stage {
+  background: #fff;
+  border: 1.5px solid #dbe1f6;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.timeline-stage:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(26, 53, 125, 0.15);
+  border-color: var(--brand-300);
+}
+
+.stage-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.timeline-stage h3 {
+  color: var(--brand);
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.stage-duration {
+  color: var(--brand);
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 12px;
+  padding: 4px 12px;
+  background: rgba(26, 53, 125, 0.1);
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.timeline-stage p {
+  color: var(--ink-700);
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* CTA Section */
+.cta-section {
+  background: var(--brand);
+  color: #fff;
+  text-align: center;
+}
+
+.cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-container h2 {
+  color: #fff;
+  margin-bottom: 16px;
+  font-size: clamp(28px, 4vw, 36px);
+}
+
+.cta-container p {
+  color: #fff;
+  margin-bottom: 32px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn.primary {
+  background: #fff;
+  color: var(--brand);
+  border: 2px solid #fff;
+}
+
+.btn.primary:hover {
+  background: #f5f7ff;
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.btn.secondary:hover {
+  background: #fff;
+  color: var(--brand);
+  transform: translateY(-2px);
+}
+
+/* Burger Menu Enhancements */
+.burger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 980px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .timeline-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .mechanical-hero {
+    height: 50vh;
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mechanical-hero-content {
+    padding: 0 20px;
+  }
+
+  .service-content {
+    padding: 16px;
+  }
+
+  .timeline-stage {
+    padding: 24px 16px;
+  }
+
+  .stage-number {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    min-width: 200px;
   }
 }
