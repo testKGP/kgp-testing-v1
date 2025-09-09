@@ -688,7 +688,7 @@
         </div>
       </div>
     </section>
-    <!-- News Section - Insert this immediately after the existing "Our Clients" section -->
+    <!-- News Section - Add this after the clients section -->
     <section id="news-atm-finance" class="section news-section">
       <div class="news-inner">
         <div class="news-header">
@@ -714,13 +714,7 @@
             tabindex="0"
           >
             <div class="news-cards-container" id="news-cards-container">
-              <!-- Loading skeleton initially -->
-              <div class="news-loading">
-                <div class="news-skeleton-card"></div>
-                <div class="news-skeleton-card"></div>
-                <div class="news-skeleton-card"></div>
-                <div class="news-skeleton-card"></div>
-              </div>
+              <!-- News cards will be loaded here by JavaScript -->
             </div>
           </div>
 
@@ -735,13 +729,6 @@
         </div>
 
         <div class="news-controls">
-          <button
-            class="btn news-load-more"
-            id="news-load-more"
-            style="display: none"
-          >
-            Load More News
-          </button>
           <div class="news-error" id="news-error" style="display: none">
             <p>Unable to load news. Please try again later.</p>
             <button class="btn news-retry">Retry</button>
@@ -1878,6 +1865,364 @@
           nextArrow.style.cursor = "pointer";
         }
       }
+      // News ATM Finance Section - NewsData.io Integration
+      class NewsATMSection {
+        constructor() {
+          // NewsData.io API Configuration
+          this.API_TOKEN = "pub_ecef83154c334c219e0a0c345d71611e";
+          this.API_ENDPOINT = "https://newsdata.io/api/1/latest";
+
+          // Alternative: Use server proxy for security (recommended for production)
+          this.USE_PROXY = false; // Set to true when using server proxy
+          this.PROXY_ENDPOINT = "/api/news-proxy"; // Your server proxy endpoint
+
+          // Configuration
+          this.currentPage = 0;
+          this.pageSize = 8;
+          this.cache = new Map();
+          this.isLoading = false;
+          this.currentCards = [];
+          this.scrollPosition = 0;
+          this.nextPage = null;
+
+          // Indonesian ATM/Banking news query (under 100 characters for NewsData.io)
+          this.query = 'ATM OR bank OR perbankan OR fintech OR "kartu debit"';
+
+          // DOM Elements
+          this.container = document.getElementById("news-cards-container");
+          this.leftBtn = document.querySelector(".news-scroll-left");
+          this.rightBtn = document.querySelector(".news-scroll-right");
+          this.loadMoreBtn = document.getElementById("news-load-more");
+          this.errorDiv = document.getElementById("news-error");
+          this.retryBtn = document.querySelector(".news-retry");
+          this.carousel = document.querySelector(".news-carousel");
+
+          this.init();
+        }
+
+        init() {
+          this.setupEventListeners();
+          this.loadNews(0); // Load first page
+        }
+
+        setupEventListeners() {
+          // Scroll buttons
+          this.leftBtn?.addEventListener("click", () => this.scrollLeft());
+          this.rightBtn?.addEventListener("click", () => this.scrollRight());
+
+          // Load more and retry
+          this.retryBtn?.addEventListener("click", () => this.retryLoad());
+
+          // Keyboard navigation
+          this.carousel?.addEventListener("keydown", (e) =>
+            this.handleKeydown(e)
+          );
+
+          // Window resize handler
+          window.addEventListener("resize", () => this.updateScrollButtons());
+        }
+
+        async loadNews(page = 0, append = false) {
+          if (this.isLoading) return;
+
+          // Check cache first
+          const cacheKey = `${this.query}-${page}`;
+          if (this.cache.has(cacheKey)) {
+            const cachedData = this.cache.get(cacheKey);
+            this.renderNews(cachedData, append);
+            return;
+          }
+
+          this.isLoading = true;
+          this.showLoading(!append);
+          this.hideError();
+
+          try {
+            const data = await this.fetchNews(page);
+
+            if (data && data.results && data.results.length > 0) {
+              // Cache the results
+              this.cache.set(cacheKey, data);
+              this.renderNews(data, append);
+              this.currentPage = page;
+
+              // Store nextPage token for pagination
+              if (data.nextPage) {
+                this.nextPage = data.nextPage;
+              }
+            } else {
+              this.showError("No news articles found. Try again later.");
+            }
+          } catch (error) {
+            console.error("Error fetching news:", error);
+            if (error.message.includes("401")) {
+              this.showError(
+                "API key is invalid. Please check your NewsData.io token."
+              );
+            } else if (error.message.includes("403")) {
+              this.showError(
+                "API access forbidden. Please check your NewsData.io subscription."
+              );
+            } else {
+              this.showError(
+                "Failed to load news. Please check your connection and try again."
+              );
+            }
+          } finally {
+            this.isLoading = false;
+            this.hideLoading();
+          }
+        }
+
+        async fetchNews(page = 0) {
+          const params = {
+            apikey: this.API_TOKEN,
+            q: this.query,
+            country: "id", // Indonesia
+            language: "id", // Indonesian language
+            size: this.pageSize,
+          };
+
+          // Add nextPage token for pagination (NewsData.io style)
+          if (page > 0 && this.nextPage) {
+            params.page = this.nextPage;
+          }
+
+          const url = this.USE_PROXY
+            ? `${this.PROXY_ENDPOINT}?${new URLSearchParams(params).toString()}`
+            : `${this.API_ENDPOINT}?${new URLSearchParams(params).toString()}`;
+
+          console.log("Fetching news from NewsData.io...");
+
+          const response = await fetch(url);
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error("API Error:", response.status, errorText);
+            throw new Error(`HTTP ${response.status}: ${errorText}`);
+          }
+
+          return await response.json();
+        }
+
+        renderNews(data, append = false) {
+          const posts = data.results || []; // NewsData.io uses 'results' not 'posts'
+
+          if (!append) {
+            this.container.innerHTML = "";
+            this.currentCards = [];
+            this.scrollPosition = 0;
+          }
+
+          const fragment = document.createDocumentFragment();
+
+          posts.forEach((post, index) => {
+            const card = this.createNewsCard(
+              post,
+              this.currentPage * this.pageSize + index
+            );
+            fragment.appendChild(card);
+            this.currentCards.push(card);
+          });
+
+          this.container.appendChild(fragment);
+          this.updateScrollButtons();
+          this.updateLoadMoreButton(data);
+        }
+
+        createNewsCard(post, index) {
+          const card = document.createElement("a");
+          card.className = "news-card";
+          card.href = post.link || "#"; // NewsData.io uses 'link' not 'url'
+          card.target = "_blank";
+          card.rel = "noopener noreferrer";
+          card.setAttribute("role", "listitem");
+          card.setAttribute("aria-label", `News article: ${post.title}`);
+
+          // Format date (NewsData.io uses 'pubDate')
+          const publishDate = post.pubDate
+            ? new Date(post.pubDate)
+            : new Date();
+          const formattedDate = this.formatDate(publishDate);
+
+          // Truncate snippet (NewsData.io uses 'description')
+          const snippet = post.description
+            ? this.truncateText(post.description, 120)
+            : "No preview available.";
+
+          // Get source name (NewsData.io uses 'source_name' and 'source_id')
+          const sourceName =
+            post.source_name || post.source_id || "Unknown Source";
+
+          card.innerHTML = `
+      <div class="news-card-image${!post.image_url ? " no-image" : ""}">
+        ${
+          post.image_url
+            ? `<img src="${post.image_url}" alt="" loading="lazy" onerror="this.parentElement.className += ' no-image'; this.style.display = 'none';">`
+            : ""
+        }
+      </div>
+      <div class="news-card-content">
+        <div class="news-card-meta">
+          <span class="news-card-source">${this.escapeHtml(sourceName)}</span>
+          <span class="news-card-date">${formattedDate}</span>
+        </div>
+        <h3 class="news-card-headline">${this.escapeHtml(
+          post.title || "Untitled"
+        )}</h3>
+        <p class="news-card-snippet">${this.escapeHtml(snippet)}</p>
+      </div>
+    `;
+
+          return card;
+        }
+
+        formatDate(date) {
+          const months = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ];
+          const day = date.getDate().toString().padStart(2, "0");
+          const month = months[date.getMonth()];
+          const year = date.getFullYear();
+          return `${day} ${month} ${year}`;
+        }
+
+        truncateText(text, maxLength) {
+          if (text.length <= maxLength) return text;
+          return text
+            .substr(0, maxLength)
+            .replace(/\s+\S*$/, "...")
+            .trim();
+        }
+
+        escapeHtml(text) {
+          const div = document.createElement("div");
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        scrollLeft() {
+          const cardWidth = 340; // card width + gap
+          this.scrollPosition = Math.max(0, this.scrollPosition - cardWidth);
+          this.animateScroll(this.scrollPosition);
+        }
+
+        scrollRight() {
+          const cardWidth = 340;
+          const maxScroll = Math.max(
+            0,
+            this.currentCards.length * cardWidth - this.container.offsetWidth
+          );
+          this.scrollPosition = Math.min(
+            maxScroll,
+            this.scrollPosition + cardWidth
+          );
+          this.animateScroll(this.scrollPosition);
+
+          // Auto-load more when near the end
+          if (
+            this.scrollPosition >= maxScroll - cardWidth &&
+            this.hasMoreData()
+          ) {
+            this.loadMoreNews();
+          }
+        }
+
+        animateScroll(position) {
+          this.container.style.transform = `translateX(-${position}px)`;
+          this.updateScrollButtons();
+        }
+
+        updateScrollButtons() {
+          if (!this.leftBtn || !this.rightBtn) return;
+
+          const maxScroll = Math.max(
+            0,
+            this.currentCards.length * 340 - this.container.offsetWidth
+          );
+
+          this.leftBtn.disabled = this.scrollPosition <= 0;
+          this.rightBtn.disabled =
+            this.scrollPosition >= maxScroll && !this.hasMoreData();
+        }
+
+        hasMoreData() {
+          return this.nextPage && this.currentPage < 10; // Limit to 10 pages
+        }
+
+        handleKeydown(event) {
+          switch (event.key) {
+            case "ArrowLeft":
+              event.preventDefault();
+              this.scrollLeft();
+              break;
+            case "ArrowRight":
+              event.preventDefault();
+              this.scrollRight();
+              break;
+          }
+        }
+
+        loadMoreNews() {
+          if (this.hasMoreData()) {
+            this.loadNews(this.currentPage + 1, true);
+          }
+        }
+
+        retryLoad() {
+          this.cache.clear(); // Clear cache on retry
+          this.loadNews(0);
+        }
+
+        updateLoadMoreButton() {
+          if (this.loadMoreBtn) this.loadMoreBtn.style.display = "none";
+        }
+
+        showLoading(clear = false) {
+          if (clear) {
+            this.container.innerHTML = `
+        <div class="news-loading">
+          <div class="news-skeleton-card"></div>
+          <div class="news-skeleton-card"></div>
+          <div class="news-skeleton-card"></div>
+          <div class="news-skeleton-card"></div>
+        </div>
+      `;
+          }
+        }
+
+        hideLoading() {
+          const loading = this.container.querySelector(".news-loading");
+          if (loading) {
+            loading.remove();
+          }
+        }
+
+        showError(message) {
+          this.errorDiv.style.display = "block";
+          this.errorDiv.querySelector("p").textContent = message;
+        }
+
+        hideError() {
+          this.errorDiv.style.display = "none";
+        }
+      }
+
+      // Initialize the news section when DOM is ready
+      document.addEventListener("DOMContentLoaded", () => {
+        new NewsATMSection();
+      });
     </script>
   </body>
 </html>
