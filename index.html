@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Kevin Guna Pratama — ATM Repair & Maintenance</title>
+    <title>Guna Cipta Sinergi — ATM Repair & Maintenance</title>
     <meta
       name="description"
       content="ATM repair, preventive maintenance, upgrades, and 24/7 support."
@@ -37,36 +37,27 @@
     <!-- Header -->
     <header class="site-header" role="banner" id="home">
       <div class="topbar">
-        <div class="brand" aria-label="Kevin Guna Pratama">
+        <div class="brand" aria-label="Guna Cipta Sinergi">
           <picture>
-            <source srcset="images/logoKGP.png" type="image/png" />
-            <img class="brand-logo" src="images/logoKGP.jpg" alt="KGP" />
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="brand-logo" src="images/logoGCS.jpg" alt="GCS" />
           </picture>
           <div class="brand-text">
-            <div class="name">Kevin Guna Pratama</div>
+            <div class="name">Guna Cipta Sinergi</div>
             <div class="tag">Repair • Maintenance • Upgrades</div>
           </div>
         </div>
 
         <div class="partners" aria-label="Partners">
           <picture>
-            <source srcset="images/logoGCS.png" type="image/png" />
-            <img class="partner-plain" src="images/logoGCS.jpg" alt="GCS" />
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              <img src="images/logoKGP.png" alt="Instagram" />
+            </a>
           </picture>
-          <div
-            class="partner-logo"
-            aria-hidden="true"
-            style="display: grid; place-items: center; width: 90px"
-          >
-            Bank B
-          </div>
-          <div
-            class="partner-logo"
-            aria-hidden="true"
-            style="display: grid; place-items: center; width: 90px"
-          >
-            Vendor C
-          </div>
         </div>
       </div>
 
@@ -137,9 +128,9 @@
             <img src="images/jumbotron1.jpg" alt="" />
             <div class="caption">
               <p class="strap">EVENT</p>
-              <h2>Independence Day Celebration in KGP</h2>
+              <h2>Independence Day Celebration in GCS</h2>
               <a
-                href="https://www.instagram.com/p/DN0kMjA3kGP/"
+                href="https://www.instagram.com/gunaciptasinergi/reel/DN0lDvL3pLD/"
                 class="cta-outline"
                 target="_blank"
                 ><span>LEARN MORE</span></a
@@ -340,10 +331,10 @@
                   alt="Logistic & Warehouse"
                 />
               </a>
-              <a href="ups-network.html" class="products-slide">
+              <a href="ups-rework.html" class="products-slide">
                 <img src="images/UPSImage.jpg" alt="UPS Network" />
               </a>
-              <a href="customer-support.html" class="products-slide">
+              <a href="customer-support-engineer.html" class="products-slide">
                 <img
                   src="images/customerSupportImage.jpg"
                   alt="Customer Support Engineer"
@@ -358,7 +349,7 @@
               <a href="ducting-system.html" class="products-slide">
                 <img src="images/ductingSystemImage.jpg" alt="Ducting System" />
               </a>
-              <a href="workshop-maintenance.html" class="products-slide">
+              <a href="workshop-maintenance-lcd.html" class="products-slide">
                 <img
                   src="images/workshopImage.jpg"
                   alt="Workshop Maintenance LCD"
@@ -426,12 +417,12 @@
         <!-- Company Info Section -->
         <div class="footer-section">
           <img
-            src="images/logoKGP.png"
-            alt="PT. Kevin Guna Pratama"
+            src="images/logoGCS.png"
+            alt="PT. Guna Cipta Sinergi"
             class="footer-logo"
           />
           <p>
-            PT. Kevin Guna Pratama is Indonesia's leading ATM maintenance and
+            PT. Guna Cipta Sinergi is Indonesia's leading ATM maintenance and
             technical service provider. We specialize in comprehensive repair,
             maintenance, and support services for ATM terminals across major
             Indonesian cities, ensuring maximum uptime and compliance with
@@ -489,7 +480,7 @@
             <i>✉</i>
             <div>
               <strong>Email:</strong><br />
-              support@kevingunapratama.com
+              admin@gcsinergie.com
             </div>
           </div>
           <div class="contact-item">
@@ -513,7 +504,7 @@
             </a>
 
             <a
-              href="https://instagram.com/kevin.gunapratama"
+              href="https://instagram.com/gunaciptasinergi"
               target="_blank"
               aria-label="Instagram"
               class="social-btn"
@@ -536,7 +527,7 @@
 
       <div class="footer-bottom">
         <p>
-          &copy; <a id="y"></a> PT. Kevin Guna Pratama. All rights reserved.
+          &copy; <a id="y"></a> PT. Guna Cipta Sinergi. All rights reserved.
         </p>
       </div>
     </footer>
@@ -1448,7 +1439,17 @@
       // Close popup events
       popupClose.addEventListener("click", closePopup);
       popup.addEventListener("click", function (e) {
-        if (e.target === popup) closePopup();
+        if (e.target === popup) {
+          // make sure inner image modal is closed first
+          if (typeof closeImageModal === "function") {
+            try {
+              closeImageModal();
+            } catch (err) {
+              /* ignore */
+            }
+          }
+          closePopup();
+        }
       });
 
       // ESC key to close popup
@@ -1457,9 +1458,30 @@
       });
 
       function closePopup() {
-        popup.style.display = "none";
-        document.body.style.overflow = ""; // Restore scrolling
+        // Ensure inner image modal is closed reliably
+        if (typeof closeImageModal === "function") {
+          try {
+            closeImageModal();
+          } catch (e) {
+            /* ignore */
+          }
+        }
+
+        if (typeof popup !== "undefined" && popup) {
+          popup.style.display = "none";
+          // dispatch cleanup event for listeners that were attached while popup was open
+          try {
+            popup.dispatchEvent(new Event("popupclose.cleanup"));
+          } catch (e) {
+            /* ignore */
+          }
+        }
+
+        if (typeof document !== "undefined" && document.body) {
+          document.body.style.overflow = "";
+        }
       }
+
       let productsCurrentIndex = 0;
       const productsTotalSlides = 11;
       const productsSlidesPerView = 4;

@@ -4,42 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Call Center — Kevin Guna Pratama ATM Services</title>
-    <meta name="description" content="" />
+    <meta
+      name="description"
+      content="24/7 Call Center services providing customer support, ticketing, and escalation handling to ensure smooth ATM and IT operations."
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Page-scoped CTA: only affects mechanical-electrical.html */
       body.mechanical-page .cta-section {
-        background: #ffffff; /* white like the top sections */
-        color: var(--ink-900); /* dark text color */
-        border-top: 1px solid #e9ecf8; /* subtle divider matching other sections */
-        padding: clamp(28px, 5vw, 56px) var(--padX); /* match .section spacing */
+        background: #ffffff;
+        color: var(--ink-900);
+        border-top: 1px solid #e9ecf8;
+        padding: clamp(28px, 5vw, 56px) var(--padX);
       }
-
-      /* Ensure headings / paragraphs inside CTA are readable */
       body.mechanical-page .cta-section .cta-container h2,
       body.mechanical-page .cta-section .cta-container p {
         color: var(--ink-900);
       }
-
-      /* Make primary button visible on white background */
       body.mechanical-page .cta-section .btn.primary {
         background: var(--brand);
         color: #fff;
         border-color: var(--brand);
       }
-
-      /* Secondary button styled to be visible on white too */
       body.mechanical-page .cta-section .btn.secondary {
         background: transparent;
         color: var(--brand);
         border-color: var(--brand);
       }
-
-      /* Slight adjustment for the CTA text alignment and spacing (keeps original layout) */
       body.mechanical-page .cta-container {
         max-width: 800px;
         margin: 0 auto;
@@ -49,39 +43,32 @@
   </head>
   <body class="mechanical-page">
     <!-- Header -->
-    <header class="site-header" role="banner">
+    <header class="site-header" role="banner" id="home">
       <div class="topbar">
-        <div class="brand" aria-label="Kevin Guna Pratama">
+        <div class="brand" aria-label="Guna Cipta Sinergi">
           <picture>
-            <source srcset="images/logoKGP.png" type="image/png" />
-            <img class="brand-logo" src="images/logoKGP.jpg" alt="KGP" />
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="brand-logo" src="images/logoGCS.jpg" alt="GCS" />
           </picture>
           <div class="brand-text">
-            <div class="name">Kevin Guna Pratama</div>
+            <div class="name">Guna Cipta Sinergi</div>
             <div class="tag">Repair • Maintenance • Upgrades</div>
           </div>
         </div>
+
         <div class="partners" aria-label="Partners">
           <picture>
-            <source srcset="images/logoGCS.png" type="image/png" />
-            <img class="partner-plain" src="images/logoGCS.jpg" alt="GCS" />
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              <img src="images/logoKGP.png" alt="Instagram" />
+            </a>
           </picture>
-          <div
-            class="partner-logo"
-            aria-hidden="true"
-            style="display: grid; place-items: center; width: 90px"
-          >
-            Bank B
-          </div>
-          <div
-            class="partner-logo"
-            aria-hidden="true"
-            style="display: grid; place-items: center; width: 90px"
-          >
-            Vendor C
-          </div>
         </div>
       </div>
+
       <nav class="nav" aria-label="Primary">
         <button class="burger" aria-label="Toggle menu" aria-expanded="false">
           <span></span>
@@ -90,6 +77,7 @@
         </button>
         <ul class="nav-list">
           <li class="nav-item"><a href="index.html">Home</a></li>
+
           <li class="nav-item">
             <a href="#">Products & Services <span class="chev">▼</span></a>
             <div
@@ -114,13 +102,16 @@
               <a href="plumbing.html">Plumbing</a>
             </div>
           </li>
+
           <li class="nav-item">
-            <a href="index.html#service-points">Service Points</a>
+            <a class="nav-link" href="#service-points">Service Points</a>
           </li>
+
           <li class="nav-item">
-            <a href="about.html" class="active">About Us</a>
+            <a href="about.html">About Us</a>
           </li>
         </ul>
+
         <div class="right-tools">
           <div class="lang-switch" role="radiogroup" aria-label="Language">
             <button type="button" class="active" aria-pressed="true">EN</button>
@@ -131,87 +122,70 @@
       </nav>
     </header>
 
-    <!-- HERO SECTION WITH BACKGROUND IMAGE -->
+    <!-- HERO -->
     <section class="mechanical-hero">
       <div class="mechanical-hero-image">
-        <img
-          src="images/mechanical-bg.jpg"
-          alt="Mechanical Electrical Background"
-        />
+        <img src="images/call-center-bg.jpg" alt="Call Center Background" />
       </div>
       <div class="mechanical-hero-content">
-        <h1>Mechanical Electrical</h1>
+        <h1>Call Center</h1>
         <p>
-          Expert MEP (Mechanical, Electrical, and Plumbing) systems solutions
-          for Indonesia's growing construction sector. We provide comprehensive
-          design, installation, and maintenance services for critical building
-          infrastructure.
+          Our Call Center operates 24/7 to support customer needs, ensuring fast
+          response, ticketing, and issue escalation for ATM and IT services.
+          With dedicated staff and reliable systems, we provide continuous
+          communication to keep operations running smoothly.
         </p>
       </div>
     </section>
 
-    <!-- OUR SERVICES SECTION -->
+    <!-- SERVICES -->
     <section class="section">
       <div class="services-container">
         <h2>Our Services</h2>
         <p>
-          Comprehensive MEP solutions tailored to meet your building
-          infrastructure needs
+          Providing customer communication channels and service request handling
+          with efficiency and professionalism.
         </p>
-
         <div class="services-grid">
           <div class="service-card">
             <div class="service-image">
-              <img src="mechanical-systems.jpg" alt="Mechanical Systems" />
+              <img src="images/callcenter-support.jpg" alt="Customer Support" />
             </div>
             <div class="service-content">
-              <h3>Mechanical Systems</h3>
+              <h3>Customer Support</h3>
               <p>
-                Complete HVAC design, installation, and maintenance services
-                including ventilation, heating, and cooling systems for optimal
-                building comfort and energy efficiency.
+                Assisting customers with inquiries, troubleshooting guidance,
+                and initial resolution for technical issues.
               </p>
             </div>
           </div>
-
           <div class="service-card">
             <div class="service-image">
-              <img src="electrical-systems.jpg" alt="Electrical Systems" />
+              <img
+                src="images/callcenter-ticketing.jpg"
+                alt="Ticketing System"
+              />
             </div>
             <div class="service-content">
-              <h3>Electrical Systems</h3>
+              <h3>Ticketing & Escalation</h3>
               <p>
-                Professional electrical installation, power distribution,
-                lighting systems, and emergency backup solutions to ensure safe
-                and reliable electrical infrastructure.
+                Logging service requests, managing escalation processes, and
+                tracking resolution progress for accountability.
               </p>
             </div>
           </div>
-
           <div class="service-card">
             <div class="service-image">
-              <img src="plumbing-systems.jpg" alt="Plumbing Systems" />
+              <img
+                src="images/callcenter-monitoring.jpg"
+                alt="Monitoring Support"
+              />
             </div>
             <div class="service-content">
-              <h3>Plumbing Systems</h3>
+              <h3>Monitoring Support</h3>
               <p>
-                Expert plumbing solutions including water supply, drainage,
-                sewage systems, and fixtures installation with focus on
-                durability and efficiency.
-              </p>
-            </div>
-          </div>
-
-          <div class="service-card">
-            <div class="service-image">
-              <img src="ac-ducting.jpg" alt="AC Ducting Systems" />
-            </div>
-            <div class="service-content">
-              <h3>AC Ducting Systems</h3>
-              <p>
-                Specialized air conditioning ducting installation for large
-                multi-story buildings with central AC systems and extensive cool
-                air distribution networks.
+                Integrating with monitoring systems to proactively detect
+                problems and notify engineering teams for immediate action.
               </p>
             </div>
           </div>
@@ -219,56 +193,53 @@
       </div>
     </section>
 
-    <!-- IMPLEMENTATION TIMELINE SECTION -->
+    <!-- TIMELINE -->
     <section class="section timeline-section">
       <div class="timeline-container">
         <h2>Estimated Time of Implementation</h2>
         <p>
-          Our structured approach ensures efficient project delivery with clear
-          milestones
+          Our structured workflow ensures fast response and reliable support
+          operations.
         </p>
-
         <div class="timeline-grid">
           <div class="timeline-stage">
             <div class="stage-number">01</div>
-            <h3>Planning & Design</h3>
-            <div class="stage-duration">2-4 Weeks</div>
+            <h3>Setup & Training</h3>
+            <div class="stage-duration">2-3 Weeks</div>
             <p>
-              Site assessment, technical analysis, system design, and detailed
-              project planning including permits and approvals.
+              Setting up systems, training staff, and configuring ticketing
+              platforms for efficient operations.
             </p>
           </div>
-
           <div class="timeline-stage">
             <div class="stage-number">02</div>
-            <h3>Installation & Construction</h3>
-            <div class="stage-duration">4-12 Weeks</div>
+            <h3>Operation</h3>
+            <div class="stage-duration">Ongoing</div>
             <p>
-              Professional installation of MEP systems, construction work,
-              testing phases, and quality assurance throughout the process.
+              Handling calls, logging requests, and coordinating with Customer
+              Support Engineers and monitoring teams.
             </p>
           </div>
-
           <div class="timeline-stage">
             <div class="stage-number">03</div>
-            <h3>Testing & Commissioning</h3>
-            <div class="stage-duration">1-2 Weeks</div>
+            <h3>Reporting</h3>
+            <div class="stage-duration">Monthly</div>
             <p>
-              Comprehensive system testing, commissioning, staff training,
-              documentation handover, and warranty activation.
+              Providing service reports, call statistics, and escalation logs to
+              maintain service quality and transparency.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT CTA SECTION -->
+    <!-- CTA -->
     <section class="section cta-section">
       <div class="cta-container">
-        <h2>Need Help?</h2>
+        <h2>Need 24/7 Call Center Support?</h2>
         <p>
-          Ready to start your MEP project? Our expert team is here to provide
-          you with comprehensive solutions tailored to your specific needs.
+          Ensure your operations run smoothly with our reliable and professional
+          Call Center services.
         </p>
         <div class="cta-buttons">
           <a href="contact.html" class="btn primary">Contact Us Today</a>
@@ -277,17 +248,18 @@
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-content">
         <!-- Company Info Section -->
         <div class="footer-section">
           <img
-            src="images/logoKGP.png"
-            alt="PT. Kevin Guna Pratama"
+            src="images/logoGCS.png"
+            alt="PT. Guna Cipta Sinergi"
             class="footer-logo"
           />
           <p>
-            PT. Kevin Guna Pratama is Indonesia's leading ATM maintenance and
+            PT. Guna Cipta Sinergi is Indonesia's leading ATM maintenance and
             technical service provider. We specialize in comprehensive repair,
             maintenance, and support services for ATM terminals across major
             Indonesian cities, ensuring maximum uptime and compliance with
@@ -345,7 +317,7 @@
             <i>✉</i>
             <div>
               <strong>Email:</strong><br />
-              support@kevingunapratama.com
+              admin@gcsinergie.com
             </div>
           </div>
           <div class="contact-item">
@@ -369,7 +341,7 @@
             </a>
 
             <a
-              href="https://instagram.com/kevin.gunapratama"
+              href="https://instagram.com/gunaciptasinergi"
               target="_blank"
               aria-label="Instagram"
               class="social-btn"
@@ -392,16 +364,15 @@
 
       <div class="footer-bottom">
         <p>
-          &copy; <a id="y"></a> PT. Kevin Guna Pratama. All rights reserved.
+          &copy; <a id="y"></a> PT. Guna Cipta Sinergi. All rights reserved.
         </p>
       </div>
     </footer>
+
     <script>
-      // Year
       document.getElementById("y").textContent = new Date().getFullYear();
       const burger = document.querySelector(".burger");
       const navList = document.querySelector(".nav-list");
-
       if (burger && navList) {
         burger.addEventListener("click", () => {
           const expanded = burger.getAttribute("aria-expanded") === "true";

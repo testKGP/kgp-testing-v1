@@ -29,42 +29,41 @@
   </head>
   <body>
     <!-- Header -->
-    <header class="site-header" role="banner">
+    <header class="site-header" role="banner" id="home">
       <div class="topbar">
-        <div class="brand" aria-label="Kevin Guna Pratama">
+        <div class="brand" aria-label="Guna Cipta Sinergi">
           <picture>
-            <source srcset="images/logoKGP.png" type="image/png" />
-            <img class="brand-logo" src="images/logoKGP.jpg" alt="KGP" />
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="brand-logo" src="images/logoGCS.jpg" alt="GCS" />
           </picture>
           <div class="brand-text">
-            <div class="name">Kevin Guna Pratama</div>
+            <div class="name">Guna Cipta Sinergi</div>
             <div class="tag">Repair • Maintenance • Upgrades</div>
           </div>
         </div>
+
         <div class="partners" aria-label="Partners">
           <picture>
-            <source srcset="images/logoGCS.png" type="image/png" />
-            <img class="partner-plain" src="images/logoGCS.jpg" alt="GCS" />
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              <img src="images/logoKGP.png" alt="Instagram" />
+            </a>
           </picture>
-          <div
-            class="partner-logo"
-            aria-hidden="true"
-            style="display: grid; place-items: center; width: 90px"
-          >
-            Bank B
-          </div>
-          <div
-            class="partner-logo"
-            aria-hidden="true"
-            style="display: grid; place-items: center; width: 90px"
-          >
-            Vendor C
-          </div>
         </div>
       </div>
+
       <nav class="nav" aria-label="Primary">
+        <button class="burger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <ul class="nav-list">
           <li class="nav-item"><a href="index.html">Home</a></li>
+
           <li class="nav-item">
             <a href="#">Products & Services <span class="chev">▼</span></a>
             <div
@@ -89,13 +88,16 @@
               <a href="plumbing.html">Plumbing</a>
             </div>
           </li>
+
           <li class="nav-item">
-            <a href="index.html#service-points">Service Points</a>
+            <a class="nav-link" href="#service-points">Service Points</a>
           </li>
+
           <li class="nav-item">
             <a href="about.html">About Us</a>
           </li>
         </ul>
+
         <div class="right-tools">
           <div class="lang-switch" role="radiogroup" aria-label="Language">
             <button type="button" class="active" aria-pressed="true">EN</button>
@@ -230,12 +232,12 @@
         <!-- Company Info Section -->
         <div class="footer-section">
           <img
-            src="images/logoKGP.png"
-            alt="PT. Kevin Guna Pratama"
+            src="images/logoGCS.png"
+            alt="PT. Guna Cipta Sinergi"
             class="footer-logo"
           />
           <p>
-            PT. Kevin Guna Pratama is Indonesia's leading ATM maintenance and
+            PT. Guna Cipta Sinergi is Indonesia's leading ATM maintenance and
             technical service provider. We specialize in comprehensive repair,
             maintenance, and support services for ATM terminals across major
             Indonesian cities, ensuring maximum uptime and compliance with
@@ -293,7 +295,7 @@
             <i>✉</i>
             <div>
               <strong>Email:</strong><br />
-              support@kevingunapratama.com
+              admin@gcsinergie.com
             </div>
           </div>
           <div class="contact-item">
@@ -317,7 +319,7 @@
             </a>
 
             <a
-              href="https://instagram.com/kevin.gunapratama"
+              href="https://instagram.com/gunaciptasinergi"
               target="_blank"
               aria-label="Instagram"
               class="social-btn"
@@ -340,7 +342,7 @@
 
       <div class="footer-bottom">
         <p>
-          &copy; <a id="y"></a> PT. Kevin Guna Pratama. All rights reserved.
+          &copy; <a id="y"></a> PT. Guna Cipta Sinergi. All rights reserved.
         </p>
       </div>
     </footer>
