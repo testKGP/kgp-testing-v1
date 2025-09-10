@@ -63,12 +63,18 @@ svg {
 }
 
 /* ===== HEADER STYLES ===== */
+/* Make the whole header stick to top */
 .site-header {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   max-width: 100vw;
-  overflow: visible;
-  position: relative;
-  z-index: 100;
+  z-index: 9999; /* high so it sits above page content */
+  overflow: visible; /* keep the current rule (you already had overflow: visible) */
+  /* preserve any other properties you had (padding/etc) */
 }
 
 .site-header.hide {
@@ -1925,6 +1931,20 @@ html {
     width: 90vw; /* was clamp(300px, 26vw, 520px) */
   }
 }
+/* Put this after the existing mobile rules in style.css */
+@media (max-width: 640px) {
+  /* Option A: fix only the header button */
+  .nav .right-tools .btn.contact {
+    min-width: 0 !important; /* allow shrink-to-content */
+    width: auto !important;
+    white-space: nowrap;
+    padding: 6px 12px; /* keep the compact chip look */
+    font-size: 16px;
+  }
+
+  /* Option B: fix all .btn on phones (if desired) */
+  /* .btn { min-width: 0; } */
+}
 
 /* Mechanical Hero Section */
 .mechanical-hero {
@@ -2763,4 +2783,644 @@ html {
 /* Ensure the first card has no unintended negative margin */
 .news-card:first-child {
   margin-left: 0;
+}
+/* ---------------------------
+   About page styles (about.html)
+   Paste at the end of style.css
+   --------------------------- */
+
+/* About hero (two-column, image on right) */
+.about-hero {
+  padding: clamp(36px, 6vw, 72px) var(--padX);
+  background: #fff;
+  border-top: 1px solid #e9ecf8;
+}
+
+.about-hero .hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 3.5vw, 36px);
+  align-items: center;
+}
+
+/* content column */
+.about-content h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4.4vw, 42px);
+  color: var(--brand-700);
+  line-height: 1.08;
+}
+
+.about-content .lead {
+  color: var(--ink-700);
+  margin: 8px 0 14px;
+  font-size: clamp(15px, 2.4vw, 18px);
+}
+
+.about-content p {
+  color: var(--muted);
+  margin-bottom: 14px;
+  max-width: 56ch;
+}
+
+/* small badge under intro */
+.about-content .badge {
+  margin-top: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(26, 53, 125, 0.06),
+    rgba(58, 86, 160, 0.04)
+  );
+  color: var(--brand-700);
+  border: 1px solid rgba(26, 53, 125, 0.06);
+}
+
+/* image column */
+.about-image {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  max-width: 560px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(26, 53, 125, 0.08);
+  border: 1px solid #eef3ff;
+}
+
+/* Vision & Mission */
+.vision-mission-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.vm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  align-items: start;
+}
+
+.vm-card {
+  background: #fff;
+  border: 1.5px solid #dbe1f6;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  text-align: left;
+  min-height: 180px;
+  display: grid;
+  gap: 10px;
+}
+
+.vm-card .vm-icon {
+  font-size: 28px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.vm-card h3 {
+  margin: 0 0 6px;
+  color: var(--brand);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.vm-card p,
+.vm-card ul {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Core values / values grid */
+.values-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.values-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.value-card {
+  background: #fff;
+  border: 1.5px solid #dbe1f6;
+  border-radius: 12px;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+  align-items: start;
+  min-height: 150px;
+  box-shadow: var(--shadow);
+}
+
+.value-icon {
+  font-size: 28px;
+  width: 54px;
+  height: 54px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(26, 53, 125, 0.08),
+    rgba(58, 86, 160, 0.03)
+  );
+}
+
+.value-card h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--brand);
+  font-weight: 800;
+}
+
+.value-card p {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Small helpers + consistent spacing */
+.section.vision-mission,
+.section.history,
+.section.core-values {
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+@media (max-width: 640px) {
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+  .value-card {
+    min-height: auto;
+  }
+  .about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+/* Base section styling */
+.section {
+  position: relative;
+  padding: clamp(28px, 5vw, 56px) var(--padX);
+  border-top: 1px solid rgba(0, 0, 0, 0.05); /* thin separator */
+}
+
+/* Alternate shading */
+.section:nth-of-type(odd) {
+  background: #ffffff; /* pure white */
+}
+.section:nth-of-type(even) {
+  background: #f9f9f9; /* slightly darker white */
+}
+
+/* 4. Generic box hover interactivity */
+.card,
+.service-card,
+.kpi,
+.news-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover,
+.service-card:hover,
+.kpi:hover,
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* 3. Generic hover for every content box */
+.card,
+.service-card,
+.kpi,
+.news-card,
+.value-card,
+.vm-card,
+.cta-section,
+.section.clients .client-logo {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.card:hover,
+.service-card:hover,
+.kpi:hover,
+.news-card:hover,
+.value-card:hover,
+.vm-card:hover,
+.cta-section:hover,
+.section.clients .client-logo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+
+/* 2. Remove blue hover box on other sections; add border highlight */
+.card,
+.service-card,
+.kpi,
+.news-card,
+.value-card,
+.vm-card {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid transparent;
+}
+.card:hover,
+.service-card:hover,
+.kpi:hover,
+.news-card:hover,
+.value-card:hover,
+.vm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--brand);
+}
+/* ===== Company History timeline ===== */
+#company-history {
+  background: #fff;
+  border-top: 1px solid #e9ecf8;
+  padding: 0; /* section wrapper uses .section spacing if needed */
+}
+
+#company-history .timeline-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 48px) var(--padX);
+  text-align: left;
+}
+
+#company-history h2 {
+  margin-bottom: 6px;
+  color: #152145;
+}
+
+#company-history p {
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+/* timeline body */
+#company-history .timeline {
+  position: relative;
+  padding-left: 0;
+}
+
+/* vertical line placed through the center of the left column */
+#company-history .timeline::before {
+  content: "";
+  position: absolute;
+  left: 40px; /* center line relative to left column */
+  top: 20px;
+  bottom: 20px;
+  width: 4px;
+  background: #e5e9f7;
+  border-radius: 4px;
+  z-index: 0;
+  transform-origin: center;
+}
+
+/* each item: left = dot+year (fixed width), right = content */
+#company-history .timeline-items {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+#company-history .timeline-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 20px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1; /* sit above the vertical line */
+}
+
+/* left column (dot + year) */
+#company-history .timeline-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+  padding-right: 6px;
+}
+
+/* the dot — sits centered over the line */
+#company-history .timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--brand);
+  border: 3px solid #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  flex: 0 0 auto;
+  margin-left: 0;
+}
+
+/* year text next to the dot */
+#company-history .timeline-year {
+  font-weight: 800;
+  color: var(--brand-700);
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+}
+
+/* right column content */
+#company-history .timeline-right h3 {
+  margin: 0 0 6px 0;
+  color: var(--brand);
+  font-size: 18px;
+}
+
+#company-history .timeline-right p {
+  margin: 0;
+  color: var(--ink-700);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* small screens — stack and move the line to left edge */
+@media (max-width: 640px) {
+  #company-history .timeline::before {
+    left: 20px;
+  }
+
+  #company-history .timeline-item {
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+  }
+
+  #company-history .timeline-left {
+    justify-content: center;
+  }
+
+  #company-history .timeline-year {
+    display: none; /* hide year next to dot on very small screens */
+  }
+
+  #company-history .timeline-right h3 {
+    font-size: 16px;
+  }
+}
+
+/* optional hover highlight */
+#company-history .timeline-item:hover .timeline-right h3 {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+/* ===== responsive control for timeline horizontal position ===== */
+/* Put this after your timeline CSS */
+#company-history {
+  /* desktop default: smaller value = move more to the LEFT, larger = move RIGHT */
+  --timeline-left: 44px;
+}
+
+/* vertical line */
+#company-history .timeline::before {
+  left: var(--timeline-left);
+}
+
+/* make each item a positioning context and set the left column width relative to the line */
+#company-history .timeline-item {
+  position: relative;
+  /* first column width = line x-coordinate + extra spacing for year/dot */
+  grid-template-columns: calc(var(--timeline-left) + 36px) 1fr;
+}
+
+/* dot sits on the line center */
+#company-history .timeline-dot {
+  position: absolute;
+  left: var(--timeline-left); /* aligns with the ::before line */
+  top: 6px; /* tweak if vertical alignment needed */
+  transform: translateX(-50%); /* centers the dot over the line */
+  z-index: 2;
+}
+
+/* Year text sits left of the dot (no changes needed if you already swapped order) */
+#company-history .timeline-left {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ===== mobile adjustments ===== */
+@media (max-width: 640px) {
+  /* mobile: move the line closer to the left edge */
+  #company-history {
+    --timeline-left: 20px;
+  }
+
+  /* shrink the left column so content doesn't get pushed off-screen */
+  #company-history .timeline-item {
+    grid-template-columns: calc(var(--timeline-left) + 28px) 1fr;
+  }
+
+  /* fine-tune dot vertical position on small screens */
+  #company-history .timeline-dot {
+    top: 4px;
+  }
+
+  /* optional: hide year on very small screens to save space
+     uncomment the next line if you want it hidden on mobile */
+  /* #company-history .timeline-year { display: none; } */
+}
+/* move the year left so it doesn't overlap the dot/line */
+#company-history .timeline-left {
+  /* keep items aligned to the right edge of the left column */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-right: 30px; /* extra breathing room between year and the right edge */
+}
+
+/* add right-margin on the year so it shifts left away from the dot */
+#company-history .timeline-year {
+  margin-right: 18px; /* increase = year moves further left; decrease = moves right */
+  position: relative;
+  z-index: 3;
+}
+
+/* mobile: reduce the margin so layout remains compact */
+@media (max-width: 640px) {
+  #company-history .timeline-left {
+    padding-right: 8px;
+  }
+  #company-history .timeline-year {
+    margin-right: 8px;
+    font-size: 13px;
+  }
+}
+/* ===== remove box behind emoji + center it ===== */
+/* target common core-values selectors (keeps specificity safe by grouping) */
+#core-values .value-icon,
+.core-values .value-icon,
+.values .icon,
+.values .value-icon,
+.value-card .icon,
+.card .icon,
+.core-value .icon {
+  background: none !important; /* remove background color/image */
+  box-shadow: none !important; /* remove any shadow that creates a "box" look */
+  border: none !important; /* remove borders */
+  padding: 0 !important; /* remove extra inner spacing */
+  width: auto; /* allow natural width unless you want fixed size */
+  height: auto;
+  display: flex !important; /* center contents */
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ensure the emoji (text or img) is centered and sized nicely */
+#core-values .value-icon > img,
+.core-values .value-icon > img,
+.values .icon > img,
+.value-card .icon > img,
+.core-value .icon > img {
+  display: block;
+  margin: 0 auto;
+  max-width: 48px; /* adjust size as needed */
+  width: 100%;
+  height: auto;
+}
+
+/* if emoji is a text node or span (e.g. <span class="emoji">🔥</span>) */
+#core-values .value-icon .emoji,
+.core-values .value-icon .emoji,
+.values .icon .emoji,
+.value-card .icon .emoji,
+.core-value .icon .emoji {
+  display: inline-block;
+  margin: 0;
+  font-size: 28px; /* tweak to preferred size */
+  line-height: 1;
+  text-align: center;
+}
+
+/* optional: ensure the whole card content is centered horizontally */
+#core-values .core-value,
+.core-values .core-value,
+.values .value-card,
+.value-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* mobile tweak: slightly smaller emoji on small screens */
+@media (max-width: 640px) {
+  #core-values .value-icon .emoji,
+  .core-values .value-icon .emoji {
+    font-size: 22px;
+  }
+  #core-values .value-icon > img,
+  .core-values .value-icon > img {
+    max-width: 36px;
+  }
+}
+/* Smooth background transition for header bars */
+.topbar,
+.nav {
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+/* Transparent header at top: keep the white parallelogram (.topbar::before) visible */
+.site-header.at-top .topbar {
+  background: transparent;
+}
+
+/* Make the blue nav bar transparent (no text color changes) */
+.site-header.at-top .nav {
+  background: transparent;
+  border-top-color: transparent;
+}
+
+/* Pull the carousel up behind the sticky header so it is truly full-screen at page top */
+/* REPLACE the height lines under .carousel */
+/* style.css — REPLACE height inside your existing .carousel */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: #0b1024;
+
+  /* Full, real viewport height on all browsers */
+  height: 100vh; /* fallback */
+  height: 100svh; /* small viewport unit */
+  height: 100dvh; /* dynamic viewport unit */
+
+  /* keep the slide behind the sticky header at the very top */
+  margin-top: calc(var(--header-h) * -1);
+}
+/* style.css — keep near header/nav */
+.topbar,
+.nav {
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+/* Transparent at the very top; keeps the white parallelogram visible */
+.site-header.at-top .topbar {
+  background: transparent;
+}
+.site-header.at-top .nav {
+  background: transparent;
+  border-top-color: transparent;
+}
+/* Keep caption clear of sticky header */
+.slide .caption {
+  margin-top: 0;
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 12px);
+}
+/* Transparent only at page top */
+.site-header.at-top .topbar {
+  background: transparent;
+}
+.site-header.at-top .nav {
+  background: transparent;
+  border-top-color: transparent;
+}
+
+/* Also allow body/html driven state (script applies both) */
+body.at-top .topbar,
+html.at-top .topbar {
+  background: transparent;
+}
+body.at-top .nav,
+html.at-top .nav {
+  background: transparent;
+  border-top-color: transparent;
+}
+/* Anchor offset for sticky header */
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+/* Optional: give phones a touch more space */
+@media (max-width: 640px) {
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 24px);
+  }
 }

@@ -113,7 +113,7 @@
         </div>
       </nav>
     </header>
-
+    <div id="at-top-sentinel" aria-hidden="true"></div>
     <!-- Carousel -->
     <section
       class="carousel"
@@ -764,9 +764,9 @@
         <div class="footer-section footer-nav">
           <h3>Navigation</h3>
           <ul>
-            <li><a href="#home">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="#service-points">Service Points</a></li>
-            <li><a href="#about">About Us</a></li>
+            <li><a href="about.html">About Us</a></li>
           </ul>
         </div>
 
@@ -2462,6 +2462,61 @@
           },
           { passive: true }
         );
+      })();
+      document.addEventListener("DOMContentLoaded", function () {
+        const header = document.querySelector(".site-header");
+        if (!header) return;
+
+        const syncAtTop = () => {
+          const y =
+            window.scrollY ??
+            window.pageYOffset ??
+            document.documentElement.scrollTop ??
+            0;
+          header.classList.toggle("at-top", y <= 1);
+        };
+
+        syncAtTop();
+        window.addEventListener("scroll", syncAtTop, { passive: true });
+        window.addEventListener("resize", syncAtTop);
+      });
+      (function () {
+        const header = document.querySelector(".site-header");
+        const sentinel = document.getElementById("at-top-sentinel");
+        if (!header || !sentinel) return;
+
+        // Read --header-h from CSS to compensate sticky height in the observer margin
+        const rootStyles = getComputedStyle(document.documentElement);
+        const headerH = (
+          rootStyles.getPropertyValue("--header-h") || "140px"
+        ).trim();
+
+        const apply = (atTop) => {
+          header.classList.toggle("at-top", atTop);
+          document.documentElement.classList.toggle("at-top", atTop);
+          document.body.classList.toggle("at-top", atTop);
+        };
+
+        // IntersectionObserver: true = at top (sentinel visible within header height)
+        const io = new IntersectionObserver(
+          ([entry]) => apply(entry.isIntersecting),
+          { root: null, threshold: 0, rootMargin: `-${headerH} 0px 0px 0px` }
+        );
+        io.observe(sentinel);
+
+        // Fallback + initial state
+        const sync = () => {
+          const y =
+            window.scrollY ??
+            window.pageYOffset ??
+            document.documentElement.scrollTop ??
+            0;
+          apply(y <= 1);
+        };
+        window.addEventListener("scroll", sync, { passive: true });
+        window.addEventListener("resize", sync);
+        window.addEventListener("load", sync);
+        sync();
       })();
     </script>
   </body>
