@@ -1869,7 +1869,7 @@
       class NewsATMSection {
         constructor() {
           // NewsData.io API Configuration
-          this.API_TOKEN = "pub_ecef83154c334c219e0a0c345d71611e";
+          this.API_TOKEN = "pub_6b8546c0c99f4039b0ac96c4d1761ed7";
           this.API_ENDPOINT = "https://newsdata.io/api/1/latest";
 
           // Alternative: Use server proxy for security (recommended for production)
@@ -1918,7 +1918,104 @@
             this.handleKeydown(e)
           );
 
-          // Window resize handler
+          // --- Pointer/drag support for both desktop, touch, and DevTools emulation ---
+          // Works like the hero carousel: transform-based dragging (no width hacks).
+          const track = this.container; // the inner container that is transformed
+          if (track) {
+            let isDragging = false;
+            let startX = 0;
+            let deltaX = 0;
+            let startScroll = 0;
+
+            const getCardWidth = () =>
+              Math.max(
+                1,
+                this.container.querySelector(".news-card")?.offsetWidth || 320
+              );
+
+            const getMaxScroll = () =>
+              Math.max(
+                0,
+                this.currentCards.length * getCardWidth() - track.offsetWidth
+              );
+
+            const pointerDown = (e) => {
+              // only left mouse button for mouse
+              if (e.pointerType === "mouse" && e.button !== 0) return;
+              isDragging = true;
+              startX = e.clientX;
+              deltaX = 0;
+              startScroll = this.scrollPosition || 0;
+              track.style.transition = "none";
+              try {
+                track.setPointerCapture && track.setPointerCapture(e.pointerId);
+              } catch (err) {}
+              // stop any autoplay / other movement if present
+            };
+
+            const pointerMove = (e) => {
+              if (!isDragging) return;
+              deltaX = e.clientX - startX;
+              let pos = startScroll - deltaX;
+              // clamp pos
+              pos = Math.max(0, Math.min(getMaxScroll(), pos));
+              track.style.transform = `translateX(-${pos}px)`;
+            };
+
+            const pointerUp = (e) => {
+              if (!isDragging) return;
+              isDragging = false;
+              try {
+                track.releasePointerCapture &&
+                  track.releasePointerCapture(e.pointerId);
+              } catch (err) {}
+              const abs = Math.abs(deltaX);
+              const cardW = getCardWidth();
+              const threshold = cardW * 0.12; // small threshold to consider a swipe
+              // If user swiped far enough, move one card in direction, otherwise snap back
+              if (abs > threshold) {
+                if (deltaX > 0) {
+                  // dragged right -> show previous
+                  this.scrollLeft();
+                } else {
+                  // dragged left -> show next
+                  this.scrollRight();
+                }
+              } else {
+                // Snap back to current scrollPosition (the JS scrollLeft/Right manage clamping)
+                this.animateScroll(this.scrollPosition || 0);
+              }
+              deltaX = 0;
+            };
+
+            // Pointer events: work with touch, pen, mouse and DevTools emulation
+            track.addEventListener("pointerdown", pointerDown, {
+              passive: true,
+            });
+            window.addEventListener("pointermove", pointerMove, {
+              passive: true,
+            });
+            window.addEventListener("pointerup", pointerUp, { passive: true });
+
+            // Also support touch fallback in case pointer events aren't available
+            track.addEventListener(
+              "touchstart",
+              (e) => pointerDown(e.changedTouches ? e.changedTouches[0] : e),
+              { passive: true }
+            );
+            window.addEventListener(
+              "touchmove",
+              (e) => pointerMove(e.changedTouches ? e.changedTouches[0] : e),
+              { passive: true }
+            );
+            window.addEventListener(
+              "touchend",
+              (e) => pointerUp(e.changedTouches ? e.changedTouches[0] : e),
+              { passive: true }
+            );
+          }
+
+          // Window resize handler — keep button states correct
           window.addEventListener("resize", () => this.updateScrollButtons());
         }
 
@@ -2223,6 +2320,149 @@
       document.addEventListener("DOMContentLoaded", () => {
         new NewsATMSection();
       });
+      /* REPLACE existing enableMobileNativeNewsScroll() with this improved version */
+      (function enableMobileNativeNewsScroll() {
+        const carousel = document.querySelector(".news-carousel");
+        const container = document.getElementById("news-cards-container");
+        const leftBtn = document.querySelector(".news-scroll-left");
+        const rightBtn = document.querySelector(".news-scroll-right");
+        if (!carousel || !container) return;
+
+        const isTouch =
+          "ontouchstart" in window ||
+          navigator.maxTouchPoints > 0 ||
+          (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+
+        // Force native scroll only on touch devices AND narrow viewports
+        const shouldForceNative = isTouch && window.innerWidth <= 900;
+
+        if (!shouldForceNative) {
+          // Revert any previous forced state (keeps desktop behavior unchanged)
+          carousel.classList.remove("touch-enabled", "debug-forced");
+          container.classList.remove("touch-enabled", "debug-forced");
+          carousel.style.overflowX = "";
+          carousel.style.overflowY = "";
+          carousel.style.webkitOverflowScrolling = "";
+          carousel.style.touchAction = "";
+          carousel.style.maxWidth = "";
+          carousel.style.display = "";
+          container.style.display = "";
+          container.style.flexWrap = "";
+          container.style.width = "";
+          container.style.gap = "";
+          container.style.transform = "";
+          container.style.transition = "";
+          container.style.willChange = "";
+          const cards = container.querySelectorAll(".news-card");
+          cards.forEach((c) => {
+            c.style.flex = "";
+            c.style.minWidth = "";
+            c.style.pointerEvents = "";
+            c.style.maxWidth = "";
+          });
+          if (leftBtn) leftBtn.style.display = "";
+          if (rightBtn) rightBtn.style.display = "";
+          return;
+        }
+
+        // Apply mobile/touch-only native-scroll layout
+        carousel.classList.add("touch-enabled");
+        container.classList.add("touch-enabled");
+
+        carousel.style.overflowX = "auto";
+        carousel.style.overflowY = "hidden";
+        carousel.style.webkitOverflowScrolling = "touch";
+        carousel.style.touchAction = "pan-x";
+        carousel.style.maxWidth = "100%";
+        carousel.style.display = "block";
+
+        container.style.display = "inline-flex";
+        container.style.flexWrap = "nowrap";
+        container.style.width = "max-content";
+        container.style.gap = "12px";
+        container.style.transform = "none";
+        container.style.transition = "none";
+        container.style.willChange = "auto";
+
+        // mobile-friendly card sizing (keeps them reasonable on phones)
+        const cards = container.querySelectorAll(".news-card");
+        cards.forEach((c) => {
+          c.style.flex = "0 0 auto";
+          c.style.minWidth = "200px"; // smaller than before so cards are not huge
+          c.style.maxWidth = "320px"; // prevent extremely wide cards on large phones
+          c.style.pointerEvents = "auto";
+        });
+
+        if (leftBtn) leftBtn.style.display = "none";
+        if (rightBtn) rightBtn.style.display = "none";
+
+        // Neutralize other scripts that re-apply transforms
+        const mo = new MutationObserver((mutations) => {
+          for (const m of mutations) {
+            if (
+              m.attributeName === "style" &&
+              container.style.transform &&
+              container.style.transform !== "none"
+            ) {
+              container.style.transform = "none";
+            }
+          }
+        });
+        mo.observe(container, { attributes: true, attributeFilter: ["style"] });
+
+        // keyboard support for accessibility
+        carousel.tabIndex = carousel.tabIndex || 0;
+        carousel.addEventListener(
+          "keydown",
+          (e) => {
+            if (e.key === "ArrowLeft")
+              carousel.scrollBy({ left: -300, behavior: "smooth" });
+            if (e.key === "ArrowRight")
+              carousel.scrollBy({ left: 300, behavior: "smooth" });
+          },
+          { passive: true }
+        );
+
+        // Re-evaluate on resize
+        window.addEventListener(
+          "resize",
+          () => {
+            const nowIsTouch =
+              "ontouchstart" in window ||
+              navigator.maxTouchPoints > 0 ||
+              (window.matchMedia &&
+                window.matchMedia("(pointer: coarse)").matches);
+            if (!(nowIsTouch && window.innerWidth <= 900)) {
+              // revert inline styles
+              carousel.classList.remove("touch-enabled", "debug-forced");
+              container.classList.remove("touch-enabled", "debug-forced");
+              carousel.style.overflowX = "";
+              carousel.style.overflowY = "";
+              carousel.style.webkitOverflowScrolling = "";
+              carousel.style.touchAction = "";
+              carousel.style.maxWidth = "";
+              carousel.style.display = "";
+              container.style.display = "";
+              container.style.flexWrap = "";
+              container.style.width = "";
+              container.style.gap = "";
+              container.style.transform = "";
+              container.style.transition = "";
+              container.style.willChange = "";
+              cards.forEach((c) => {
+                c.style.flex = "";
+                c.style.minWidth = "";
+                c.style.pointerEvents = "";
+                c.style.maxWidth = "";
+              });
+              if (leftBtn) leftBtn.style.display = "";
+              if (rightBtn) rightBtn.style.display = "";
+              mo.disconnect();
+            }
+          },
+          { passive: true }
+        );
+      })();
     </script>
   </body>
 </html>

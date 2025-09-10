@@ -2676,6 +2676,7 @@ html {
   }
 }
 
+/* Replace the existing news-cards-container mobile rules with this block */
 @media (max-width: 640px) {
   .news-carousel-wrapper {
     flex-direction: column;
@@ -2683,34 +2684,83 @@ html {
   }
 
   .news-scroll-btn {
-    display: none; /* Hide buttons on mobile, allow touch scrolling */
+    display: none !important; /* hide buttons on phones if you like */
   }
 
+  /* Keep carousel overflow hidden for transform-based sliding */
   .news-carousel {
-    overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--brand) transparent;
+    overflow: hidden;
+    position: relative;
   }
 
-  .news-carousel::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .news-carousel::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 3px;
-  }
-
-  .news-carousel::-webkit-scrollbar-thumb {
-    background: var(--brand);
-    border-radius: 3px;
-  }
-
-  .news-card {
-    flex: 0 0 260px;
-  }
-
+  /* Keep cards in a normal flex row (not width:max-content) so natural responsive widths apply */
   .news-cards-container {
-    padding-bottom: 8px;
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 8px 6px;
+    transition: none;
+    will-change: transform;
+    align-items: stretch;
   }
+
+  /* Let each card be responsive — your existing responsive .news-card rules will apply */
+  .news-card {
+    flex: 0 0 auto; /* allow cards to size responsively */
+    min-width: 180px; /* small floor to keep them usable on tiny phones */
+    max-width: 320px; /* cap width on larger phones */
+  }
+
+  /* Prevent any inline-transform override from breaking the layout visually */
+  .news-cards-container[style*="transform"] {
+    /* we allow transform during drag; keep this rule light */
+    transition: none !important;
+  }
+}
+
+/* Mobile-only touch-enabled rules (keeps desktop sizes unchanged) */
+@media (max-width: 900px) {
+  .news-carousel.touch-enabled {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x !important;
+    max-width: 100% !important;
+    display: block !important;
+    scroll-behavior: smooth !important;
+    overscroll-behavior-x: contain !important;
+  }
+
+  .news-cards-container.touch-enabled {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .news-cards-container.touch-enabled .news-card {
+    flex: 0 0 auto !important;
+    max-width: 320px !important;
+    scroll-snap-align: start !important;
+  }
+}
+/* Ensure carousel viewport hides overflow but does not offset children */
+.news-carousel {
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  padding-left: 0; /* ensure no left padding hides first card */
+}
+
+/* Ensure track (cards container) aligns children from the left edge */
+.news-cards-container {
+  box-sizing: border-box;
+  margin-left: 0;
+  padding-left: 0;
+  will-change: transform;
+}
+
+/* Ensure the first card has no unintended negative margin */
+.news-card:first-child {
+  margin-left: 0;
 }
