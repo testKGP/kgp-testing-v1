@@ -3,62 +3,1329 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>About Us — Kevin Guna Pratama ATM Services</title>
+    <title>About Us - GCS</title>
     <meta
       name="description"
-      content="Learn more about PT. Kevin Guna Pratama, Indonesia's trusted partner for ATM repair, maintenance, and support services."
+      content="Expert plumbing solutions and services for efficient, durable, and long-lasting building infrastructure systems."
     />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Page-scoped CTA: only affects plumbing.html */
+      body.mechanical-page .cta-section {
+        background: #f8f9ff;
+        color: var(--ink-900);
+        border-top: 1px solid #e9ecf8;
+        padding: clamp(28px, 5vw, 56px) var(--padX);
+      }
+      body.mechanical-page .cta-section .cta-container h2,
+      body.mechanical-page .cta-section .cta-container p {
+        color: var(--ink-900);
+      }
+      body.mechanical-page .cta-section .btn.primary {
+        background: var(--brand);
+        color: #fff;
+        border-color: var(--brand);
+      }
+      body.mechanical-page .cta-section .btn.secondary {
+        background: transparent;
+        color: var(--brand);
+        border-color: var(--brand);
+      }
+      body.mechanical-page .cta-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      :root {
+        /* Primitive Color Tokens */
+        --color-white: rgba(255, 255, 255, 1);
+        --color-black: rgba(0, 0, 0, 1);
+        --color-cream-50: rgba(252, 252, 249, 1);
+        --color-cream-100: rgba(255, 255, 253, 1);
+        --color-gray-200: rgba(245, 245, 245, 1);
+        --color-gray-300: rgba(167, 169, 169, 1);
+        --color-gray-400: rgba(119, 124, 124, 1);
+        --color-slate-500: rgba(98, 108, 113, 1);
+        --color-brown-600: rgba(94, 82, 64, 1);
+        --color-charcoal-700: rgba(31, 33, 33, 1);
+        --color-charcoal-800: rgba(38, 40, 40, 1);
+        --color-slate-900: rgba(19, 52, 59, 1);
+        --color-teal-300: rgba(50, 184, 198, 1);
+        --color-teal-400: rgba(45, 166, 178, 1);
+        --color-teal-500: rgba(33, 128, 141, 1);
+        --color-teal-600: rgba(29, 116, 128, 1);
+        --color-teal-700: rgba(26, 104, 115, 1);
+        --color-teal-800: rgba(41, 150, 161, 1);
+        --color-red-400: rgba(255, 84, 89, 1);
+        --color-red-500: rgba(192, 21, 47, 1);
+        --color-orange-400: rgba(230, 129, 97, 1);
+        --color-orange-500: rgba(168, 75, 47, 1);
+
+        /* RGB versions for opacity control */
+        --color-brown-600-rgb: 94, 82, 64;
+        --color-teal-500-rgb: 33, 128, 141;
+        --color-slate-900-rgb: 19, 52, 59;
+        --color-slate-500-rgb: 98, 108, 113;
+        --color-red-500-rgb: 192, 21, 47;
+        --color-red-400-rgb: 255, 84, 89;
+        --color-orange-500-rgb: 168, 75, 47;
+        --color-orange-400-rgb: 230, 129, 97;
+
+        /* Background color tokens (Light Mode) */
+        --color-bg-1: rgba(59, 130, 246, 0.08); /* Light blue */
+        --color-bg-2: rgba(245, 158, 11, 0.08); /* Light yellow */
+        --color-bg-3: rgba(34, 197, 94, 0.08); /* Light green */
+        --color-bg-4: rgba(239, 68, 68, 0.08); /* Light red */
+        --color-bg-5: rgba(147, 51, 234, 0.08); /* Light purple */
+        --color-bg-6: rgba(249, 115, 22, 0.08); /* Light orange */
+        --color-bg-7: rgba(236, 72, 153, 0.08); /* Light pink */
+        --color-bg-8: rgba(6, 182, 212, 0.08); /* Light cyan */
+
+        /* Semantic Color Tokens (Light Mode) */
+        --color-background: var(--color-cream-50);
+        --color-surface: var(--color-cream-100);
+        --color-text: var(--color-slate-900);
+        --color-text-secondary: var(--color-slate-500);
+        --color-primary: var(--color-teal-500);
+        --color-primary-hover: var(--color-teal-600);
+        --color-primary-active: var(--color-teal-700);
+        --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+        --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+        --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+        --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+        --color-btn-primary-text: var(--color-cream-50);
+        --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+        --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+        --color-error: var(--color-red-500);
+        --color-success: var(--color-teal-500);
+        --color-warning: var(--color-orange-500);
+        --color-info: var(--color-slate-500);
+        --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+        --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+        /* Common style patterns */
+        --focus-ring: 0 0 0 3px var(--color-focus-ring);
+        --focus-outline: 2px solid var(--color-primary);
+        --status-bg-opacity: 0.15;
+        --status-border-opacity: 0.25;
+        --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+        /* RGB versions for opacity control */
+        --color-success-rgb: 33, 128, 141;
+        --color-error-rgb: 192, 21, 47;
+        --color-warning-rgb: 168, 75, 47;
+        --color-info-rgb: 98, 108, 113;
+
+        /* Typography */
+        --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+          Monaco, Consolas, monospace;
+        --font-size-xs: 11px;
+        --font-size-sm: 12px;
+        --font-size-base: 14px;
+        --font-size-md: 14px;
+        --font-size-lg: 16px;
+        --font-size-xl: 18px;
+        --font-size-2xl: 20px;
+        --font-size-3xl: 24px;
+        --font-size-4xl: 30px;
+        --font-weight-normal: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 550;
+        --font-weight-bold: 600;
+        --line-height-tight: 1.2;
+        --line-height-normal: 1.5;
+        --letter-spacing-tight: -0.01em;
+
+        /* Spacing */
+        --space-0: 0;
+        --space-1: 1px;
+        --space-2: 2px;
+        --space-4: 4px;
+        --space-6: 6px;
+        --space-8: 8px;
+        --space-10: 10px;
+        --space-12: 12px;
+        --space-16: 16px;
+        --space-20: 20px;
+        --space-24: 24px;
+        --space-32: 32px;
+
+        /* Border Radius */
+        --radius-sm: 6px;
+        --radius-base: 8px;
+        --radius-md: 10px;
+        --radius-lg: 12px;
+        --radius-full: 9999px;
+
+        /* Shadows */
+        --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04),
+          0 1px 2px rgba(0, 0, 0, 0.02);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+          0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+          0 4px 6px -2px rgba(0, 0, 0, 0.02);
+        --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+        /* Animation */
+        --duration-fast: 150ms;
+        --duration-normal: 250ms;
+        --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+        /* Layout */
+        --container-sm: 640px;
+        --container-md: 768px;
+        --container-lg: 1024px;
+        --container-xl: 1280px;
+      }
+
+      /* Dark mode colors */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          /* RGB versions for opacity control (Dark Mode) */
+          --color-gray-400-rgb: 119, 124, 124;
+          --color-teal-300-rgb: 50, 184, 198;
+          --color-gray-300-rgb: 167, 169, 169;
+          --color-gray-200-rgb: 245, 245, 245;
+
+          /* Background color tokens (Dark Mode) */
+          --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
+          --color-bg-2: rgba(180, 83, 9, 0.15); /* Dark yellow */
+          --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
+          --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
+          --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
+          --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
+          --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
+          --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
+
+          /* Semantic Color Tokens (Dark Mode) */
+          --color-background: var(--color-charcoal-700);
+          --color-surface: var(--color-charcoal-800);
+          --color-text: var(--color-gray-200);
+          --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+          --color-primary: var(--color-teal-300);
+          --color-primary-hover: var(--color-teal-400);
+          --color-primary-active: var(--color-teal-800);
+          --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+          --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+          --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+          --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+          --color-error: var(--color-red-400);
+          --color-success: var(--color-teal-300);
+          --color-warning: var(--color-orange-400);
+          --color-info: var(--color-gray-300);
+          --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+          --color-btn-primary-text: var(--color-slate-900);
+          --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+          --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+          --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+          --button-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+          --color-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+          --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+
+          /* Common style patterns - updated for dark mode */
+          --focus-ring: 0 0 0 3px var(--color-focus-ring);
+          --focus-outline: 2px solid var(--color-primary);
+          --status-bg-opacity: 0.15;
+          --status-border-opacity: 0.25;
+          --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+          /* RGB versions for dark mode */
+          --color-success-rgb: var(--color-teal-300-rgb);
+          --color-error-rgb: var(--color-red-400-rgb);
+          --color-warning-rgb: var(--color-orange-400-rgb);
+          --color-info-rgb: var(--color-gray-300-rgb);
+        }
+      }
+
+      /* Data attribute for manual theme switching */
+      [data-color-scheme="dark"] {
+        /* RGB versions for opacity control (dark mode) */
+        --color-gray-400-rgb: 119, 124, 124;
+        --color-teal-300-rgb: 50, 184, 198;
+        --color-gray-300-rgb: 167, 169, 169;
+        --color-gray-200-rgb: 245, 245, 245;
+
+        /* Colorful background palette - Dark Mode */
+        --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
+        --color-bg-2: rgba(180, 83, 9, 0.15); /* Dark yellow */
+        --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
+        --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
+        --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
+        --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
+        --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
+        --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
+
+        /* Semantic Color Tokens (Dark Mode) */
+        --color-background: var(--color-charcoal-700);
+        --color-surface: var(--color-charcoal-800);
+        --color-text: var(--color-gray-200);
+        --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+        --color-primary: var(--color-teal-300);
+        --color-primary-hover: var(--color-teal-400);
+        --color-primary-active: var(--color-teal-800);
+        --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+        --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+        --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+        --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+        --color-error: var(--color-red-400);
+        --color-success: var(--color-teal-300);
+        --color-warning: var(--color-orange-400);
+        --color-info: var(--color-gray-300);
+        --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+        --color-btn-primary-text: var(--color-slate-900);
+        --color-card-border: rgba(var(--color-gray-400-rgb), 0.15);
+        --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+        --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+        --color-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+        --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+
+        /* Common style patterns - updated for dark mode */
+        --focus-ring: 0 0 0 3px var(--color-focus-ring);
+        --focus-outline: 2px solid var(--color-primary);
+        --status-bg-opacity: 0.15;
+        --status-border-opacity: 0.25;
+        --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+        /* RGB versions for dark mode */
+        --color-success-rgb: var(--color-teal-300-rgb);
+        --color-error-rgb: var(--color-red-400-rgb);
+        --color-warning-rgb: var(--color-orange-400-rgb);
+        --color-info-rgb: var(--color-gray-300-rgb);
+      }
+
+      [data-color-scheme="light"] {
+        /* RGB versions for opacity control (light mode) */
+        --color-brown-600-rgb: 94, 82, 64;
+        --color-teal-500-rgb: 33, 128, 141;
+        --color-slate-900-rgb: 19, 52, 59;
+
+        /* Semantic Color Tokens (Light Mode) */
+        --color-background: var(--color-cream-50);
+        --color-surface: var(--color-cream-100);
+        --color-text: var(--color-slate-900);
+        --color-text-secondary: var(--color-slate-500);
+        --color-primary: var(--color-teal-500);
+        --color-primary-hover: var(--color-teal-600);
+        --color-primary-active: var(--color-teal-700);
+        --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+        --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+        --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+        --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+        --color-btn-primary-text: var(--color-cream-50);
+        --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+        --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+        --color-error: var(--color-red-500);
+        --color-success: var(--color-teal-500);
+        --color-warning: var(--color-orange-500);
+        --color-info: var(--color-slate-500);
+        --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+        /* RGB versions for light mode */
+        --color-success-rgb: var(--color-teal-500-rgb);
+        --color-error-rgb: var(--color-red-500-rgb);
+        --color-warning-rgb: var(--color-orange-500-rgb);
+        --color-info-rgb: var(--color-slate-500-rgb);
+      }
+
+      /* Base styles */
+      html {
+        font-size: var(--font-size-base);
+        font-family: var(--font-family-base);
+        line-height: var(--line-height-normal);
+        color: var(--color-text);
+        background-color: var(--color-background);
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+        font-weight: var(--font-weight-semibold);
+        line-height: var(--line-height-tight);
+        color: var(--color-text);
+        letter-spacing: var(--letter-spacing-tight);
+      }
+
+      h1 {
+        font-size: var(--font-size-4xl);
+      }
+      h2 {
+        font-size: var(--font-size-3xl);
+      }
+      h3 {
+        font-size: var(--font-size-2xl);
+      }
+      h4 {
+        font-size: var(--font-size-xl);
+      }
+      h5 {
+        font-size: var(--font-size-lg);
+      }
+      h6 {
+        font-size: var(--font-size-md);
+      }
+
+      p {
+        margin: 0 0 var(--space-16) 0;
+      }
+
+      a {
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color var(--duration-fast) var(--ease-standard);
+      }
+
+      a:hover {
+        color: var(--color-primary-hover);
+      }
+
+      code,
+      pre {
+        font-family: var(--font-family-mono);
+        font-size: calc(var(--font-size-base) * 0.95);
+        background-color: var(--color-secondary);
+        border-radius: var(--radius-sm);
+      }
+
+      code {
+        padding: var(--space-1) var(--space-4);
+      }
+
+      pre {
+        padding: var(--space-16);
+        margin: var(--space-16) 0;
+        overflow: auto;
+        border: 1px solid var(--color-border);
+      }
+
+      pre code {
+        background: none;
+        padding: 0;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-8) var(--space-16);
+        border-radius: var(--radius-base);
+        font-size: var(--font-size-base);
+        font-weight: 500;
+        line-height: 1.5;
+        cursor: pointer;
+        transition: all var(--duration-normal) var(--ease-standard);
+        border: none;
+        text-decoration: none;
+        position: relative;
+      }
+
+      .btn:focus-visible {
+        outline: none;
+        box-shadow: var(--focus-ring);
+      }
+
+      .btn--primary {
+        background: var(--color-primary);
+        color: var(--color-btn-primary-text);
+      }
+
+      .btn--primary:hover {
+        background: var(--color-primary-hover);
+      }
+
+      .btn--primary:active {
+        background: var(--color-primary-active);
+      }
+
+      .btn--secondary {
+        background: var(--color-secondary);
+        color: var(--color-text);
+      }
+
+      .btn--secondary:hover {
+        background: var(--color-secondary-hover);
+      }
+
+      .btn--secondary:active {
+        background: var(--color-secondary-active);
+      }
+
+      .btn--outline {
+        background: transparent;
+        border: 1px solid var(--color-border);
+        color: var(--color-text);
+      }
+
+      .btn--outline:hover {
+        background: var(--color-secondary);
+      }
+
+      .btn--sm {
+        padding: var(--space-4) var(--space-12);
+        font-size: var(--font-size-sm);
+        border-radius: var(--radius-sm);
+      }
+
+      .btn--lg {
+        padding: var(--space-10) var(--space-20);
+        font-size: var(--font-size-lg);
+        border-radius: var(--radius-md);
+      }
+
+      .btn--full-width {
+        width: 100%;
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Form elements */
+      .form-control {
+        display: block;
+        width: 100%;
+        padding: var(--space-8) var(--space-12);
+        font-size: var(--font-size-md);
+        line-height: 1.5;
+        color: var(--color-text);
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-base);
+        transition: border-color var(--duration-fast) var(--ease-standard),
+          box-shadow var(--duration-fast) var(--ease-standard);
+      }
+
+      textarea.form-control {
+        font-family: var(--font-family-base);
+        font-size: var(--font-size-base);
+      }
+
+      select.form-control {
+        padding: var(--space-8) var(--space-12);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: var(--select-caret-light);
+        background-repeat: no-repeat;
+        background-position: right var(--space-12) center;
+        background-size: 16px;
+        padding-right: var(--space-32);
+      }
+
+      /* Add a dark mode specific caret */
+      @media (prefers-color-scheme: dark) {
+        select.form-control {
+          background-image: var(--select-caret-dark);
+        }
+      }
+
+      /* Also handle data-color-scheme */
+      [data-color-scheme="dark"] select.form-control {
+        background-image: var(--select-caret-dark);
+      }
+
+      [data-color-scheme="light"] select.form-control {
+        background-image: var(--select-caret-light);
+      }
+
+      .form-control:focus {
+        border-color: var(--color-primary);
+        outline: var(--focus-outline);
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: var(--space-8);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-sm);
+      }
+
+      .form-group {
+        margin-bottom: var(--space-16);
+      }
+
+      /* Card component */
+      .card {
+        background-color: var(--color-surface);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-card-border);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        transition: box-shadow var(--duration-normal) var(--ease-standard);
+      }
+
+      .card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .card__body {
+        padding: var(--space-16);
+      }
+
+      .card__header,
+      .card__footer {
+        padding: var(--space-16);
+        border-bottom: 1px solid var(--color-card-border-inner);
+      }
+
+      /* Status indicators - simplified with CSS variables */
+      .status {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--space-6) var(--space-12);
+        border-radius: var(--radius-full);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--font-size-sm);
+      }
+
+      .status--success {
+        background-color: rgba(
+          var(--color-success-rgb, 33, 128, 141),
+          var(--status-bg-opacity)
+        );
+        color: var(--color-success);
+        border: 1px solid
+          rgba(
+            var(--color-success-rgb, 33, 128, 141),
+            var(--status-border-opacity)
+          );
+      }
+
+      .status--error {
+        background-color: rgba(
+          var(--color-error-rgb, 192, 21, 47),
+          var(--status-bg-opacity)
+        );
+        color: var(--color-error);
+        border: 1px solid
+          rgba(
+            var(--color-error-rgb, 192, 21, 47),
+            var(--status-border-opacity)
+          );
+      }
+
+      .status--warning {
+        background-color: rgba(
+          var(--color-warning-rgb, 168, 75, 47),
+          var(--status-bg-opacity)
+        );
+        color: var(--color-warning);
+        border: 1px solid
+          rgba(
+            var(--color-warning-rgb, 168, 75, 47),
+            var(--status-border-opacity)
+          );
+      }
+
+      .status--info {
+        background-color: rgba(
+          var(--color-info-rgb, 98, 108, 113),
+          var(--status-bg-opacity)
+        );
+        color: var(--color-info);
+        border: 1px solid
+          rgba(
+            var(--color-info-rgb, 98, 108, 113),
+            var(--status-border-opacity)
+          );
+      }
+
+      /* Container layout */
+      .container {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: var(--space-16);
+        padding-left: var(--space-16);
+      }
+
+      @media (min-width: 640px) {
+        .container {
+          max-width: var(--container-sm);
+        }
+      }
+      @media (min-width: 768px) {
+        .container {
+          max-width: var(--container-md);
+        }
+      }
+      @media (min-width: 1024px) {
+        .container {
+          max-width: var(--container-lg);
+        }
+      }
+      @media (min-width: 1280px) {
+        .container {
+          max-width: var(--container-xl);
+        }
+      }
+
+      /* Utility classes */
+      .flex {
+        display: flex;
+      }
+      .flex-col {
+        flex-direction: column;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .gap-4 {
+        gap: var(--space-4);
+      }
+      .gap-8 {
+        gap: var(--space-8);
+      }
+      .gap-16 {
+        gap: var(--space-16);
+      }
+
+      .m-0 {
+        margin: 0;
+      }
+      .mt-8 {
+        margin-top: var(--space-8);
+      }
+      .mb-8 {
+        margin-bottom: var(--space-8);
+      }
+      .mx-8 {
+        margin-left: var(--space-8);
+        margin-right: var(--space-8);
+      }
+      .my-8 {
+        margin-top: var(--space-8);
+        margin-bottom: var(--space-8);
+      }
+
+      .p-0 {
+        padding: 0;
+      }
+      .py-8 {
+        padding-top: var(--space-8);
+        padding-bottom: var(--space-8);
+      }
+      .px-8 {
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+      }
+      .py-16 {
+        padding-top: var(--space-16);
+        padding-bottom: var(--space-16);
+      }
+      .px-16 {
+        padding-left: var(--space-16);
+        padding-right: var(--space-16);
+      }
+
+      .block {
+        display: block;
+      }
+      .hidden {
+        display: none;
+      }
+
+      /* Accessibility */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      :focus-visible {
+        outline: var(--focus-outline);
+        outline-offset: 2px;
+      }
+
+      /* Dark mode specifics */
+      [data-color-scheme="dark"] .btn--outline {
+        border: 1px solid var(--color-border-secondary);
+      }
+
+      @font-face {
+        font-family: "FKGroteskNeue";
+        src: url("https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2")
+          format("woff2");
+      }
+
+      /* END PERPLEXITY DESIGN SYSTEM */
+      /* ===== ABOUT PAGE STYLES ===== */
+
+      /* About Hero Section */
+      .about-hero {
+        background: radial-gradient(
+            90% 130% at 10% 10%,
+            var(--color-bg-1),
+            transparent 60%
+          ),
+          radial-gradient(
+            70% 100% at 90% 10%,
+            var(--color-bg-1),
+            transparent 60%
+          ),
+          var(--color-background);
+        padding: var(--space-32) var(--space-16);
+      }
+
+      .about-hero .hero-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+        gap: clamp(var(--space-24), 4vw, var(--space-32));
+        max-width: var(--container-lg);
+        margin: 0 auto;
+      }
+
+      .about-content h1 {
+        font-size: clamp(var(--font-size-4xl), 5vw, 48px);
+        margin: 0 0 var(--space-16) 0;
+        color: var(--color-primary);
+        font-weight: var(--font-weight-bold);
+        line-height: var(--line-height-tight);
+        letter-spacing: var(--letter-spacing-tight);
+      }
+
+      .about-content .lead {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text);
+        margin-bottom: var(--space-16);
+        line-height: var(--line-height-normal);
+      }
+
+      .about-content p {
+        color: var(--color-text);
+        line-height: 1.6;
+        margin-bottom: var(--space-20);
+        font-size: var(--font-size-base);
+      }
+
+      .about-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .about-image img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--color-card-border);
+      }
+
+      /* Vision & Mission Section */
+      .vision-mission {
+        background: var(--color-surface);
+        border-top: 1px solid var(--color-border);
+        padding: var(--space-32) var(--space-16);
+      }
+
+      .vision-mission-inner {
+        max-width: var(--container-lg);
+        margin: 0 auto;
+      }
+
+      .vision-mission h2 {
+        text-align: center;
+        margin-bottom: var(--space-32);
+        color: var(--color-primary);
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-3xl);
+        line-height: var(--line-height-tight);
+        letter-spacing: var(--letter-spacing-tight);
+      }
+
+      .vm-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-32);
+      }
+
+      .vm-card {
+        background: var(--color-background);
+        border: 1px solid var(--color-card-border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-32);
+        box-shadow: var(--shadow-sm);
+        transition: all var(--duration-normal) var(--ease-standard);
+      }
+
+      .vm-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--color-primary-hover);
+      }
+
+      .vm-icon {
+        font-size: 48px;
+        margin-bottom: var(--space-16);
+        text-align: center;
+      }
+
+      .vm-card h3 {
+        color: var(--color-primary);
+        font-size: var(--font-size-2xl);
+        font-weight: var(--font-weight-semibold);
+        margin: 0 0 var(--space-16) 0;
+        text-align: center;
+        line-height: var(--line-height-tight);
+      }
+
+      .vm-card p {
+        color: var(--color-text);
+        line-height: 1.6;
+        margin: 0;
+        text-align: center;
+        font-size: var(--font-size-base);
+      }
+
+      .vm-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .vm-card ul li {
+        color: var(--color-text);
+        margin-bottom: var(--space-12);
+        padding-left: var(--space-24);
+        position: relative;
+        line-height: var(--line-height-normal);
+        font-size: var(--font-size-base);
+      }
+
+      .vm-card ul li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--color-primary);
+        font-weight: var(--font-weight-bold);
+      }
+
+      /* Company History Section */
+      .history {
+        background: var(--color-background);
+        padding: var(--space-32) var(--space-16);
+      }
+
+      .history-inner {
+        max-width: var(--container-lg);
+        margin: 0 auto;
+      }
+
+      .history h2 {
+        text-align: center;
+        margin-bottom: var(--space-32);
+        color: var(--color-primary);
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-3xl);
+        line-height: var(--line-height-tight);
+        letter-spacing: var(--letter-spacing-tight);
+      }
+
+      .history-timeline {
+        position: relative;
+        margin-left: 100px;
+      }
+
+      .history-timeline:before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        bottom: 0;
+        width: var(--space-2);
+        background: var(--color-primary-hover);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: var(--space-32);
+        padding-bottom: var(--space-32);
+      }
+
+      .timeline-item:not(:last-child):after {
+        content: "";
+        position: absolute;
+        left: -56px;
+        top: 0;
+        width: var(--space-12);
+        height: var(--space-12);
+        background: var(--color-primary);
+        border-radius: var(--radius-full);
+        border: 3px solid var(--color-background);
+        box-shadow: 0 0 0 2px var(--color-primary);
+      }
+
+      .timeline-year {
+        position: absolute;
+        left: -120px;
+        top: 0;
+        width: 60px;
+        text-align: right;
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-primary);
+      }
+
+      .timeline-content h3 {
+        color: var(--color-primary);
+        font-size: var(--font-size-2xl);
+        font-weight: var(--font-weight-semibold);
+        margin: 0 0 var(--space-12) 0;
+        line-height: var(--line-height-tight);
+      }
+
+      .timeline-content p {
+        color: var(--color-text);
+        line-height: 1.6;
+        margin: 0;
+        font-size: var(--font-size-base);
+      }
+
+      /* Core Values Section */
+      .core-values {
+        background: var(--color-surface);
+        border-top: 1px solid var(--color-border);
+        padding: var(--space-32) var(--space-16);
+      }
+
+      .values-inner {
+        max-width: var(--container-xl);
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .core-values h2 {
+        margin-bottom: var(--space-16);
+        color: var(--color-primary);
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-3xl);
+        line-height: var(--line-height-tight);
+        letter-spacing: var(--letter-spacing-tight);
+      }
+
+      .values-intro {
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--space-32);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: var(--line-height-normal);
+      }
+
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-24);
+      }
+
+      .value-card {
+        background: var(--color-background);
+        border: 1px solid var(--color-card-border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-32) var(--space-24);
+        box-shadow: var(--shadow-sm);
+        transition: all var(--duration-normal) var(--ease-standard);
+        text-align: center;
+      }
+
+      .value-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--color-primary-hover);
+      }
+
+      .value-icon {
+        font-size: 48px;
+        margin-bottom: var(--space-20);
+      }
+
+      .value-card h3 {
+        color: var(--color-primary);
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+        margin: 0 0 var(--space-12) 0;
+        line-height: var(--line-height-tight);
+      }
+
+      .value-card p {
+        color: var(--color-text);
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-normal);
+        margin: 0;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 980px) {
+        .about-hero .hero-inner {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .about-image {
+          order: -1;
+        }
+
+        .vm-grid {
+          grid-template-columns: 1fr;
+          gap: var(--space-24);
+        }
+
+        .history-timeline {
+          margin-left: 60px;
+        }
+
+        .timeline-year {
+          left: -80px;
+          width: 50px;
+        }
+
+        .values-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: var(--space-20);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .about-hero {
+          padding: var(--space-24) var(--space-16);
+        }
+
+        .vm-card {
+          padding: var(--space-24) var(--space-20);
+        }
+
+        .vm-card h3 {
+          font-size: var(--font-size-xl);
+        }
+
+        .history-timeline {
+          margin-left: var(--space-20);
+        }
+
+        .history-timeline:before {
+          left: -var(--space-10);
+        }
+
+        .timeline-item:not(:last-child):after {
+          left: -var(--space-16);
+        }
+
+        .timeline-year {
+          position: relative;
+          left: auto;
+          width: auto;
+          text-align: left;
+          margin-bottom: var(--space-8);
+          background: var(--color-primary);
+          color: var(--color-btn-primary-text);
+          padding: var(--space-4) var(--space-12);
+          border-radius: var(--radius-full);
+          display: inline-block;
+          font-size: var(--font-size-sm);
+        }
+
+        .values-grid {
+          grid-template-columns: 1fr;
+          gap: var(--space-16);
+        }
+
+        .value-card {
+          padding: var(--space-24) var(--space-20);
+        }
+
+        .value-icon {
+          font-size: 40px;
+          margin-bottom: var(--space-16);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .about-hero {
+          padding: var(--space-20) var(--space-12);
+        }
+
+        .about-hero .hero-inner {
+          gap: var(--space-20);
+        }
+
+        .about-content h1 {
+          font-size: var(--font-size-3xl);
+          margin-bottom: var(--space-12);
+        }
+
+        .about-content .lead {
+          font-size: var(--font-size-lg);
+          margin-bottom: var(--space-12);
+        }
+
+        .about-content p {
+          font-size: var(--font-size-sm);
+          margin-bottom: var(--space-16);
+        }
+
+        .vision-mission,
+        .history,
+        .core-values {
+          padding: var(--space-24) var(--space-12);
+        }
+
+        .vision-mission h2,
+        .history h2,
+        .core-values h2 {
+          font-size: var(--font-size-2xl);
+          margin-bottom: var(--space-24);
+        }
+
+        .vm-card,
+        .value-card {
+          padding: var(--space-20) var(--space-16);
+        }
+
+        .vm-card h3 {
+          font-size: var(--font-size-lg);
+        }
+
+        .value-card h3 {
+          font-size: var(--font-size-lg);
+        }
+
+        .timeline-content h3 {
+          font-size: var(--font-size-lg);
+        }
+
+        .vm-icon,
+        .value-icon {
+          font-size: 36px;
+          margin-bottom: var(--space-12);
+        }
+
+        .values-intro {
+          font-size: var(--font-size-base);
+          margin-bottom: var(--space-24);
+        }
+      }
+    </style>
   </head>
-  <body style="background-color: white;">
+  <body class="mechanical-page">
     <!-- Header -->
-    <header class="site-header" role="banner">
+    <header class="site-header" role="banner" id="home">
       <div class="topbar">
-        <div class="brand" aria-label="Kevin Guna Pratama">
+        <div class="brand" aria-label="Guna Cipta Sinergi">
           <picture>
-            <source srcset="images/logoKGP.png" type="image/png" />
-            <img class="brand-logo" src="images/logoKGP.jpg" alt="KGP" />
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="brand-logo" src="images/logoGCS.jpg" alt="GCS" />
           </picture>
           <div class="brand-text">
-            <div class="name">Kevin Guna Pratama</div>
+            <div class="name">Guna Cipta Sinergi</div>
             <div class="tag">Repair • Maintenance • Upgrades</div>
           </div>
         </div>
+
         <div class="partners" aria-label="Partners">
           <picture>
-            <source srcset="images/logoGCS.png" type="image/png" />
-            <img class="partner-plain" src="images/logoGCS.jpg" alt="GCS" />
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              <img src="images/logoKGP.png" alt="Instagram" />
+            </a>
           </picture>
-          <div class="partner-logo" aria-hidden="true" style="display: grid; place-items: center; width: 90px">Bank B</div>
-          <div class="partner-logo" aria-hidden="true" style="display: grid; place-items: center; width: 90px">Vendor C</div>
         </div>
       </div>
+
       <nav class="nav" aria-label="Primary">
+        <button class="burger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <ul class="nav-list">
           <li class="nav-item"><a href="index.html">Home</a></li>
+
           <li class="nav-item">
             <a href="#">Products & Services <span class="chev">▼</span></a>
-            <div class="dropdown" role="menu" aria-label="Products & Services submenu">
+            <div
+              class="dropdown"
+              role="menu"
+              aria-label="Products & Services submenu"
+            >
               <a href="mechanical-electrical.html">Mechanical Electrical</a>
               <a href="logistic-warehouse.html">Logistic & Warehouse</a>
               <a href="ups-rework.html">UPS Rework</a>
-              <a href="customer-support-engineer.html">Customer Support Engineer</a>
+              <a href="customer-support-engineer.html"
+                >Customer Support Engineer</a
+              >
               <a href="call-center.html">Call Center</a>
               <a href="monitoring.html">Monitoring</a>
               <a href="ducting-system.html">Ducting System</a>
-              <a href="workshop-maintenance-lcd.html">Workshop Maintenance LCD</a>
+              <a href="workshop-maintenance-lcd.html"
+                >Workshop Maintenance LCD</a
+              >
               <a href="cassette-rework.html">Cassette Rework</a>
               <a href="atm-module-rework.html">ATM Module Rework</a>
               <a href="plumbing.html">Plumbing</a>
             </div>
           </li>
-          <li class="nav-item"><a href="index.html#service-points">Service Points</a></li>
-          <li class="nav-item"><a href="about.html" class="active">About Us</a></li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#service-points">Service Points</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="about.html">About Us</a>
+          </li>
         </ul>
+
         <div class="right-tools">
           <div class="lang-switch" role="radiogroup" aria-label="Language">
             <button type="button" class="active" aria-pressed="true">EN</button>
@@ -68,154 +1335,249 @@
         </div>
       </nav>
     </header>
-
-    <!-- About Us Content -->
-    <main class="about-us container py-5" id="about" style="background-color: white;">
-      <div class="row align-items-center"  style="background-color: white;">
-        <!-- Kolom kiri: gambar -->
-        <div class="col-md-6 mb-4 mb-md-0">
-          <img src="images/jumbotron1.jpg" alt="About Kevin Guna Pratama" class="img-fluid rounded shadow" />
-        </div>
-
-        <!-- Kolom kanan: teks -->
-        <div class="col-md-6">
-          <h1 class="mb-4">About Us</h1>
-          <p>
-            <strong>PT. Kevin Guna Pratama (KGP)</strong> adalah perusahaan nasional yang bergerak di bidang
-            <em>ATM Maintenance & Services</em>. Kami berfokus pada layanan <b>perbaikan, perawatan, dan peningkatan</b> kualitas mesin ATM dengan standar industri terbaik.
-          </p>
-          <p>
-            Berdiri sejak tahun <b>2014</b>, KGP telah berkembang dari skala regional menjadi <b>mitra nasional</b> yang dipercaya berbagai bank dan vendor besar. Dengan filosofi
-            <i>"fix-first, replace-last"</i>, kami menghadirkan layanan yang <b>hemat biaya, cepat, dan andal</b>.
-          </p>
-          <p>
-            Hingga kini, KGP telah menangani lebih dari <b>5000 unit mesin ATM</b> di berbagai kota besar Indonesia, dengan dukungan teknisi tersertifikasi yang siap menjaga <b>operasional perbankan tetap lancar</b>.
-          </p>
-          <a href="contact.html" class="btn btn-primary mt-3">Get in Touch</a>
-        </div>
-      </div>
-
-      <!-- Visi & Misi -->
-      <section class="mt-5"  style="background-color: white;">
-        <h2 class="mb-4 text-center">Visi & Misi</h2>
-        <div class="row text-center">
-          <div class="col-md-6 mb-4">
-            <div class="card shadow-sm h-100">
-              <div class="card-body">
-                <h3 class="card-title">Visi</h3>
-                <p>
-                  Menjadi mitra terpercaya dalam layanan teknologi finansial dengan menghadirkan solusi inovatif untuk perawatan dan perbaikan ATM di Indonesia.
-                </p>
-              </div>
-            </div>
+    <!-- About Us Hero Section -->
+    <section class="hero about-hero">
+      <div class="hero-inner">
+        <div class="about-content">
+          <h1>Tentang Kami</h1>
+          <div class="lead">
+            PT. Guna Cipta Sinergi didirikan pada bulan September 2019, sebagai
+            perluasan dari PT Guna Cahaya Synergie, yang didirikan pada
+            September 2006, awalnya untuk melayani bisnis Service & Repair dari
+            beberapa perusahaan multinasional.
           </div>
-          <div class="col-md-6 mb-4">
-            <div class="card shadow-sm h-100">
-              <div class="card-body">
-                <h3 class="card-title">Misi</h3>
-                <ul class="text-start">
-                  <li>Menyediakan layanan perawatan ATM yang andal dan tepat waktu.</li>
-                  <li>Meminimalisir downtime dengan solusi cepat & akurat.</li>
-                  <li>Mengedepankan efisiensi melalui filosofi fix-first, replace-last.</li>
-                  <li>Menjadi partner strategis bank & vendor nasional.</li>
-                </ul>
-              </div>
-            </div>
+          <p>
+            Dengan usaha dan kerja keras, kami ingin menjadi perusahaan yang
+            berkontribusi dalam pembangunan dan konstruksi Indonesia menjadi
+            negara yang lebih maju. Kami telah melayani kebutuhan pelanggan
+            untuk layanan ATM berbasis IT dan perangkat pendukung di seluruh
+            Indonesia selama lebih dari 6 tahun.
+          </p>
+          <div class="badge">
+            <span>🏢</span>
+            Established 2019
           </div>
         </div>
-      </section>
-    </main>
-
-    <!-- Sejarah -->
-    <section class="mt-5"  style="background-color: white;">
-      <h2 class="mb-4 text-center">Sejarah Perusahaan</h2>
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <p>
-            PT. Kevin Guna Pratama (KGP) berdiri pada tahun <b>2014</b> di Jakarta dengan fokus utama pada layanan <em>ATM Maintenance & Services</em>. Awalnya hanya melayani skala regional di Jabodetabek, kini KGP telah berkembang menjadi
-            <b>mitra nasional</b> yang dipercaya berbagai bank dan vendor besar.
-          </p>
-          <p>
-            Dengan pengalaman lebih dari <b>10 tahun</b>, KGP berkomitmen menghadirkan layanan yang cepat, tepat, dan efisien. Filosofi kami <i>"fix-first, replace-last"</i> menjadi pondasi dalam setiap pekerjaan hingga hari ini.
-          </p>
+        <div class="about-image">
+          <img
+            src="images/about-office.jpg"
+            alt="PT. Guna Cipta Sinergi Office"
+          />
         </div>
       </div>
     </section>
 
-    <!-- Core Values -->
-    <section class="mt-5"  style="background-color: white;">
-      <h2 class="mb-4 text-center">Core Values</h2>
-      <div class="row text-center">
-        <div class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h4>Integritas</h4>
-              <p>Kami menjaga kepercayaan dengan mengutamakan kejujuran dan tanggung jawab.</p>
-            </div>
+    <!-- Vision & Mission Section -->
+    <section class="section vision-mission">
+      <div class="vision-mission-inner">
+        <h2>Visi & Misi</h2>
+        <div class="vm-grid">
+          <div class="vm-card vision">
+            <div class="vm-icon">🎯</div>
+            <h3>Visi</h3>
+            <p>
+              Menjadi perusahaan yang unggul dan terpilih di sektor jasa
+              konstruksi karena kemampuan dukungan/kerja tim yang baik.
+            </p>
           </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h4>Profesionalisme</h4>
-              <p>Layanan diberikan oleh teknisi berpengalaman dan bersertifikasi nasional.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h4>Kecepatan</h4>
-              <p>Respon cepat 24/7 dengan solusi efektif untuk meminimalisir downtime ATM.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h4>Inovasi</h4>
-              <p>Kami selalu mencari cara baru dan kreatif untuk meningkatkan kualitas layanan.</p>
-            </div>
+          <div class="vm-card mission">
+            <div class="vm-icon">🚀</div>
+            <h3>Misi</h3>
+            <ul>
+              <li>Bekerja dengan fokus pada hasil yang baik</li>
+              <li>Selalu memberikan pengawasan yang ketat</li>
+              <li>Memastikan kontrol kualitas yang baik</li>
+              <li>Memaksimalkan peluang dalam lingkungan yang kompetitif</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Keunggulan -->
-    <section class="mt-5"  style="background-color: white;">
-      <h2 class="mb-4 text-center">Mengapa Memilih KGP?</h2>
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm h-100">
-            <div class="card-body">
-              <h5>✅ Jaringan Nasional</h5>
-              <p>Service points tersebar di lebih dari <b>15 kota besar</b> Indonesia.</p>
-              <h5>✅ Respon 24/7</h5>
-              <p>Layanan tersedia kapan pun untuk menjaga kelancaran operasional ATM Anda.</p>
+    <!-- Company History Section -->
+    <section class="section history">
+      <div class="history-inner">
+        <h2>Sejarah Perusahaan</h2>
+        <div class="history-timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">2006</div>
+            <div class="timeline-content">
+              <h3>Awal Mula</h3>
+              <p>
+                PT Guna Cahaya Synergie didirikan pada September 2006, dimulai
+                sebagai perusahaan yang melayani bisnis Service & Repair untuk
+                beberapa perusahaan multinasional. Dengan komitmen terhadap
+                kualitas layanan, kami mulai membangun reputasi sebagai penyedia
+                jasa teknis yang andal.
+              </p>
             </div>
           </div>
-        </div>
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm h-100">
-            <div class="card-body">
-              <h5>✅ Teknisi Tersertifikasi</h5>
-              <p>Tim dilengkapi dengan pelatihan resmi dan sertifikasi BNSP.</p>
-              <h5>✅ Filosofi Fix-First</h5>
-              <p>Kami mengutamakan perbaikan sebelum penggantian untuk solusi yang hemat biaya.</p>
+          <div class="timeline-item">
+            <div class="timeline-year">2019</div>
+            <div class="timeline-content">
+              <h3>Ekspansi & Transformasi</h3>
+              <p>
+                PT. Guna Cipta Sinergi didirikan sebagai perluasan dari PT Guna
+                Cahaya Synergie. Dengan pengalaman lebih dari satu dekade, kami
+                memperluas layanan untuk mencakup berbagai sektor teknologi dan
+                konstruksi, dengan fokus khusus pada layanan ATM dan
+                infrastruktur pendukungnya.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-content">
+              <h3>Fokus ATM Services</h3>
+              <p>
+                Mengamati kebutuhan pelanggan untuk layanan ATM berbasis IT dan
+                perangkat pendukung di seluruh Indonesia, GCS mulai
+                berkontribusi dan mendukung kebutuhan tersebut. Dengan modal
+                kepercayaan pelanggan, kemampuan dan kualitas, serta staf yang
+                terampil dan berpengalaman.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-content">
+              <h3>Masa Kini</h3>
+              <p>
+                Hari ini, GCS telah menjadi penyedia layanan teknis terpercaya
+                dengan lebih dari 126 titik layanan di seluruh Indonesia,
+                melayani berbagai sektor termasuk Field Engineer, ATM Repair
+                Center, UPS Repair, Mechanical Electrical, AC Ducting &
+                Plumbing, dan Human Resource Support.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="text-center py-5 bg-light mt-5">
-      <h2 class="mb-3">Ingin tahu lebih banyak?</h2>
-      <p class="mb-4">KGP siap menjadi mitra strategis bank dan vendor Anda dalam menjaga keandalan mesin ATM di seluruh Indonesia.</p>
-      <a href="contact.html" class="btn btn-primary btn-lg">Hubungi Kami Sekarang</a>
+    <!-- Core Values Section -->
+    <section class="section core-values">
+      <div class="values-inner">
+        <h2>Nilai-Nilai Inti</h2>
+        <p class="values-intro">
+          Nilai-nilai yang menjadi fondasi dalam setiap layanan yang kami
+          berikan kepada pelanggan.
+        </p>
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-icon">🔧</div>
+            <h3>Keunggulan Teknis</h3>
+            <p>
+              Kami berkomitmen untuk selalu memberikan solusi teknis terbaik
+              dengan menggunakan teknologi terdepan dan tenaga ahli yang
+              berpengalaman.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🤝</div>
+            <h3>Kerja Tim</h3>
+            <p>
+              Kekuatan utama kami terletak pada kemampuan berkolaborasi dan
+              bekerja sama sebagai tim yang solid untuk mencapai hasil terbaik.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">⚡</div>
+            <h3>Responsivitas</h3>
+            <p>
+              Dengan SLA 4 jam resolution time, kami memastikan setiap
+              permasalahan ditangani dengan cepat dan tepat waktu.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🎯</div>
+            <h3>Fokus Kualitas</h3>
+            <p>
+              Setiap layanan kami lakukan dengan pengawasan ketat dan kontrol
+              kualitas yang baik untuk memastikan kepuasan pelanggan.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🌟</div>
+            <h3>Inovasi</h3>
+            <p>
+              Kami terus berinovasi dalam memberikan solusi terbaik dan
+              memaksimalkan peluang dalam lingkungan yang kompetitif.
+            </p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🛡️</div>
+            <h3>Kepercayaan</h3>
+            <p>
+              Kepercayaan pelanggan adalah aset terbesar kami. Kami selalu
+              menjunjung tinggi dan menjaga kepercayaan yang telah diberikan.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Company Info Section -->
+        <div class="footer-section">
+          <img
+            src="images/logoGCS.png"
+            alt="PT. Guna Cipta Sinergi"
+            class="footer-logo"
+          />
+          <p>
+            PT. Guna Cipta Sinergi is Indonesia's leading ATM maintenance and
+            technical service provider. We specialize in comprehensive repair,
+            maintenance, and support services for ATM terminals across major
+            Indonesian cities, ensuring maximum uptime and compliance with
+            industry standards.
+          </p>
+          <p>
+            With our fix-first, replace-last philosophy, we deliver
+            cost-effective solutions while maintaining the highest service
+            quality standards in the financial technology sector.
+          </p>
+        </div>
 
-    
+        <!-- Navigation Section -->
+        <div class="footer-section footer-nav">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#service-points">Service Points</a></li>
+            <li><a href="#about">About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Products & Services Section -->
+        <div class="footer-section footer-services">
+          <h3>Products & Services</h3>
+          <ul>
+            <li>
+              <a href="mechanical-electrical.html">Mechanical Electrical</a>
+            </li>
+            <li><a href="logistic-warehouse.html">Logistic & Warehouse</a></li>
+            <li><a href="ups-rework.html">UPS Rework</a></li>
+            <li>
+              <a href="customer-support-engineer.html"
+                >Customer Support Engineer</a
+              >
+            </li>
+            <li><a href="call-center.html">Call Center</a></li>
+            <li><a href="monitoring.html">Monitoring</a></li>
+            <li><a href="ducting-system.html">Ducting System</a></li>
+            <li>
+              <a href="workshop-maintenance-lcd.html"
+                >Workshop Maintenance LCD</a
+              >
+            </li>
+            <li><a href="cassette-rework.html">Cassette Rework</a></li>
+            <li><a href="atm-module-rework.html">ATM Module Rework</a></li>
+            <li><a href="plumbing.html">Plumbing</a></li>
+          </ul>
+        </div>
+
         <!-- Contact Section -->
         <div class="footer-section">
           <h3>Contact Us</h3>
@@ -223,7 +1585,7 @@
             <i>✉</i>
             <div>
               <strong>Email:</strong><br />
-              support@kevingunapratama.com
+              admin@gcsinergie.com
             </div>
           </div>
           <div class="contact-item">
@@ -235,20 +1597,34 @@
             </div>
           </div>
 
+          <!-- replace the existing .social-buttons block in the footer with this -->
           <div class="social-buttons">
             <a
-              href="http://wa.me/6285282801856"
+              href="https://wa.me/6285282801856"
               target="_blank"
+              aria-label="WhatsApp"
               class="social-btn"
             >
               <img src="images/logoWhatsApp.png" alt="WhatsApp" />
             </a>
+
             <a
-              href="https://instagram.com/kevin.gunapratama"
+              href="https://instagram.com/gunaciptasinergi"
               target="_blank"
+              aria-label="Instagram"
               class="social-btn"
             >
               <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+
+            <!-- Maps button (same footer style) -->
+            <a
+              href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              aria-label="Maps"
+              class="social-btn"
+            >
+              <img src="images/logoMaps.png" alt="Maps" />
             </a>
           </div>
         </div>
@@ -256,13 +1632,22 @@
 
       <div class="footer-bottom">
         <p>
-          &copy; <e id="y"></e> PT. Kevin Guna Pratama. All rights reserved.
+          &copy; <a id="y"></a> PT. Guna Cipta Sinergi. All rights reserved.
         </p>
       </div>
     </footer>
+
     <script>
-      // Set current year in footer
       document.getElementById("y").textContent = new Date().getFullYear();
+      const burger = document.querySelector(".burger");
+      const navList = document.querySelector(".nav-list");
+      if (burger && navList) {
+        burger.addEventListener("click", () => {
+          const expanded = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!expanded));
+          navList.classList.toggle("open");
+        });
+      }
     </script>
   </body>
 </html>
