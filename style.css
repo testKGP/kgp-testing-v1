@@ -2461,6 +2461,11 @@ html {
   will-change: transform;
   padding: 4px;
 }
+@media (hover: hover) and (pointer: fine) {
+  .news-carousel {
+    touch-action: auto;
+  }
+}
 
 /* News Card Styles */
 .news-card {
@@ -2739,7 +2744,7 @@ html {
 }
 
 /* Mobile-only touch-enabled rules (keeps desktop sizes unchanged) */
-@media (max-width: 900px) {
+@media (hover: none) and (pointer: coarse) {
   .news-carousel.touch-enabled {
     overflow-x: auto !important;
     overflow-y: hidden !important;
@@ -2764,6 +2769,20 @@ html {
     scroll-snap-align: start !important;
   }
 }
+@media (hover: hover) and (pointer: fine) {
+  .news-carousel,
+  .news-carousel.touch-enabled {
+    overflow-x: hidden !important;
+    overscroll-behavior-x: none !important;
+    -webkit-overflow-scrolling: auto !important;
+    scroll-behavior: auto !important;
+  }
+
+  .news-cards-container.touch-enabled {
+    scroll-snap-type: none !important;
+  }
+}
+
 /* Ensure carousel viewport hides overflow but does not offset children */
 .news-carousel {
   overflow: hidden;
@@ -3423,4 +3442,38 @@ html.at-top .nav {
   [id] {
     scroll-margin-top: calc(var(--header-h) + 24px);
   }
+}
+/* --- FORCE: disable native horizontal scrolling on desktop so cards stay clickable --- */
+@media (hover: hover) and (pointer: fine) {
+  .news-carousel {
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: auto !important;
+    touch-action: none !important; /* prevents pointer gestures from hijacking click */
+    overscroll-behavior-x: contain !important;
+  }
+
+  .news-cards-container,
+  .news-cards-container .news-card {
+    pointer-events: auto !important; /* ensure cards receive click events */
+    user-select: auto !important;
+    touch-action: manipulation !important;
+  }
+}
+/* Our Clients — remove the box entirely */
+.section.clients .client-logo,
+.section.clients .clients-grid .client-logo {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Keep hover clean (no border/shadow/background) */
+.section.clients .client-logo:hover,
+.section.clients .clients-grid .client-logo:hover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important; /* prevents the card look on hover */
+  /* optional: comment out if a small lift is still desired */
+  /* transform: none !important; */
 }
