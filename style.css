@@ -3443,3 +3443,19 @@ html.at-top .nav {
     scroll-margin-top: calc(var(--header-h) + 24px);
   }
 }
+/* --- FORCE: disable native horizontal scrolling on desktop so cards stay clickable --- */
+@media (hover: hover) and (pointer: fine) {
+  .news-carousel {
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: auto !important;
+    touch-action: none !important; /* prevents pointer gestures from hijacking click */
+    overscroll-behavior-x: contain !important;
+  }
+
+  .news-cards-container,
+  .news-cards-container .news-card {
+    pointer-events: auto !important; /* ensure cards receive click events */
+    user-select: auto !important;
+    touch-action: manipulation !important;
+  }
+}

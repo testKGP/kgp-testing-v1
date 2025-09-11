@@ -1940,8 +1940,11 @@
               );
 
             const pointerDown = (e) => {
-              // only left mouse button for mouse
-              if (e.pointerType === "mouse" && e.button !== 0) return;
+              // IMPORTANT: ignore mouse pointer drags so desktop left-clicks remain normal.
+              // Only start a drag for touch/pen (or when the browser reports a true touch pointer).
+              // DevTools mobile emulation will usually report pointerType === 'touch', so it still works there.
+              if (e.pointerType === "mouse") return; // <--- prevents intercepting desktop clicks
+
               isDragging = true;
               startX = e.clientX;
               deltaX = 0;
@@ -1949,15 +1952,15 @@
               track.style.transition = "none";
               try {
                 track.setPointerCapture && track.setPointerCapture(e.pointerId);
-              } catch (err) {}
-              // stop any autoplay / other movement if present
+              } catch (err) {
+                /* ignore */
+              }
             };
 
             const pointerMove = (e) => {
               if (!isDragging) return;
               deltaX = e.clientX - startX;
               let pos = startScroll - deltaX;
-              // clamp pos
               pos = Math.max(0, Math.min(getMaxScroll(), pos));
               track.style.transform = `translateX(-${pos}px)`;
             };
@@ -1971,22 +1974,43 @@
               } catch (err) {}
               const abs = Math.abs(deltaX);
               const cardW = getCardWidth();
-              const threshold = cardW * 0.12; // small threshold to consider a swipe
-              // If user swiped far enough, move one card in direction, otherwise snap back
+              const threshold = cardW * 0.12;
               if (abs > threshold) {
-                if (deltaX > 0) {
-                  // dragged right -> show previous
-                  this.scrollLeft();
-                } else {
-                  // dragged left -> show next
-                  this.scrollRight();
-                }
+                if (deltaX > 0) this.scrollLeft();
+                else this.scrollRight();
               } else {
-                // Snap back to current scrollPosition (the JS scrollLeft/Right manage clamping)
                 this.animateScroll(this.scrollPosition || 0);
               }
               deltaX = 0;
             };
+
+            // Attach listeners — allow non-passive so touch-defaults can be prevented by other code if needed
+            track.addEventListener("pointerdown", pointerDown, {
+              passive: false,
+            });
+            window.addEventListener("pointermove", pointerMove, {
+              passive: false,
+            });
+            window.addEventListener("pointerup", pointerUp, { passive: false });
+
+            // touch fallbacks (mirror pointer logic)
+            track.addEventListener(
+              "touchstart",
+              (ev) =>
+                pointerDown(ev.changedTouches ? ev.changedTouches[0] : ev),
+              { passive: false }
+            );
+            window.addEventListener(
+              "touchmove",
+              (ev) =>
+                pointerMove(ev.changedTouches ? ev.changedTouches[0] : ev),
+              { passive: false }
+            );
+            window.addEventListener(
+              "touchend",
+              (ev) => pointerUp(ev.changedTouches ? ev.changedTouches[0] : ev),
+              { passive: false }
+            );
 
             // Pointer events: work with touch, pen, mouse and DevTools emulation
             track.addEventListener("pointerdown", pointerDown, {
@@ -2334,7 +2358,13 @@
           (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
 
         // Force native scroll only on touch devices AND narrow viewports
-        const shouldForceNative = isTouch && window.innerWidth <= 900;
+        // Only force native scrolling when it's a real touch device (multiple touch points)
+        // AND on narrow viewports. This avoids enabling native scroll when desktop is in devtools touch emulation.
+        const shouldForceNative =
+          isTouch &&
+          window.innerWidth <= 900 &&
+          navigator.maxTouchPoints &&
+          navigator.maxTouchPoints > 1;
 
         if (!shouldForceNative) {
           // Revert any previous forced state (keeps desktop behavior unchanged)
