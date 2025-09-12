@@ -57,6 +57,36 @@
             >
               <img src="images/logoKGP.png" alt="Instagram" />
             </a>
+            <a
+              href="https://indokontraktor.com/business/guna-cahaya-synergie-kota-adm-jakarta-barat"
+              target="_blank"
+              rel="noopener"
+              aria-label="Guna Cahaya Synergie"
+            >
+              <img
+                class="partner-plain"
+                src="images/logoCahaya.png"
+                alt="Guna Cahaya Synergie"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+
+            <!-- New: logoHKS linking to HAKAES homepage -->
+            <a
+              href="https://hakaes.com/home"
+              target="_blank"
+              rel="noopener"
+              aria-label="HAKAES (HKS)"
+            >
+              <img
+                class="partner-plain"
+                src="images/logoHKS.png"
+                alt="KHS"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
           </picture>
         </div>
       </div>
@@ -101,6 +131,10 @@
 
           <li class="nav-item">
             <a href="about.html">About Us</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="career.html">Career</a>
           </li>
         </ul>
 
@@ -187,62 +221,85 @@
           </p>
         </div>
 
+        <!-- REPLACE the existing .map-container block with this -->
         <div class="map-container">
-          <img
-            src="images/mapIndonesia.svg"
-            alt="Indonesia Map"
-            class="indonesia-map"
-          />
+          <div class="map-inner">
+            <!-- LEFT: stats boxes -->
+            <div class="map-stats" aria-hidden="false">
+              <div class="stat-box" role="group" aria-label="Technicians">
+                <div class="stat-num">🛠 285</div>
+                <div class="stat-label">Technicians</div>
+              </div>
 
-          <!-- Repositioned markers for better accuracy -->
-          <div
-            class="location-marker"
-            data-city="Jawa"
-            style="top: 63%; left: 38%"
-          >
-            <img src="images/locationIcon.svg" alt="Jawa" />
-          </div>
-          <div
-            class="location-marker"
-            data-city="Sumatra"
-            style="top: 37%; left: 20%"
-          >
-            <img src="images/locationIcon.svg" alt="Sumatra" />
-          </div>
-          <div
-            class="location-marker"
-            data-city="Nusa Tenggara"
-            style="top: 70%; left: 55%"
-          >
-            <img src="images/locationIcon.svg" alt="Nusa Tenggara" />
-          </div>
-          <div
-            class="location-marker"
-            data-city="Papua"
-            style="top: 52%; left: 90%"
-          >
-            <img src="images/locationIcon.svg" alt="Papua" />
-          </div>
-          <div
-            class="location-marker"
-            data-city="Kalimantan"
-            style="top: 40%; left: 42%"
-          >
-            <img src="images/locationIcon.svg" alt="Kalimantan" />
-          </div>
-          <div
-            class="location-marker"
-            data-city="Maluku"
-            style="top: 31%; left: 69%"
-          >
-            <img src="images/locationIcon.svg" alt="Maluku" />
-          </div>
-          <div
-            class="location-marker"
-            data-city="Sulawesi"
-            style="top: 43%; left: 55%"
-          >
-            <img src="images/locationIcon.svg" alt="Sulawesi" />
+              <div class="stat-box" role="group" aria-label="Service Points">
+                <div class="stat-num">📍 126</div>
+                <div class="stat-label">Service Points</div>
+              </div>
+            </div>
+
+            <!-- RIGHT: white card that contains the map and the markers -->
+            <div
+              class="map-card"
+              role="img"
+              aria-label="Map of Indonesia showing service points"
+            >
+              <img
+                src="images/mapIndonesia.svg"
+                alt="Indonesia Map"
+                class="indonesia-map"
+              />
+
+              <!-- Keep your existing markers here (moved inside .map-card) -->
+              <div
+                class="location-marker"
+                data-city="Jawa"
+                style="top: 63%; left: 38%"
+              >
+                <img src="images/locationIcon.svg" alt="Jawa" />
+              </div>
+              <div
+                class="location-marker"
+                data-city="Sumatra"
+                style="top: 37%; left: 20%"
+              >
+                <img src="images/locationIcon.svg" alt="Sumatra" />
+              </div>
+              <div
+                class="location-marker"
+                data-city="Nusa Tenggara"
+                style="top: 70%; left: 55%"
+              >
+                <img src="images/locationIcon.svg" alt="Nusa Tenggara" />
+              </div>
+              <div
+                class="location-marker"
+                data-city="Papua"
+                style="top: 52%; left: 90%"
+              >
+                <img src="images/locationIcon.svg" alt="Papua" />
+              </div>
+              <div
+                class="location-marker"
+                data-city="Kalimantan"
+                style="top: 40%; left: 42%"
+              >
+                <img src="images/locationIcon.svg" alt="Kalimantan" />
+              </div>
+              <div
+                class="location-marker"
+                data-city="Maluku"
+                style="top: 31%; left: 69%"
+              >
+                <img src="images/locationIcon.svg" alt="Maluku" />
+              </div>
+              <div
+                class="location-marker"
+                data-city="Sulawesi"
+                style="top: 43%; left: 55%"
+              >
+                <img src="images/locationIcon.svg" alt="Sulawesi" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -767,6 +824,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="#service-points">Service Points</a></li>
             <li><a href="about.html">About Us</a></li>
+            <li><a href="career.html">Career</a></li>
           </ul>
         </div>
 
@@ -1868,9 +1926,14 @@
       // News ATM Finance Section - NewsData.io Integration
       class NewsATMSection {
         constructor() {
-          // NewsData.io API Configuration
-          this.API_TOKEN = "pub_ecef83154c334c219e0a0c345d71611e";
+          // NewsData.io config — client must NOT include a token
+          this.API_TOKEN = ""; // removed from client for security
           this.API_ENDPOINT = "https://newsdata.io/api/1/latest";
+
+          // Use the Cloudflare Worker proxy (set to your deployed Worker URL)
+          this.USE_PROXY = true;
+          this.PROXY_ENDPOINT =
+            "https://news-proxy.kevingunapratamakv.workers.dev/news"; // <- exact workers.dev URL from your dashboard
 
           // Alternative: Use server proxy for security (recommended for production)
           this.USE_PROXY = false; // Set to true when using server proxy
@@ -2096,33 +2159,34 @@
         }
 
         async fetchNews(page = 0) {
+          // Build parameters; don't include API key when using proxy
           const params = {
-            apikey: this.API_TOKEN,
             q: this.query,
-            country: "id", // Indonesia
-            language: "id", // Indonesian language
+            country: "id",
+            language: "id",
             size: this.pageSize,
           };
 
-          // Add nextPage token for pagination (NewsData.io style)
           if (page > 0 && this.nextPage) {
             params.page = this.nextPage;
+          }
+
+          if (!this.USE_PROXY && this.API_TOKEN) {
+            params.apikey = this.API_TOKEN;
           }
 
           const url = this.USE_PROXY
             ? `${this.PROXY_ENDPOINT}?${new URLSearchParams(params).toString()}`
             : `${this.API_ENDPOINT}?${new URLSearchParams(params).toString()}`;
 
-          console.log("Fetching news from NewsData.io...");
+          console.log("Fetching news from:", url);
 
-          const response = await fetch(url);
-
+          const response = await fetch(url, { method: "GET" });
           if (!response.ok) {
             const errorText = await response.text();
             console.error("API Error:", response.status, errorText);
             throw new Error(`HTTP ${response.status}: ${errorText}`);
           }
-
           return await response.json();
         }
 
