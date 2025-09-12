@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="images/logoFavicon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Perbaikan Modul ATM — Layanan Guna Cipta Sinergi</title>
+    <meta
+      name="description"
+      content="Comprehensive ATM module repair and rework services ensuring reliable performance, high-quality standards, and quick turnaround times."
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Page-scoped CTA: only affects atm-module-rework.html */
+      body.mechanical-page .cta-section {
+        background: #f8f9ff;
+        color: var(--ink-900);
+        border-top: 1px solid #e9ecf8;
+        padding: clamp(28px, 5vw, 56px) var(--padX);
+      }
+      body.mechanical-page .cta-section .cta-container h2,
+      body.mechanical-page .cta-section .cta-container p {
+        color: var(--ink-900);
+      }
+      body.mechanical-page .cta-section .btn.primary {
+        background: var(--brand);
+        color: #fff;
+        border-color: var(--brand);
+      }
+      body.mechanical-page .cta-section .btn.secondary {
+        background: transparent;
+        color: var(--brand);
+        border-color: var(--brand);
+      }
+      body.mechanical-page .cta-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="mechanical-page">
+    <!-- Header -->
+    <header class="site-header" role="banner" id="home">
+      <div class="topbar">
+        <div class="brand" aria-label="Guna Cipta Sinergi">
+          <picture>
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="brand-logo" src="images/logoGCS.jpg" alt="GCS" />
+          </picture>
+          <div class="brand-text">
+            <div class="name">Guna Cipta Sinergi</div>
+            <div class="tag">Perbaikan • Pemeliharaan • Peningkatan</div>
+          </div>
+        </div>
+
+        <div class="partners" aria-label="Partners">
+          <picture>
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              <img src="images/logoKGP.png" alt="Instagram" />
+            </a>
+            <a
+              href="https://indokontraktor.com/business/guna-cahaya-synergie-kota-adm-jakarta-barat"
+              target="_blank"
+              rel="noopener"
+              aria-label="Guna Cahaya Synergie"
+            >
+              <img
+                class="partner-plain"
+                src="images/logoCahaya.png"
+                alt="Guna Cahaya Synergie"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+
+            <!-- New: logoHKS linking to HAKAES homepage -->
+            <a
+              href="https://hakaes.com/home"
+              target="_blank"
+              rel="noopener"
+              aria-label="HAKAES (HKS)"
+            >
+              <img
+                class="partner-plain"
+                src="images/logoHKS.png"
+                alt="KHS"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </picture>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="burger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="ID_index.html">Beranda</a></li>
+
+          <li class="nav-item">
+            <a href="#">Produk & Layanan <span class="chev">▼</span></a>
+            <div
+              class="dropdown"
+              role="menu"
+              aria-label="Products & Services submenu"
+            >
+              <a href="ID_mechanical-electrical.html">Mekanikal Elektrikal</a>
+              <a href="ID_logistic-warehouse.html">Logistik & Gudang</a>
+              <a href="ID_ups-rework.html">Perbaikan UPS</a>
+              <a href="ID_customer-support-engineer.html">Teknisi Lapangan</a>
+              <a href="ID_call-center.html">Pusat Bantuan</a>
+              <a href="ID_monitoring.html">Pemantauan</a>
+              <a href="ID_ducting-system.html">Sistem Ducting</a>
+              <a href="ID_workshop-maintenance-lcd.html"
+                >Workshop Perawatan LCD</a
+              >
+              <a href="ID_cassette-rework.html">Perbaikan Kaset</a>
+              <a href="ID_atm-module-rework.html">Perbaikan Modul ATM</a>
+              <a href="ID_plumbing.html">Sistem Perpipaan</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="ID_index.html#service-points"
+              >Titik Layanan</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a href="ID_about.html">Tentang Kami</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="ID_career.html">Karir</a>
+          </li>
+        </ul>
+        <div
+          class="lang-switch"
+          role="radiogroup"
+          aria-label="Language"
+          aria-disabled="true"
+          data-disabled="true"
+        >
+          <div class="right-tools">
+            <a href="atm-module-rework.html">
+              <button type="button" aria-pressed="true">EN</button>
+            </a>
+            <button type="button" class="active" aria-pressed="false">
+              ID
+            </button>
+          </div>
+          <a class="btn contact" href="ID_contact.html"><span>Kontak</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="mechanical-hero">
+      <div class="mechanical-hero-image">
+        <img
+          src="images/atm-module-rework-bg.jpg"
+          alt="Latar Belakang Perbaikan Modul ATM"
+        />
+      </div>
+      <div class="mechanical-hero-content">
+        <h1>Perbaikan Modul ATM</h1>
+        <p>
+          Layanan Perbaikan Modul ATM kami memastikan kinerja yang andal dan
+          usia pakai yang lebih panjang untuk perangkat ATM. Dengan fasilitas
+          perbaikan canggih, kontrol kualitas ketat, dan tim berpengalaman, kami
+          memberikan solusi perbaikan cepat dan efektif untuk komponen ATM
+          penting.
+        </p>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section">
+      <div class="services-container">
+        <h2>Layanan Kami</h2>
+        <p>
+          Layanan khusus perbaikan dan perawatan modul ATM untuk menjaga waktu
+          operasional dan mengurangi biaya operasional lembaga keuangan.
+        </p>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-image">
+              <img
+                src="images/atm-module-service1.jpg"
+                alt="Perbaikan Modul ATM"
+              />
+            </div>
+            <div class="service-content">
+              <h3>Perbaikan Modul</h3>
+              <p>
+                Perbaikan menyeluruh modul ATM dengan diagnostik canggih dan
+                proses kualitas standar untuk mengembalikan fungsionalitas.
+              </p>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-image">
+              <img
+                src="images/atm-module-service2.jpg"
+                alt="Kontrol Kualitas ATM"
+              />
+            </div>
+            <div class="service-content">
+              <h3>Kontrol Kualitas & Pengujian</h3>
+              <p>
+                Prosedur pengujian ketat untuk memastikan setiap modul yang
+                diperbaiki memenuhi standar operasional, keandalan, dan
+                kepatuhan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section">
+      <div class="cta-container">
+        <h2>Butuh Perbaikan Modul ATM?</h2>
+        <p>
+          Bermitra dengan kami untuk layanan perbaikan ahli yang memperpanjang
+          usia modul ATM sekaligus memastikan keandalan dan kinerja maksimal.
+        </p>
+        <div class="cta-buttons">
+          <a href="ID_contact.html" class="btn primary"
+            >Hubungi Kami Hari Ini</a
+          >
+          <a
+            href="https://wa.me/6285282801856"
+            target="_blank"
+            class="btn secondary"
+            >Chat Sekarang</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Company Info Section -->
+        <div class="footer-section">
+          <img
+            src="images/logoGCS.png"
+            alt="PT. Guna Cipta Sinergi"
+            class="footer-logo"
+          />
+          <p>
+            PT. Guna Cipta Sinergi adalah penyedia layanan pemeliharaan dan
+            layanan teknis ATM terkemuka di Indonesia. Kami memiliki keahlian
+            dalam layanan perbaikan, pemeliharaan, dan dukungan yang
+            komprehensif untuk terminal ATM di berbagai kota besar Indonesia,
+            memastikan waktu aktif (uptime) maksimal serta kepatuhan terhadap
+            standar industri.
+          </p>
+          <p>
+            Dengan filosofi memperbaiki terlebih dahulu dan mengganti sebagai
+            pilihan terakhir, kami menghadirkan solusi hemat biaya sambil
+            menjaga standar kualitas layanan tertinggi di sektor teknologi
+            keuangan.
+          </p>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="footer-section footer-nav">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="ID_index.html">Beranda</a></li>
+            <li><a href="ID_index.html#service-points">Titik Layanan</a></li>
+            <li><a href="ID_about.html">Tentang Kami</a></li>
+            <li><a href="ID_career.html">Karir</a></li>
+          </ul>
+        </div>
+
+        <!-- Products & Services Section -->
+        <div class="footer-section footer-services">
+          <h3>Products & Services</h3>
+          <ul>
+            <li>
+              <a href="ID_mechanical-electrical.html">Mekanikal Elektrikal</a>
+            </li>
+            <li><a href="ID_logistic-warehouse.html">Logistik & Gudang</a></li>
+            <li><a href="ID_ups-rework.html">Perbaikan UPS</a></li>
+            <li>
+              <a href="ID_customer-support-engineer.html">Teknisi Lapangan</a>
+            </li>
+            <li><a href="ID_call-center.html">Pusat Bantuan</a></li>
+            <li><a href="ID_monitoring.html">Pemantauan</a></li>
+            <li><a href="ID_ducting-system.html">Sistem Ducting</a></li>
+            <li>
+              <a href="ID_workshop-maintenance-lcd.html"
+                >Workshop Perawatan LCD</a
+              >
+            </li>
+            <li><a href="ID_cassette-rework.html">Perbaikan Kaset</a></li>
+            <li>
+              <a href="ID_atm-module-rework.html">Perbaikan Modul ATM</a>
+            </li>
+            <li><a href="ID_plumbing.html">Sistem Perpipaan</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-section">
+          <h3>Kontak</h3>
+          <div class="contact-item">
+            <i>✉</i>
+            <div>
+              <strong>Email:</strong><br />
+              admin@gcsinergie.com
+            </div>
+          </div>
+          <div class="contact-item">
+            <i>📍</i>
+            <div>
+              <strong>Location:</strong><br />
+              Jl. Karya Utama No.19, RT.3/RW.6, Srengseng, Kec. Kembangan, Kota
+              Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630
+            </div>
+          </div>
+
+          <!-- replace the existing .social-buttons block in the footer with this -->
+          <div class="social-buttons">
+            <a
+              href="https://wa.me/6285282801856"
+              target="_blank"
+              aria-label="WhatsApp"
+              class="social-btn"
+            >
+              <img src="images/logoWhatsApp.png" alt="WhatsApp" />
+            </a>
+
+            <a
+              href="https://instagram.com/gunaciptasinergi"
+              target="_blank"
+              aria-label="Instagram"
+              class="social-btn"
+            >
+              <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+
+            <!-- Maps button (same footer style) -->
+            <a
+              href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              aria-label="Maps"
+              class="social-btn"
+            >
+              <img src="images/logoMaps.png" alt="Maps" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; <a id="y"></a> PT. Guna Cipta Sinergi . Seluruh hak cipta
+          dilindungi.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+      const burger = document.querySelector(".burger");
+      const navList = document.querySelector(".nav-list");
+      if (burger && navList) {
+        burger.addEventListener("click", () => {
+          const expanded = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!expanded));
+          navList.classList.toggle("open");
+        });
+      }
+    </script>
+  </body>
+</html>

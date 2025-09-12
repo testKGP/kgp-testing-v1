@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="images/logoFavicon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kontak — Layanan Guna Cipta Sinergi</title>
+    <meta
+      name="description"
+      content="Contact Kevin Guna Pratama for ATM repair, maintenance, and support services."
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .contact-detail svg {
+        /* Fixed dimensions - prevents shrinking */
+        width: 18px;
+        height: 18px;
+        min-width: 18px; /* Ensures minimum width */
+        min-height: 18px; /* Ensures minimum height */
+        flex-shrink: 0; /* Prevents the SVG from shrinking in flexbox */
+        margin-top: 2px; /* Optional: slight top margin for better alignment */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header" role="banner" id="home">
+      <div class="topbar">
+        <div class="brand" aria-label="Guna Cipta Sinergi">
+          <picture>
+            <source srcset="images/logoGCS.png" type="image/png" />
+            <img class="brand-logo" src="images/logoGCS.jpg" alt="GCS" />
+          </picture>
+          <div class="brand-text">
+            <div class="name">Guna Cipta Sinergi</div>
+            <div class="tag">Perbaikan • Pemeliharaan • Peningkatan</div>
+          </div>
+        </div>
+
+        <div class="partners" aria-label="Partners">
+          <picture>
+            <a
+              href="https://instagram.com/kevin.gunapratama"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              <img src="images/logoKGP.png" alt="Instagram" />
+            </a>
+            <a
+              href="https://indokontraktor.com/business/guna-cahaya-synergie-kota-adm-jakarta-barat"
+              target="_blank"
+              rel="noopener"
+              aria-label="Guna Cahaya Synergie"
+            >
+              <img
+                class="partner-plain"
+                src="images/logoCahaya.png"
+                alt="Guna Cahaya Synergie"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+
+            <!-- New: logoHKS linking to HAKAES homepage -->
+            <a
+              href="https://hakaes.com/home"
+              target="_blank"
+              rel="noopener"
+              aria-label="HAKAES (HKS)"
+            >
+              <img
+                class="partner-plain"
+                src="images/logoHKS.png"
+                alt="KHS"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </picture>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="burger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="ID_index.html">Beranda</a></li>
+
+          <li class="nav-item">
+            <a href="#">Produk & Layanan <span class="chev">▼</span></a>
+            <div
+              class="dropdown"
+              role="menu"
+              aria-label="Products & Services submenu"
+            >
+              <a href="ID_mechanical-electrical.html">Mekanikal Elektrikal</a>
+              <a href="ID_logistic-warehouse.html">Logistik & Gudang</a>
+              <a href="ID_ups-rework.html">Perbaikan UPS</a>
+              <a href="ID_customer-support-engineer.html">Teknisi Lapangan</a>
+              <a href="ID_call-center.html">Pusat Bantuan</a>
+              <a href="ID_monitoring.html">Pemantauan</a>
+              <a href="ID_ducting-system.html">Sistem Ducting</a>
+              <a href="ID_workshop-maintenance-lcd.html"
+                >Workshop Perawatan LCD</a
+              >
+              <a href="ID_cassette-rework.html">Perbaikan Kaset</a>
+              <a href="ID_atm-module-rework.html">Perbaikan Modul ATM</a>
+              <a href="ID_plumbing.html">Sistem Perpipaan</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="ID_index.html#service-points"
+              >Titik Layanan</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a href="ID_about.html">Tentang Kami</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="ID_career.html">Karir</a>
+          </li>
+        </ul>
+        <div
+          class="lang-switch"
+          role="radiogroup"
+          aria-label="Language"
+          aria-disabled="true"
+          data-disabled="true"
+        >
+          <div class="right-tools">
+            <a href="contact.html">
+              <button type="button" aria-pressed="true">EN</button>
+            </a>
+            <button type="button" class="active" aria-pressed="false">
+              ID
+            </button>
+          </div>
+          <a class="btn contact" href="ID_contact.html"><span>Kontak</span></a>
+        </div>
+      </nav>
+    </header>
+    <!-- Contact Main -->
+    <main class="contact-main">
+      <div class="contact-image">
+        <img src="images/contactUsImage.jpg" alt="Teknisi Layanan ATM" />
+      </div>
+      <div class="contact-form-section">
+        <div class="form-header">
+          <h1>Hubungi Kami</h1>
+          <p>
+            Siap membahas kebutuhan layanan ATM Anda? Kirimkan pesan dan kami
+            akan menanggapi Anda dengan cepat.
+          </p>
+        </div>
+        <form
+          id="contact-form"
+          class="contact-form"
+          action="https://script.google.com/macros/s/AKfycbxYF0VY7ja3yhIsEZWxXL6ziJjd-LZ6TLU8AxHaYbmOCyCl6CjIF0i3sjKw4DQbxhJo/exec"
+          method="POST"
+        >
+          <div class="form-group">
+            <label class="form-label" for="name">Nama Lengkap *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-input"
+              required
+              placeholder="Masukkan nama lengkap Anda"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Alamat Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              required
+              placeholder="Masukkan alamat email Anda"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Pesan *</label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-textarea"
+              required
+              placeholder="Ceritakan kebutuhan layanan ATM Anda, lokasi, dan persyaratan spesifik..."
+            ></textarea>
+          </div>
+          <button type="submit" class="btn">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M22 2L11 13"></path>
+              <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+            </svg>
+            Kirim Pesan
+          </button>
+        </form>
+        <div class="contact-info">
+          <h3>Kontak Langsung</h3>
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+              />
+            </svg>
+            <a>admin@gcsinergie.com</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+            />
+          </svg>
+          <a
+            >Jl. Karya Utama No.19, RT.3/RW.6, Srengseng, Kec. Kembangan, Kota
+            Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630</a
+          >
+        </div>
+        <!-- replace the existing .contact-detail.social-links block with this -->
+        <div class="contact-detail social-links">
+          <a
+            href="https://wa.me/6285282801856"
+            target="_blank"
+            aria-label="WhatsApp"
+            class="social-btn circle-btn"
+          >
+            <img src="images/logoWhatsApp.png" alt="WhatsApp" />
+          </a>
+
+          <a
+            href="https://instagram.com/gunaciptasinergi"
+            target="_blank"
+            aria-label="Instagram"
+            class="social-btn circle-btn"
+          >
+            <img src="images/logoInstagram.png" alt="Instagram" />
+          </a>
+
+          <!-- Maps button (same style) -->
+          <a
+            href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            aria-label="Peta"
+            class="social-btn circle-btn"
+          >
+            <img src="images/logoMaps.png" alt="Peta" />
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Company Info Section -->
+        <div class="footer-section">
+          <img
+            src="images/logoGCS.png"
+            alt="PT. Guna Cipta Sinergi"
+            class="footer-logo"
+          />
+          <p>
+            PT. Guna Cipta Sinergi adalah penyedia layanan pemeliharaan dan
+            layanan teknis ATM terkemuka di Indonesia. Kami memiliki keahlian
+            dalam layanan perbaikan, pemeliharaan, dan dukungan yang
+            komprehensif untuk terminal ATM di berbagai kota besar Indonesia,
+            memastikan waktu aktif (uptime) maksimal serta kepatuhan terhadap
+            standar industri.
+          </p>
+          <p>
+            Dengan filosofi memperbaiki terlebih dahulu dan mengganti sebagai
+            pilihan terakhir, kami menghadirkan solusi hemat biaya sambil
+            menjaga standar kualitas layanan tertinggi di sektor teknologi
+            keuangan.
+          </p>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="footer-section footer-nav">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="ID_index.html">Beranda</a></li>
+            <li><a href="ID_index.html#service-points">Titik Layanan</a></li>
+            <li><a href="ID_about.html">Tentang Kami</a></li>
+            <li><a href="ID_career.html">Karir</a></li>
+          </ul>
+        </div>
+
+        <!-- Products & Services Section -->
+        <div class="footer-section footer-services">
+          <h3>Products & Services</h3>
+          <ul>
+            <li>
+              <a href="ID_mechanical-electrical.html">Mekanikal Elektrikal</a>
+            </li>
+            <li><a href="ID_logistic-warehouse.html">Logistik & Gudang</a></li>
+            <li><a href="ID_ups-rework.html">Perbaikan UPS</a></li>
+            <li>
+              <a href="ID_customer-support-engineer.html">Teknisi Lapangan</a>
+            </li>
+            <li><a href="ID_call-center.html">Pusat Bantuan</a></li>
+            <li><a href="ID_monitoring.html">Pemantauan</a></li>
+            <li><a href="ID_ducting-system.html">Sistem Ducting</a></li>
+            <li>
+              <a href="ID_workshop-maintenance-lcd.html"
+                >Workshop Perawatan LCD</a
+              >
+            </li>
+            <li><a href="ID_cassette-rework.html">Perbaikan Kaset</a></li>
+            <li>
+              <a href="ID_atm-module-rework.html">Perbaikan Modul ATM</a>
+            </li>
+            <li><a href="ID_plumbing.html">Sistem Perpipaan</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-section">
+          <h3>Kontak</h3>
+          <div class="contact-item">
+            <i>✉</i>
+            <div>
+              <strong>Email:</strong><br />
+              admin@gcsinergie.com
+            </div>
+          </div>
+          <div class="contact-item">
+            <i>📍</i>
+            <div>
+              <strong>Location:</strong><br />
+              Jl. Karya Utama No.19, RT.3/RW.6, Srengseng, Kec. Kembangan, Kota
+              Jakarta Barat, Daerah Khusus Ibukota Jakarta 11630
+            </div>
+          </div>
+
+          <!-- replace the existing .social-buttons block in the footer with this -->
+          <div class="social-buttons">
+            <a
+              href="https://wa.me/6285282801856"
+              target="_blank"
+              aria-label="WhatsApp"
+              class="social-btn"
+            >
+              <img src="images/logoWhatsApp.png" alt="WhatsApp" />
+            </a>
+
+            <a
+              href="https://instagram.com/gunaciptasinergi"
+              target="_blank"
+              aria-label="Instagram"
+              class="social-btn"
+            >
+              <img src="images/logoInstagram.png" alt="Instagram" />
+            </a>
+
+            <!-- Maps button (same footer style) -->
+            <a
+              href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              aria-label="Maps"
+              class="social-btn"
+            >
+              <img src="images/logoMaps.png" alt="Maps" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; <a id="y"></a> PT. Guna Cipta Sinergi . Seluruh hak cipta
+          dilindungi.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      const burger = document.querySelector(".burger");
+      const navList = document.querySelector(".nav-list");
+
+      if (burger && navList) {
+        burger.addEventListener("click", () => {
+          const expanded = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!expanded));
+          navList.classList.toggle("open");
+        });
+      }
+
+      // Handle form submission
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault(); // Prevent default form submission
+
+          const form = e.target;
+          const btn = form.querySelector('button[type="submit"]');
+          const originalContent = btn.innerHTML;
+
+          // Update button state
+          btn.disabled = true;
+          btn.innerHTML = "Sending…";
+
+          // Prepare form data
+          const formData = new FormData(form);
+
+          try {
+            const response = await fetch(form.action, {
+              method: "POST",
+              body: formData,
+              mode: "no-cors", // Important for Google Apps Script
+            });
+
+            // Since we're using no-cors mode, we can't read the response
+            // So we'll assume success if no error is thrown
+            btn.innerHTML = "✓ Message Sent!";
+            form.reset();
+
+            // Show success message for longer
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.innerHTML = originalContent;
+            }, 3000);
+          } catch (error) {
+            console.error("Form submission error:", error);
+            btn.innerHTML = "❌ Error occurred";
+
+            // Restore button after error
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.innerHTML = originalContent;
+            }, 3000);
+          }
+        });
+    </script>
+  </body>
+</html>
