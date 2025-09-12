@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/png" href="images/logoFavicon.png" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Guna Cipta Sinergi — ATM Repair & Maintenance</title>
@@ -139,10 +140,21 @@
         </ul>
 
         <div class="right-tools">
-          <div class="lang-switch" role="radiogroup" aria-label="Language">
-            <button type="button" class="active" aria-pressed="true">EN</button>
-            <button type="button" aria-pressed="false">ID</button>
+          <div
+            class="lang-switch"
+            role="radiogroup"
+            aria-label="Language"
+            aria-disabled="true"
+            data-disabled="true"
+          >
+            <button type="button" class="active" aria-pressed="true" disabled>
+              EN
+            </button>
+            <a href="ID_index.html">
+              <button type="button" aria-pressed="false">ID</button>
+            </a>
           </div>
+
           <a class="btn contact" href="contact.html"><span>Contact Us</span></a>
         </div>
       </nav>
@@ -1185,7 +1197,7 @@
         },
         "Nusa Tenggara": {
           description:
-            "Reliable service across Kalimantan, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Lombok Barat\n• Kupang\n• Mataram\n• Manggarai\n• Denpasar\n• Maumere\n• Singaraja\n• Sumba\n• Ruteng\n• Bima\n\nMessage us to confirm coverage in your district and schedule a visit.",
+            "Reliable service across Nusa Tenggara, trained technicians, clear pricing, and responsive support in cities such as:\n\n• Lombok Barat\n• Kupang\n• Mataram\n• Manggarai\n• Denpasar\n• Maumere\n• Singaraja\n• Sumba\n• Ruteng\n• Bima\n\nMessage us to confirm coverage in your district and schedule a visit.",
           link: "nusaTenggara-services.html",
         },
         Papua: {
@@ -1926,14 +1938,9 @@
       // News ATM Finance Section - NewsData.io Integration
       class NewsATMSection {
         constructor() {
-          // NewsData.io config — client must NOT include a token
-          this.API_TOKEN = ""; // removed from client for security
+          // NewsData.io API Configuration
+          this.API_TOKEN = "pub_6b8546c0c99f4039b0ac96c4d1761ed7";
           this.API_ENDPOINT = "https://newsdata.io/api/1/latest";
-
-          // Use the Cloudflare Worker proxy (set to your deployed Worker URL)
-          this.USE_PROXY = true;
-          this.PROXY_ENDPOINT =
-            "https://news-proxy.kevingunapratamakv.workers.dev/news"; // <- exact workers.dev URL from your dashboard
 
           // Alternative: Use server proxy for security (recommended for production)
           this.USE_PROXY = false; // Set to true when using server proxy
@@ -2159,34 +2166,33 @@
         }
 
         async fetchNews(page = 0) {
-          // Build parameters; don't include API key when using proxy
           const params = {
+            apikey: this.API_TOKEN,
             q: this.query,
-            country: "id",
-            language: "id",
+            country: "id", // Indonesia
+            language: "id", // Indonesian language
             size: this.pageSize,
           };
 
+          // Add nextPage token for pagination (NewsData.io style)
           if (page > 0 && this.nextPage) {
             params.page = this.nextPage;
-          }
-
-          if (!this.USE_PROXY && this.API_TOKEN) {
-            params.apikey = this.API_TOKEN;
           }
 
           const url = this.USE_PROXY
             ? `${this.PROXY_ENDPOINT}?${new URLSearchParams(params).toString()}`
             : `${this.API_ENDPOINT}?${new URLSearchParams(params).toString()}`;
 
-          console.log("Fetching news from:", url);
+          console.log("Fetching news from NewsData.io...");
 
-          const response = await fetch(url, { method: "GET" });
+          const response = await fetch(url);
+
           if (!response.ok) {
             const errorText = await response.text();
             console.error("API Error:", response.status, errorText);
             throw new Error(`HTTP ${response.status}: ${errorText}`);
           }
+
           return await response.json();
         }
 
