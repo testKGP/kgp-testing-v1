@@ -2089,7 +2089,7 @@ html {
 
   /* make parallelogram longer on small screens */
   .topbar::before {
-    width: 90vw; /* was clamp(300px, 26vw, 520px) */
+    width: 98vw; /* was clamp(300px, 26vw, 520px) */
   }
 }
 /* Put this after the existing mobile rules in style.css */
