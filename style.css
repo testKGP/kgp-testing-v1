@@ -101,7 +101,7 @@ svg {
   top: 0;
   bottom: 0;
   left: -18px;
-  width: clamp(300px, 26vw, 520px);
+  width: max(clamp(320px, 30vw, 600px), calc(100% * 0.3));
   background: #fff;
   transform: skewX(-18deg);
   transform-origin: left top;
