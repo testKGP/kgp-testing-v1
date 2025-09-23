@@ -1,4 +1,3 @@
-/* ===== CSS VARIABLES ===== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 :root {
@@ -17,7 +16,6 @@
   --header-h: 140px;
 }
 
-/* ===== GLOBAL RESETS & BASE STYLES ===== */
 * {
   box-sizing: border-box;
 }
@@ -53,7 +51,6 @@ a:hover {
   color: var(--brand-300);
 }
 
-/* Prevent Bootstrap conflicts */
 img,
 video,
 canvas,
@@ -63,19 +60,19 @@ svg {
   height: auto;
 }
 
-/* ===== HEADER STYLES ===== */
-/* Make the whole header stick to top */
 .site-header {
-  position: -webkit-sticky; /* Safari */
+  position: -webkit-sticky; 
+
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
   max-width: 100vw;
-  z-index: 9999; /* high so it sits above page content */
-  overflow: visible; /* keep the current rule (you already had overflow: visible) */
-  /* preserve any other properties you had (padding/etc) */
+  z-index: 9999; 
+
+  overflow: visible; 
+
 }
 
 .site-header.hide {
@@ -166,7 +163,6 @@ svg {
   width: auto;
 }
 
-/* ===== NAVIGATION STYLES ===== */
 .nav {
   position: relative;
   display: flex;
@@ -189,7 +185,6 @@ svg {
   margin: 0;
 }
 
-/* Enhanced dropdown hover - no gap issues */
 .nav-item {
   position: relative;
   font-weight: 600;
@@ -206,7 +201,6 @@ svg {
   z-index: 999;
 }
 
-/* Override any Bootstrap dropdown styles */
 .nav-item > a {
   padding: 8px 6px !important;
   display: inline-flex !important;
@@ -230,7 +224,6 @@ svg {
   margin-left: 4px;
 }
 
-/* Custom dropdown styles - override Bootstrap completely */
 .nav-item .dropdown {
   position: absolute !important;
   left: 0 !important;
@@ -270,7 +263,6 @@ svg {
   color: var(--brand) !important;
 }
 
-/* Show dropdown on hover and focus - CORRECTED VERSION */
 .nav-item:hover .dropdown,
 .nav-item:focus-within .dropdown {
   opacity: 1 !important;
@@ -279,7 +271,6 @@ svg {
   transform: translateY(0) !important;
 }
 
-/* Ensure dropdown stays open when hovering over dropdown itself */
 .nav-item .dropdown:hover {
   opacity: 1 !important;
   visibility: visible !important;
@@ -345,7 +336,6 @@ svg {
   border-radius: 999px;
 }
 
-/* ===== CAROUSEL STYLES ===== */
 .carousel {
   position: relative;
   overflow: hidden;
@@ -491,7 +481,6 @@ svg {
   height: 26px;
 }
 
-/* ===== WHITE SECTIONS ===== */
 .hero,
 .section {
   background: #fff;
@@ -650,7 +639,6 @@ svg {
   font-size: 14px;
 }
 
-/* ===== CONTACT PAGE STYLES ===== */
 .contact-main {
   background: #fff;
   min-height: calc(100vh - var(--header-h));
@@ -775,7 +763,6 @@ svg {
   color: var(--brand);
 }
 
-/* ===== SOCIAL LINKS STYLES ===== */
 .social-links {
   display: flex;
   gap: 16px;
@@ -803,7 +790,6 @@ svg {
   transform: scale(1.1);
 }
 
-/* ===== SERVICE POINTS STYLES ===== */
 .service-points {
   padding: 60px 20px;
   background-color: #f8f9fa;
@@ -830,24 +816,22 @@ svg {
   padding: 0 15px;
 }
 
-/* ---------- service-points: new 2-column layout + background ---------- */
-/* outer container shows jumbotron image as a subtle background */
 .service-points {
   padding: 60px 20px;
-  background-color: #f8f9fa; /* fallback */
+  background-color: #f8f9fa; 
+
   text-align: center;
   width: 100%;
   overflow: hidden;
-  /* background image placeholder */
+
   background-image: url("images/cityBackground.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* soft overlay so white card pops */
+
   position: relative;
 }
 
-/* dim overlay so the map card stands out */
 .service-points::before {
   content: "";
   position: absolute;
@@ -856,10 +840,10 @@ svg {
   z-index: 0;
 }
 
-/* inner wrapper that holds left stats and right map */
 .map-inner {
   position: relative;
-  z-index: 1; /* above the overlay */
+  z-index: 1; 
+
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
@@ -869,7 +853,6 @@ svg {
   padding: 18px;
 }
 
-/* LEFT: stat boxes column */
 .map-stats {
   display: flex;
   flex-direction: column;
@@ -878,7 +861,6 @@ svg {
   justify-content: center;
 }
 
-/* single stat box */
 .stat-box {
   background: #fff;
   border: 1.5px solid #dbe1f6;
@@ -893,14 +875,12 @@ svg {
   cursor: default;
 }
 
-/* hover effect for consistency with other cards */
 .stat-box:hover {
   transform: translateY(-6px);
   border-color: var(--brand-300);
   box-shadow: 0 14px 36px rgba(26, 53, 125, 0.12);
 }
 
-/* numbers and label */
 .stat-num {
   font-weight: 900;
   font-size: clamp(28px, 3.6vw, 36px);
@@ -915,7 +895,6 @@ svg {
   letter-spacing: 0.02em;
 }
 
-/* RIGHT: map card (white) so it looks like the original card but aligned to the right column */
 .map-card {
   background: #fff;
   border-radius: 15px;
@@ -926,7 +905,6 @@ svg {
   border: 1px solid rgba(11, 16, 36, 0.03);
 }
 
-/* keep map image scaling but a bit taller */
 .map-card .indonesia-map,
 .map-card > .indonesia-map {
   width: 100%;
@@ -936,7 +914,6 @@ svg {
   object-fit: contain;
 }
 
-/* markers stay absolute, but ensure they sit above the map image */
 .map-card .location-marker {
   position: absolute;
   cursor: pointer;
@@ -945,7 +922,6 @@ svg {
   z-index: 10;
 }
 
-/* marker size adjustments for the card */
 .map-card .location-marker img {
   width: clamp(20px, 3.6vw, 30px);
   height: clamp(20px, 3.6vw, 30px);
@@ -957,13 +933,11 @@ svg {
   filter: none;
 }
 
-/* ensure the overlay/pseudo-element doesn't cover the inner white card */
 .map-inner .map-card,
 .map-inner .map-stats {
   z-index: 2;
 }
 
-/* Responsive: stack the stats above the map on small screens */
 @media (max-width: 880px) {
   .map-inner {
     grid-template-columns: 1fr;
@@ -1026,7 +1000,6 @@ svg {
   transform: translate(-50%, -50%) scale(1.2);
 }
 
-/* ===== POPUP STYLES ===== */
 .popup-overlay {
   display: none;
   position: fixed;
@@ -1045,12 +1018,18 @@ svg {
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 12px 16px; /* reduced padding */
-  border-radius: 12px; /* slightly smaller corners */
-  max-width: 480px; /* was 600px, tighter width */
-  width: calc(100% - 24px); /* was 100% - 40px, allows less overflow */
-  text-align: left; /* left align text instead of justify */
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25); /* lighter shadow */
+  padding: 12px 16px; 
+
+  border-radius: 12px; 
+
+  max-width: 480px; 
+
+  width: calc(100% - 24px); 
+
+  text-align: left; 
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25); 
+
   line-height: 1.4;
 }
 
@@ -1070,7 +1049,8 @@ svg {
 .popup-content h3 {
   color: #003e8a;
   margin: 0 0 6px 0;
-  font-size: clamp(1.2rem, 4vw, 1.6rem); /* slightly smaller */
+  font-size: clamp(1.2rem, 4vw, 1.6rem); 
+
 }
 
 .popup-content p {
@@ -1103,7 +1083,6 @@ svg {
   box-shadow: 0 5px 15px rgba(0, 62, 138, 0.3);
 }
 
-/* ===== FOOTER STYLES ===== */
 .footer {
   background: var(--brand);
   color: #fff;
@@ -1223,7 +1202,6 @@ svg {
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* Responsive footer */
 @media (max-width: 968px) {
   .footer-content {
     grid-template-columns: 1fr 1fr;
@@ -1242,7 +1220,6 @@ svg {
   }
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1252,7 +1229,6 @@ svg {
   }
 }
 
-/* ===== MEDIA QUERIES ===== */
 @media (max-width: 980px) {
   .partners {
     display: none;
@@ -1406,7 +1382,6 @@ svg {
   }
 }
 
-/* ===== BOOTSTRAP COMPATIBILITY ===== */
 .container,
 .container-fluid {
   max-width: 100%;
@@ -1421,46 +1396,45 @@ svg {
   display: grid;
 }
 
-/* Override Bootstrap dropdown styles completely */
 .nav-item .dropdown.show {
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto !important;
   transform: translateY(0) !important;
 }
-/* Enhanced dropdown controls - prevent clicks, hover only */
+
 .nav-item > a[href="#"] {
-  cursor: default !important; /* Change cursor for dropdown toggles */
-  pointer-events: none !important; /* Disable clicking */
+  cursor: default !important; 
+
+  pointer-events: none !important; 
+
 }
 
 .nav-item > a[href="#"]:hover {
-  pointer-events: none !important; /* Keep clicks disabled even on hover */
+  pointer-events: none !important; 
+
 }
 
-/* Re-enable hover effects for the parent container */
 .nav-item:hover > a[href="#"] {
   color: #e6ecff !important;
   background: none !important;
 }
 
-/* Ensure dropdown parent maintains hover functionality */
 .nav-item {
   pointer-events: auto;
 }
 
-/* Enhanced smooth scrolling */
 html {
   scroll-padding-top: calc(
     var(--header-h) + 20px
-  ); /* Account for fixed header */
+  ); 
+
 }
 
-/* Smooth transition for dropdown appearance */
 .nav-item .dropdown {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
-/* === Goal Section (two-column, responsive) === */
+
 .section.goal {
   background: #fff;
   border-top: 1px solid #e9ecf8;
@@ -1471,7 +1445,8 @@ html {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr; /* text | illustration */
+  grid-template-columns: 1.2fr 0.8fr; 
+
   align-items: center;
   gap: clamp(16px, 3vw, 28px);
 }
@@ -1506,12 +1481,13 @@ html {
 
 .goal-figure img {
   width: 100%;
-  height: auto; /* ideal for SVG scaling */
-  max-width: 560px; /* keep illustration compact */
+  height: auto; 
+
+  max-width: 560px; 
+
   display: block;
 }
 
-/* Accent bar similar to the reference */
 .goal-title::after {
   content: "";
   display: block;
@@ -1522,17 +1498,17 @@ html {
   background: linear-gradient(90deg, var(--brand), var(--brand-300));
 }
 
-/* Responsive: stack on narrow viewports */
 @media (max-width: 980px) {
   .goal-inner {
     grid-template-columns: 1fr;
     text-align: left;
   }
   .goal-figure {
-    order: -1; /* illustration above or below as desired */
+    order: -1; 
+
   }
 }
-/* ===== OUR CLIENTS SECTION ===== */
+
 .section.clients {
   background: #f8f9ff;
   border-top: 1px solid #e9ecf8;
@@ -1596,7 +1572,6 @@ html {
   filter: grayscale(0%) opacity(1);
 }
 
-/* Responsive design for clients section */
 @media (max-width: 980px) {
   .clients-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1619,7 +1594,7 @@ html {
     max-height: 50px;
   }
 }
-/* ===== PRODUCTS & SERVICES SECTION ===== */
+
 .section.products-services {
   background: #f8f9ff;
   border-top: 1px solid #e9ecf8;
@@ -1664,12 +1639,14 @@ html {
 
 .products-carousel-track {
   display: flex;
-  width: calc(100% * 11 / 4); /* 11 items, 4 visible = 2.75x width */
+  width: calc(100% * 11 / 4); 
+
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .products-slide {
-  flex: 0 0 calc(100% / 11); /* Each slide takes exactly 1/11 of track width */
+  flex: 0 0 calc(100% / 11); 
+
   display: block;
   position: relative;
   text-decoration: none;
@@ -1681,9 +1658,12 @@ html {
   height: auto;
   display: block;
   transition: transform 0.3s ease;
-  aspect-ratio: 9/16; /* Maintain exact 1080x1920 aspect ratio */
-  object-fit: contain; /* Show full image without cropping */
-  background: #f8f9ff; /* Light background in case of letterboxing */
+  aspect-ratio: 9/16; 
+
+  object-fit: contain; 
+
+  background: #f8f9ff; 
+
 }
 
 .products-slide:hover img {
@@ -1696,7 +1676,8 @@ html {
   transform: translateY(-50%);
   width: 60px;
   height: 60px;
-  background: #fff; /* White background by default */
+  background: #fff; 
+
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -1705,13 +1686,16 @@ html {
   justify-content: center;
   z-index: 100;
   transition: all 0.3s ease;
-  color: var(--brand); /* Blue arrow by default */
+  color: var(--brand); 
+
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
 .products-carousel-arrow:hover:not(:disabled) {
-  background: var(--brand); /* Blue background on hover */
-  color: #fff; /* White arrow on hover */
+  background: var(--brand); 
+
+  color: #fff; 
+
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -1730,21 +1714,27 @@ html {
 
 .products-carousel-arrow:disabled {
   opacity: 0.4 !important;
-  cursor: not-allowed !important; /* Show prohibited cursor */
-  pointer-events: auto !important; /* Allow hover events to show cursor */
-  background: #fff !important; /* Keep white background when disabled */
-  color: var(--brand) !important; /* Keep blue arrow when disabled */
+  cursor: not-allowed !important; 
+
+  pointer-events: auto !important; 
+
+  background: #fff !important; 
+
+  color: var(--brand) !important; 
+
 }
 
 .products-carousel-arrow:disabled:hover {
-  transform: translateY(-50%) scale(1) !important; /* No scaling on hover when disabled */
+  transform: translateY(-50%) scale(1) !important; 
+
   background: #fff !important;
   color: var(--brand) !important;
-  cursor: not-allowed !important; /* Ensure prohibited cursor on hover */
-  opacity: 0.4 !important; /* Keep same opacity */
+  cursor: not-allowed !important; 
+
+  opacity: 0.4 !important; 
+
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .products-section-header {
     padding: 30px 20px 25px;
@@ -1783,7 +1773,7 @@ html {
     padding-bottom: 30px;
   }
 }
-/* Popup thumbnails (inside the existing popup-content) */
+
 .popup-images {
   display: flex;
   justify-content: center;
@@ -1791,7 +1781,7 @@ html {
   margin-top: 12px;
   padding-top: 6px;
 }
-/* single thumbnail style */
+
 .popup-thumb {
   display: block;
   max-height: 120px;
@@ -1802,14 +1792,15 @@ html {
   transition: transform 0.18s ease, box-shadow 0.18s ease;
   object-fit: cover;
 }
-/* hover effect */
+
 .popup-thumb:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
-/* inner image modal (shown above popup-content, but inside it) */
+
 .image-modal {
-  display: none; /* toggled by .open class */
+  display: none; 
+
   position: absolute;
   inset: 0;
   z-index: 40;
@@ -1821,11 +1812,11 @@ html {
   justify-content: center;
   place-items: center;
 }
-/* visible state */
+
 .image-modal.open {
   display: grid;
 }
-/* inner image */
+
 .image-modal img {
   max-width: 100%;
   max-height: 70vh;
@@ -1835,7 +1826,7 @@ html {
   border-radius: 8px;
   object-fit: contain;
 }
-/* close button for image modal */
+
 .image-modal-close {
   position: absolute;
   top: 8px;
@@ -1859,19 +1850,17 @@ html {
     max-height: 60vh;
   }
 }
-/* popup bullets: always two columns (simple column-based flow) */
-/* ---------- popup bullet GRID (dynamic columns up to 8) ---------- */
-/* container used when we create a multi-column grid via JS */
+
 .popup-bullet-grid {
   display: grid;
   grid-template-columns: repeat(var(--popup-bullet-cols, 2), minmax(0, 1fr));
-  gap: 0 36px; /* vertical gap 0, horizontal gap 36px between columns */
+  gap: 0 36px; 
+
   align-items: start;
   margin: 0 0 8px 0;
   padding: 0;
 }
 
-/* each column is a UL */
 .popup-bullet-grid ul {
   list-style: disc inside;
   margin: 0;
@@ -1881,16 +1870,15 @@ html {
   font-size: 0.95rem;
 }
 
-/* each LI is a positioning context so the per-item popup can be absolutely positioned relative to it */
 .popup-bullet-grid li {
   position: relative;
   margin-bottom: 8px;
 }
 
-/* backward-compatible selector: if old code still writes popup-bullet-columns (single UL flow), keep it usable */
 .popup-description ul.popup-bullet-columns {
   list-style: disc inside;
-  column-count: 2; /* fallback only */
+  column-count: 2; 
+
   column-gap: 0.9rem;
   column-width: 140px;
   -webkit-column-break-inside: avoid;
@@ -1902,9 +1890,6 @@ html {
   color: #666666;
 }
 
-/* ---------- lightweight "etc" hover card (keeps card inside popup and next to the list item) ---------- */
-
-/* the etc trigger (inline, underlined) */
 .etc-trigger {
   display: inline-block;
   cursor: default;
@@ -1919,8 +1904,6 @@ html {
   font-size: 0.9rem;
 }
 
-/* === ETC POPUP: centered vertically relative to host === */
-/* the etc trigger (inline, underlined) */
 .etc-trigger {
   display: inline-block;
   cursor: pointer;
@@ -1935,12 +1918,14 @@ html {
   font-size: 0.9rem;
 }
 
-/* card (absolute relative to the host LI) — default placed to the right, vertically centered */
 .etc-popup {
   position: absolute;
-  left: calc(100% + 12px); /* sits to the right by default */
-  top: 50%; /* center vertically to host */
-  transform: translateY(-50%) translateX(6px); /* center + small entrance offset */
+  left: calc(100% + 12px); 
+
+  top: 50%; 
+
+  transform: translateY(-50%) translateX(6px); 
+
   min-width: 180px;
   max-width: 320px;
   background: #fff;
@@ -1959,25 +1944,24 @@ html {
   font-size: 13px;
 }
 
-/* show on trigger hover/focus (sibling) - keep hover only on devices that support it */
 @media (hover: hover) {
   .etc-trigger:hover + .etc-popup,
   .etc-trigger:focus + .etc-popup {
     opacity: 1;
     visibility: visible;
-    transform: translateY(-50%) translateX(0); /* snap into place horizontally */
+    transform: translateY(-50%) translateX(0); 
+
     pointer-events: auto;
   }
 }
 
-/* flip to left when we detect not enough space on right */
 .etc-popup.etc-popup--flip-left {
   left: auto;
   right: calc(100% + 12px);
-  transform: translateY(-50%) translateX(-6px); /* shift from left */
+  transform: translateY(-50%) translateX(-6px); 
+
 }
 
-/* When visible via JS toggle (tap on mobile), use .open */
 .etc-popup.open {
   opacity: 1 !important;
   visibility: visible !important;
@@ -1985,17 +1969,14 @@ html {
   pointer-events: auto !important;
 }
 
-/* Mobile/small screens: keep popup inside popup-content.
-   We'll prefer absolute positioning relative to .popup-content and JS will compute vertical placement.
-*/
 @media (max-width: 560px) {
-  /* Ensure popup-content is a positioning context (already set in your CSS) */
+
   .popup-content {
     position: relative;
   }
 
   .etc-popup {
-    /* We let JS calculate top/left for small screens; but provide reasonable defaults */
+
     position: absolute !important;
     left: 50% !important;
     top: auto !important;
@@ -2006,11 +1987,12 @@ html {
     pointer-events: auto !important;
   }
 }
-/* --- Force center popup on small screens --- */
+
 @media (max-width: 560px) {
   .popup-content {
     position: relative;
-  } /* ensure positioning context */
+  } 
+
   .etc-popup {
     position: absolute !important;
     left: 50% !important;
@@ -2022,7 +2004,7 @@ html {
     pointer-events: auto !important;
   }
 }
-/* fallback positioning if JS doesn't run */
+
 @media (max-width: 560px) {
   .etc-popup {
     position: absolute;
@@ -2031,7 +2013,7 @@ html {
     transform: translate(-50%, -50%);
   }
 }
-/* fallback: keep injected etc-popup centered on small screens */
+
 @media (max-width: 560px) {
   .popup-content {
     position: relative;
@@ -2049,7 +2031,7 @@ html {
     width: auto !important;
   }
 }
-/* Burger button */
+
 .burger {
   display: none;
   flex-direction: column;
@@ -2069,7 +2051,6 @@ html {
   transition: all 0.3s ease;
 }
 
-/* Mobile menu */
 @media (max-width: 768px) {
   .burger {
     display: flex;
@@ -2087,27 +2068,26 @@ html {
     display: flex;
   }
 
-  /* make parallelogram longer on small screens */
   .topbar::before {
-    width: 98vw; /* was clamp(300px, 26vw, 520px) */
+    width: 98vw; 
+
   }
 }
-/* Put this after the existing mobile rules in style.css */
+
 @media (max-width: 640px) {
-  /* Option A: fix only the header button */
+
   .nav .right-tools .btn.contact {
-    min-width: 0 !important; /* allow shrink-to-content */
+    min-width: 0 !important; 
+
     width: auto !important;
     white-space: nowrap;
-    padding: 6px 12px; /* keep the compact chip look */
+    padding: 6px 12px; 
+
     font-size: 16px;
   }
 
-  /* Option B: fix all .btn on phones (if desired) */
-  /* .btn { min-width: 0; } */
 }
 
-/* Mechanical Hero Section */
 .mechanical-hero {
   position: relative;
   height: 60vh;
@@ -2158,7 +2138,6 @@ html {
   opacity: 0.95;
 }
 
-/* Services Grid */
 .services-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -2231,18 +2210,17 @@ html {
   font-size: 14px;
   line-height: 1.5;
 }
-/* center the 3rd service card only (when there are 3 items) */
+
 .services-grid > .service-card:nth-child(3) {
   grid-column: 1 / -1;
   justify-self: center;
 
-  /* same width as one column */
-  width: calc((100% - 24px) / 2); /* update 24px if your grid gap changes */
+  width: calc((100% - 24px) / 2); 
+
   max-width: 560px;
   box-sizing: border-box;
 }
 
-/* revert on narrow (single-column) viewports */
 @media (max-width: 980px) {
   .services-grid > .service-card:nth-child(3) {
     grid-column: auto;
@@ -2252,7 +2230,6 @@ html {
   }
 }
 
-/* Timeline Section */
 .timeline-section {
   background: #f8f9ff;
   border-top: 1px solid #e9ecf8;
@@ -2335,7 +2312,6 @@ html {
   line-height: 1.5;
 }
 
-/* CTA Section */
 .cta-section {
   background: var(--brand);
   color: #fff;
@@ -2390,7 +2366,6 @@ html {
   transform: translateY(-2px);
 }
 
-/* Burger Menu Enhancements */
 .burger.active span:nth-child(1) {
   transform: rotate(45deg) translate(6px, 6px);
 }
@@ -2403,7 +2378,6 @@ html {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Mobile Responsive */
 @media (max-width: 980px) {
   .services-grid {
     grid-template-columns: 1fr;
@@ -2449,7 +2423,7 @@ html {
     min-width: 200px;
   }
 }
-/* Clients marquee — full-bleed, seamless infinite loop */
+
 .clients-marquee {
   width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -2474,10 +2448,14 @@ html {
   align-items: center;
   justify-content: center;
   padding: 12px 16px;
-  background: transparent; /* No white box */
-  border: none; /* No border */
-  border-radius: 0; /* No rounded corners */
-  box-shadow: none; /* No shadow */
+  background: transparent; 
+
+  border: none; 
+
+  border-radius: 0; 
+
+  box-shadow: none; 
+
   transition: all 0.3s ease;
   min-width: 140px;
   min-height: 80px;
@@ -2485,8 +2463,10 @@ html {
 
 .clients-marquee .client-logo:hover {
   transform: translateY(-2px);
-  box-shadow: none; /* No hover shadow */
-  border-color: transparent; /* No hover border */
+  box-shadow: none; 
+
+  border-color: transparent; 
+
 }
 
 .clients-marquee .client-logo img {
@@ -2516,7 +2496,6 @@ html {
   }
 }
 
-/* responsive adjustments */
 @media (max-width: 1200px) {
   .marquee-track {
     gap: 28px;
@@ -2570,7 +2549,7 @@ html {
     max-height: 45px;
   }
 }
-/* News Section Styles */
+
 .news-section {
   background: #fff;
   border-top: 1px solid #e9ecf8;
@@ -2599,7 +2578,6 @@ html {
   margin: 0;
 }
 
-/* News Carousel Wrapper */
 .news-carousel-wrapper {
   position: relative;
   display: flex;
@@ -2628,7 +2606,6 @@ html {
   }
 }
 
-/* News Card Styles */
 .news-card {
   flex: 0 0 320px;
   background: #fff;
@@ -2733,7 +2710,6 @@ html {
   overflow: hidden;
 }
 
-/* Scroll Buttons */
 .news-scroll-btn {
   flex: 0 0 56px;
   width: 56px;
@@ -2768,7 +2744,6 @@ html {
   height: 24px;
 }
 
-/* Loading Skeletons */
 .news-loading {
   display: flex;
   gap: 20px;
@@ -2810,7 +2785,6 @@ html {
   }
 }
 
-/* Controls Section */
 .news-controls {
   margin-top: 32px;
   text-align: center;
@@ -2844,7 +2818,6 @@ html {
   color: #dc2626;
 }
 
-/* Responsive Design */
 @media (max-width: 980px) {
   .news-card {
     flex: 0 0 280px;
@@ -2862,7 +2835,6 @@ html {
   }
 }
 
-/* Replace the existing news-cards-container mobile rules with this block */
 @media (max-width: 640px) {
   .news-carousel-wrapper {
     flex-direction: column;
@@ -2870,16 +2842,15 @@ html {
   }
 
   .news-scroll-btn {
-    display: none !important; /* hide buttons on phones if you like */
+    display: none !important; 
+
   }
 
-  /* Keep carousel overflow hidden for transform-based sliding */
   .news-carousel {
     overflow: hidden;
     position: relative;
   }
 
-  /* Keep cards in a normal flex row (not width:max-content) so natural responsive widths apply */
   .news-cards-container {
     display: flex !important;
     flex-wrap: nowrap;
@@ -2890,21 +2861,21 @@ html {
     align-items: stretch;
   }
 
-  /* Let each card be responsive — your existing responsive .news-card rules will apply */
   .news-card {
-    flex: 0 0 auto; /* allow cards to size responsively */
-    min-width: 180px; /* small floor to keep them usable on tiny phones */
-    max-width: 320px; /* cap width on larger phones */
+    flex: 0 0 auto; 
+
+    min-width: 180px; 
+
+    max-width: 320px; 
+
   }
 
-  /* Prevent any inline-transform override from breaking the layout visually */
   .news-cards-container[style*="transform"] {
-    /* we allow transform during drag; keep this rule light */
+
     transition: none !important;
   }
 }
 
-/* Mobile-only touch-enabled rules (keeps desktop sizes unchanged) */
 @media (hover: none) and (pointer: coarse) {
   .news-carousel.touch-enabled {
     overflow-x: auto !important;
@@ -2944,15 +2915,14 @@ html {
   }
 }
 
-/* Ensure carousel viewport hides overflow but does not offset children */
 .news-carousel {
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
-  padding-left: 0; /* ensure no left padding hides first card */
+  padding-left: 0; 
+
 }
 
-/* Ensure track (cards container) aligns children from the left edge */
 .news-cards-container {
   box-sizing: border-box;
   margin-left: 0;
@@ -2960,16 +2930,10 @@ html {
   will-change: transform;
 }
 
-/* Ensure the first card has no unintended negative margin */
 .news-card:first-child {
   margin-left: 0;
 }
-/* ---------------------------
-   About page styles (about.html)
-   Paste at the end of style.css
-   --------------------------- */
 
-/* About hero (two-column, image on right) */
 .about-hero {
   padding: clamp(36px, 6vw, 72px) var(--padX);
   background: #fff;
@@ -2985,7 +2949,6 @@ html {
   align-items: center;
 }
 
-/* content column */
 .about-content h1 {
   margin: 0 0 10px;
   font-size: clamp(28px, 4.4vw, 42px);
@@ -3005,7 +2968,6 @@ html {
   max-width: 56ch;
 }
 
-/* small badge under intro */
 .about-content .badge {
   margin-top: 12px;
   background: linear-gradient(
@@ -3017,7 +2979,6 @@ html {
   border: 1px solid rgba(26, 53, 125, 0.06);
 }
 
-/* image column */
 .about-image {
   display: grid;
   place-items: center;
@@ -3036,7 +2997,6 @@ html {
   border: 1px solid #eef3ff;
 }
 
-/* Vision & Mission */
 .vision-mission-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -3084,7 +3044,6 @@ html {
   line-height: 1.5;
 }
 
-/* Core values / values grid */
 .values-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -3138,7 +3097,6 @@ html {
   line-height: 1.5;
 }
 
-/* Small helpers + consistent spacing */
 .section.vision-mission,
 .section.history,
 .section.core-values {
@@ -3160,22 +3118,22 @@ html {
   }
 }
 
-/* Base section styling */
 .section {
   position: relative;
   padding: clamp(28px, 5vw, 56px) var(--padX);
-  border-top: 1px solid rgba(0, 0, 0, 0.05); /* thin separator */
+  border-top: 1px solid rgba(0, 0, 0, 0.05); 
+
 }
 
-/* Alternate shading */
 .section:nth-of-type(odd) {
-  background: #ffffff; /* pure white */
+  background: #ffffff; 
+
 }
 .section:nth-of-type(even) {
-  background: #f9f9f9; /* slightly darker white */
+  background: #f9f9f9; 
+
 }
 
-/* 4. Generic box hover interactivity */
 .card,
 .service-card,
 .kpi,
@@ -3190,7 +3148,6 @@ html {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* 3. Generic hover for every content box */
 .card,
 .service-card,
 .kpi,
@@ -3215,7 +3172,6 @@ html {
   background: #fff;
 }
 
-/* 2. Remove blue hover box on other sections; add border highlight */
 .card,
 .service-card,
 .kpi,
@@ -3235,11 +3191,12 @@ html {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   border-color: var(--brand);
 }
-/* ===== Company History timeline ===== */
+
 #company-history {
   background: #fff;
   border-top: 1px solid #e9ecf8;
-  padding: 0; /* section wrapper uses .section spacing if needed */
+  padding: 0; 
+
 }
 
 #company-history .timeline-container {
@@ -3259,17 +3216,16 @@ html {
   margin-bottom: 22px;
 }
 
-/* timeline body */
 #company-history .timeline {
   position: relative;
   padding-left: 0;
 }
 
-/* vertical line placed through the center of the left column */
 #company-history .timeline::before {
   content: "";
   position: absolute;
-  left: 40px; /* center line relative to left column */
+  left: 40px; 
+
   top: 20px;
   bottom: 20px;
   width: 4px;
@@ -3279,7 +3235,6 @@ html {
   transform-origin: center;
 }
 
-/* each item: left = dot+year (fixed width), right = content */
 #company-history .timeline-items {
   display: flex;
   flex-direction: column;
@@ -3292,10 +3247,10 @@ html {
   gap: 20px;
   align-items: flex-start;
   position: relative;
-  z-index: 1; /* sit above the vertical line */
+  z-index: 1; 
+
 }
 
-/* left column (dot + year) */
 #company-history .timeline-left {
   display: flex;
   align-items: center;
@@ -3304,7 +3259,6 @@ html {
   padding-right: 6px;
 }
 
-/* the dot — sits centered over the line */
 #company-history .timeline-dot {
   width: 16px;
   height: 16px;
@@ -3316,7 +3270,6 @@ html {
   margin-left: 0;
 }
 
-/* year text next to the dot */
 #company-history .timeline-year {
   font-weight: 800;
   color: var(--brand-700);
@@ -3325,7 +3278,6 @@ html {
   white-space: nowrap;
 }
 
-/* right column content */
 #company-history .timeline-right h3 {
   margin: 0 0 6px 0;
   color: var(--brand);
@@ -3339,7 +3291,6 @@ html {
   font-size: 14px;
 }
 
-/* small screens — stack and move the line to left edge */
 @media (max-width: 640px) {
   #company-history .timeline::before {
     left: 20px;
@@ -3355,7 +3306,8 @@ html {
   }
 
   #company-history .timeline-year {
-    display: none; /* hide year next to dot on very small screens */
+    display: none; 
+
   }
 
   #company-history .timeline-right h3 {
@@ -3363,85 +3315,76 @@ html {
   }
 }
 
-/* optional hover highlight */
 #company-history .timeline-item:hover .timeline-right h3 {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 6px;
 }
-/* ===== responsive control for timeline horizontal position ===== */
-/* Put this after your timeline CSS */
+
 #company-history {
-  /* desktop default: smaller value = move more to the LEFT, larger = move RIGHT */
+
   --timeline-left: 44px;
 }
 
-/* vertical line */
 #company-history .timeline::before {
   left: var(--timeline-left);
 }
 
-/* make each item a positioning context and set the left column width relative to the line */
 #company-history .timeline-item {
   position: relative;
-  /* first column width = line x-coordinate + extra spacing for year/dot */
+
   grid-template-columns: calc(var(--timeline-left) + 36px) 1fr;
 }
 
-/* dot sits on the line center */
 #company-history .timeline-dot {
   position: absolute;
-  left: var(--timeline-left); /* aligns with the ::before line */
-  top: 6px; /* tweak if vertical alignment needed */
-  transform: translateX(-50%); /* centers the dot over the line */
+  left: var(--timeline-left); 
+
+  top: 6px; 
+
+  transform: translateX(-50%); 
+
   z-index: 2;
 }
 
-/* Year text sits left of the dot (no changes needed if you already swapped order) */
 #company-history .timeline-left {
   align-items: center;
   justify-content: flex-end;
 }
 
-/* ===== mobile adjustments ===== */
 @media (max-width: 640px) {
-  /* mobile: move the line closer to the left edge */
+
   #company-history {
     --timeline-left: 20px;
   }
 
-  /* shrink the left column so content doesn't get pushed off-screen */
   #company-history .timeline-item {
     grid-template-columns: calc(var(--timeline-left) + 28px) 1fr;
   }
 
-  /* fine-tune dot vertical position on small screens */
   #company-history .timeline-dot {
     top: 4px;
   }
 
-  /* optional: hide year on very small screens to save space
-     uncomment the next line if you want it hidden on mobile */
-  /* #company-history .timeline-year { display: none; } */
 }
-/* move the year left so it doesn't overlap the dot/line */
+
 #company-history .timeline-left {
-  /* keep items aligned to the right edge of the left column */
+
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  padding-right: 30px; /* extra breathing room between year and the right edge */
+  padding-right: 30px; 
+
 }
 
-/* add right-margin on the year so it shifts left away from the dot */
 #company-history .timeline-year {
-  margin-right: 18px; /* increase = year moves further left; decrease = moves right */
+  margin-right: 18px; 
+
   position: relative;
   z-index: 3;
 }
 
-/* mobile: reduce the margin so layout remains compact */
 @media (max-width: 640px) {
   #company-history .timeline-left {
     padding-right: 8px;
@@ -3451,8 +3394,7 @@ html {
     font-size: 13px;
   }
 }
-/* ===== remove box behind emoji + center it ===== */
-/* target common core-values selectors (keeps specificity safe by grouping) */
+
 #core-values .value-icon,
 .core-values .value-icon,
 .values .icon,
@@ -3460,18 +3402,23 @@ html {
 .value-card .icon,
 .card .icon,
 .core-value .icon {
-  background: none !important; /* remove background color/image */
-  box-shadow: none !important; /* remove any shadow that creates a "box" look */
-  border: none !important; /* remove borders */
-  padding: 0 !important; /* remove extra inner spacing */
-  width: auto; /* allow natural width unless you want fixed size */
+  background: none !important; 
+
+  box-shadow: none !important; 
+
+  border: none !important; 
+
+  padding: 0 !important; 
+
+  width: auto; 
+
   height: auto;
-  display: flex !important; /* center contents */
+  display: flex !important; 
+
   align-items: center !important;
   justify-content: center !important;
 }
 
-/* ensure the emoji (text or img) is centered and sized nicely */
 #core-values .value-icon > img,
 .core-values .value-icon > img,
 .values .icon > img,
@@ -3479,12 +3426,12 @@ html {
 .core-value .icon > img {
   display: block;
   margin: 0 auto;
-  max-width: 48px; /* adjust size as needed */
+  max-width: 48px; 
+
   width: 100%;
   height: auto;
 }
 
-/* if emoji is a text node or span (e.g. <span class="emoji">🔥</span>) */
 #core-values .value-icon .emoji,
 .core-values .value-icon .emoji,
 .values .icon .emoji,
@@ -3492,12 +3439,12 @@ html {
 .core-value .icon .emoji {
   display: inline-block;
   margin: 0;
-  font-size: 28px; /* tweak to preferred size */
+  font-size: 28px; 
+
   line-height: 1;
   text-align: center;
 }
 
-/* optional: ensure the whole card content is centered horizontally */
 #core-values .core-value,
 .core-values .core-value,
 .values .value-card,
@@ -3510,7 +3457,6 @@ html {
   gap: 10px;
 }
 
-/* mobile tweak: slightly smaller emoji on small screens */
 @media (max-width: 640px) {
   #core-values .value-icon .emoji,
   .core-values .value-icon .emoji {
@@ -3521,60 +3467,41 @@ html {
     max-width: 36px;
   }
 }
-/* Smooth background transition for header bars */
+
 .topbar,
 .nav {
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-/* Transparent header at top: keep the white parallelogram (.topbar::before) visible */
 .site-header.at-top .topbar {
   background: transparent;
 }
 
-/* Make the blue nav bar transparent (no text color changes) */
 .site-header.at-top .nav {
   background: transparent;
   border-top-color: transparent;
 }
 
-/* Pull the carousel up behind the sticky header so it is truly full-screen at page top */
-/* REPLACE the height lines under .carousel */
-/* style.css — REPLACE height inside your existing .carousel */
 .carousel {
   position: relative;
   overflow: hidden;
   user-select: none;
   background: #0b1024;
 
-  /* Full, real viewport height on all browsers */
-  height: 100vh; /* fallback */
-  height: 100svh; /* small viewport unit */
-  height: 100dvh; /* dynamic viewport unit */
+  height: 100vh; 
 
-  /* keep the slide behind the sticky header at the very top */
+  height: 100svh; 
+
+  height: 100dvh; 
+
   margin-top: calc(var(--header-h) * -1);
 }
-/* style.css — keep near header/nav */
+
 .topbar,
 .nav {
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-/* Transparent at the very top; keeps the white parallelogram visible */
-.site-header.at-top .topbar {
-  background: transparent;
-}
-.site-header.at-top .nav {
-  background: transparent;
-  border-top-color: transparent;
-}
-/* Keep caption clear of sticky header */
-.slide .caption {
-  margin-top: 0;
-  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 12px);
-}
-/* Transparent only at page top */
 .site-header.at-top .topbar {
   background: transparent;
 }
@@ -3583,7 +3510,19 @@ html {
   border-top-color: transparent;
 }
 
-/* Also allow body/html driven state (script applies both) */
+.slide .caption {
+  margin-top: 0;
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 12px);
+}
+
+.site-header.at-top .topbar {
+  background: transparent;
+}
+.site-header.at-top .nav {
+  background: transparent;
+  border-top-color: transparent;
+}
+
 body.at-top .topbar,
 html.at-top .topbar {
   background: transparent;
@@ -3593,34 +3532,35 @@ html.at-top .nav {
   background: transparent;
   border-top-color: transparent;
 }
-/* Anchor offset for sticky header */
+
 [id] {
   scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
-/* Optional: give phones a touch more space */
 @media (max-width: 640px) {
   [id] {
     scroll-margin-top: calc(var(--header-h) + 24px);
   }
 }
-/* --- FORCE: disable native horizontal scrolling on desktop so cards stay clickable --- */
+
 @media (hover: hover) and (pointer: fine) {
   .news-carousel {
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: auto !important;
-    touch-action: none !important; /* prevents pointer gestures from hijacking click */
+    touch-action: none !important; 
+
     overscroll-behavior-x: contain !important;
   }
 
   .news-cards-container,
   .news-cards-container .news-card {
-    pointer-events: auto !important; /* ensure cards receive click events */
+    pointer-events: auto !important; 
+
     user-select: auto !important;
     touch-action: manipulation !important;
   }
 }
-/* Our Clients — remove the box entirely */
+
 .section.clients .client-logo,
 .section.clients .clients-grid .client-logo {
   background: transparent !important;
@@ -3629,27 +3569,28 @@ html.at-top .nav {
   box-shadow: none !important;
 }
 
-/* Keep hover clean (no border/shadow/background) */
 .section.clients .client-logo:hover,
 .section.clients .clients-grid .client-logo:hover {
   background: transparent !important;
   border: none !important;
-  box-shadow: none !important; /* prevents the card look on hover */
-  /* optional: comment out if a small lift is still desired */
-  /* transform: none !important; */
+  box-shadow: none !important; 
+
 }
-/* About hero: mobile layout (image on top) */
+
 @media (max-width: 980px) {
   .about-hero .hero-inner {
-    grid-template-columns: 1fr; /* ensure single column on mobile */
+    grid-template-columns: 1fr; 
+
   }
   .about-hero .about-image {
-    order: -1; /* move image above the text */
+    order: -1; 
+
   }
   .about-hero .about-image img {
     width: 100%;
     height: auto;
-    max-width: none; /* override the 560px cap on small screens */
+    max-width: none; 
+
     object-fit: cover;
   }
 }
