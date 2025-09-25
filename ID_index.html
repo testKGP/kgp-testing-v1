@@ -35,7 +35,7 @@
     </style>
   </head>
   <body>
-
+    <!-- Header -->
     <header class="site-header" role="banner" id="home">
       <div class="topbar">
         <div class="brand" aria-label="Guna Cipta Sinergi">
@@ -73,6 +73,7 @@
               />
             </a>
 
+            <!-- New: logoHKS linking to HAKAES homepage -->
             <a
               href="https://hakaes.com/home"
               target="_blank"
@@ -155,7 +156,7 @@
       </nav>
     </header>
     <div id="at-top-sentinel" aria-hidden="true"></div>
-
+    <!-- Carousel -->
     <section
       class="carousel"
       aria-roledescription="carousel"
@@ -164,7 +165,7 @@
     >
       <div class="carousel-viewport" role="group" aria-live="polite">
         <div class="carousel-track" id="track">
-
+          <!-- initial slides (clones are added via JS) -->
           <article class="slide" aria-label="Slide 1">
             <picture>
               <source
@@ -244,6 +245,7 @@
         </div>
       </div>
 
+      <!-- Matching arrows -->
       <button class="arrow prev" aria-label="Previous slide" id="prev">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
@@ -265,86 +267,48 @@
           </p>
         </div>
 
+        <!-- REPLACE the existing .map-container block with this -->
         <div class="map-container">
           <div class="map-inner">
-
+            <!-- LEFT: stats boxes -->
             <div class="map-stats" aria-hidden="false">
               <div class="stat-box" role="group" aria-label="Technicians">
                 <div class="stat-num">🛠 285</div>
-                <div class="stat-label">Teknisi</div>
+                <div class="stat-label">Technicians</div>
               </div>
 
               <div class="stat-box" role="group" aria-label="Service Points">
                 <div class="stat-num">📍 126</div>
-                <div class="stat-label">Titik Layanan</div>
+                <div class="stat-label">Service Points</div>
               </div>
             </div>
 
+            <!-- RIGHT: embedded Google Map -->
             <div
               class="map-card"
               role="img"
-              aria-label="Map of Indonesia showing service points"
+              aria-label="Embedded map of service points"
             >
-              <img
-                src="images/mapIndonesia.svg"
-                alt="Indonesia Map"
-                class="indonesia-map"
-              />
-
               <div
-                class="location-marker"
-                data-city="Jawa"
-                style="top: 63%; left: 38%"
+                class="map-embed"
+                style="width: 100%; max-width: 900px; margin: 0 auto"
               >
-                <img src="images/locationIcon.svg" alt="Jawa" />
-              </div>
-              <div
-                class="location-marker"
-                data-city="Sumatra"
-                style="top: 37%; left: 20%"
-              >
-                <img src="images/locationIcon.svg" alt="Sumatra" />
-              </div>
-              <div
-                class="location-marker"
-                data-city="Nusa Tenggara"
-                style="top: 70%; left: 55%"
-              >
-                <img src="images/locationIcon.svg" alt="Nusa Tenggara" />
-              </div>
-              <div
-                class="location-marker"
-                data-city="Papua"
-                style="top: 52%; left: 90%"
-              >
-                <img src="images/locationIcon.svg" alt="Papua" />
-              </div>
-              <div
-                class="location-marker"
-                data-city="Kalimantan"
-                style="top: 40%; left: 42%"
-              >
-                <img src="images/locationIcon.svg" alt="Kalimantan" />
-              </div>
-              <div
-                class="location-marker"
-                data-city="Maluku"
-                style="top: 31%; left: 69%"
-              >
-                <img src="images/locationIcon.svg" alt="Maluku" />
-              </div>
-              <div
-                class="location-marker"
-                data-city="Sulawesi"
-                style="top: 43%; left: 55%"
-              >
-                <img src="images/locationIcon.svg" alt="Sulawesi" />
+                <iframe
+                  src="https://www.google.com/maps/d/embed?mid=10rlaN_NViDhBAT8MeWyDx7shoLeQzVI&ehbc=2E312F&noprof=1"
+                  width="100%"
+                  height="800"
+                  style="border: 0"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  aria-label="Interactive Google map of service points"
+                ></iframe>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Popup Modal -->
       <div id="location-popup" class="popup-overlay">
         <div class="popup-content">
           <button class="popup-close" aria-label="Close popup">&times;</button>
@@ -354,9 +318,10 @@
             class="popup-description"
             aria-live="polite"
           ></div>
-
+          <!-- Thumbnails container (one image per island) -->
           <div id="popup-images" class="popup-images" aria-live="polite"></div>
 
+          <!-- Inner image modal (appears on top of popup-content) -->
           <div
             id="image-modal"
             class="image-modal"
@@ -373,6 +338,7 @@
       </div>
     </section>
 
+    <!-- Goal Section -->
     <section id="goal" class="section goal">
       <div class="goal-inner">
         <div class="goal-copy">
@@ -397,6 +363,7 @@
       </div>
     </section>
 
+    <!-- Products & Services Section -->
     <section class="section products-services">
       <div class="products-section-inner">
         <div class="products-section-header">
@@ -480,13 +447,14 @@
       </div>
     </section>
 
+    <!-- Our Clients Section -->
     <section class="section clients">
       <div class="clients-inner">
         <h2>Klien Kami</h2>
         <p>Dipercaya oleh organisasi terkemuka di seluruh Indonesia</p>
         <div class="clients-marquee">
           <div class="marquee-track">
-
+            <!-- First set of all 26 logos -->
             <div class="client-logo">
               <img src="images/logoClient1.png" alt="Client 1" loading="lazy" />
             </div>
@@ -634,6 +602,7 @@
               />
             </div>
 
+            <!-- Second set - exact duplicate for seamless loop -->
             <div class="client-logo">
               <img src="images/logoClient1.png" alt="Client 1" loading="lazy" />
             </div>
@@ -784,7 +753,7 @@
         </div>
       </div>
     </section>
-
+    <!-- News Section - Add this after the clients section -->
     <section id="news-atm-finance" class="section news-section">
       <div class="news-inner">
         <div class="news-header">
@@ -810,7 +779,7 @@
             tabindex="0"
           >
             <div class="news-cards-container" id="news-cards-container">
-
+              <!-- News cards will be loaded here by JavaScript -->
             </div>
           </div>
 
@@ -835,7 +804,7 @@
 
     <footer class="footer">
       <div class="footer-content">
-
+        <!-- Company Info Section -->
         <div class="footer-section">
           <img
             src="images/logoGCS.png"
@@ -858,6 +827,7 @@
           </p>
         </div>
 
+        <!-- Navigation Section -->
         <div class="footer-section footer-nav">
           <h3>Navigation</h3>
           <ul>
@@ -868,6 +838,7 @@
           </ul>
         </div>
 
+        <!-- Products & Services Section -->
         <div class="footer-section footer-services">
           <h3>Products & Services</h3>
           <ul>
@@ -895,6 +866,7 @@
           </ul>
         </div>
 
+        <!-- Contact Section -->
         <div class="footer-section">
           <h3>Kontak</h3>
           <div class="contact-item">
@@ -913,6 +885,7 @@
             </div>
           </div>
 
+          <!-- replace the existing .social-buttons block in the footer with this -->
           <div class="social-buttons">
             <a
               href="https://wa.me/6285282801856"
@@ -932,6 +905,7 @@
               <img src="images/logoInstagram.png" alt="Instagram" />
             </a>
 
+            <!-- Maps button (same footer style) -->
             <a
               href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
