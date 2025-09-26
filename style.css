@@ -3726,3 +3726,313 @@ html.at-top .nav {
   }
 }
 /* End compact overrides */
+/* --------- Our Gallery styles (add to style.css) --------- */
+.section.gallery {
+  background: #fff;
+  border-top: 1px solid #e9ecf8;
+  padding: clamp(28px, 5vw, 56px) var(--padX);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* desktop: 6 columns */
+  gap: 12px;
+  grid-auto-rows: 120px; /* base row height */
+  align-items: stretch;
+  width: 100%;
+  margin-top: 18px;
+  grid-auto-flow: dense; /* fill gaps when items span */
+}
+
+/* Item (use button for keyboard/accessibility) */
+.gallery-item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 0;
+  border: 1px solid #e7eefc;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  background: #f3f6fb;
+  outline: none;
+}
+
+/* Reset default button visuals */
+.gallery-item {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Image inside */
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.35s ease, filter 0.25s ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Dark overlay (pseudo-element) */
+.gallery-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+  transition: background 0.22s ease, opacity 0.22s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Lift effect on hover/focus */
+.gallery-item:hover img,
+.gallery-item:focus img {
+  transform: scale(1.04);
+}
+
+/* Remove dark overlay on hover/focus */
+.gallery-item:hover::before,
+.gallery-item:focus::before {
+  background: rgba(0, 0, 0, 0);
+}
+
+/* Spans for layout variety */
+.gallery-item.tall {
+  grid-row: span 2;
+}
+.gallery-item.wide {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Overlay / modal */
+.gallery-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1600;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  place-items: center;
+}
+
+.gallery-overlay.open {
+  display: grid;
+  animation: fadeIn 0.18s ease;
+}
+
+.overlay-content {
+  position: relative;
+  max-width: min(1100px, 92vw);
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* Was `gallery-overlay-img` (not applied); target the id instead */
+#gallery-overlay-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 88vh;
+  border: 0;
+  outline: none;
+  box-shadow: none; /* remove any faint rectangle look */
+}
+
+/* Close button */
+.overlay-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border: none;
+  background: #fff;
+  color: var(--brand);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 12;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 110px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 100px;
+  }
+  .gallery-item.wide {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 100px;
+    gap: 8px;
+  }
+  .gallery-item.tall,
+  .gallery-item.wide {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .overlay-close {
+    right: 6px;
+    top: 6px;
+    background: rgba(255, 255, 255, 0.96);
+  }
+}
+/* style.css — Gallery grid utility */
+.gallery-item.wide-short {
+  grid-column: span 2;
+  grid-row: span 1; /* stay short */
+}
+
+/* keep it short on all breakpoints */
+@media (max-width: 1100px) {
+  .gallery-item.wide-short {
+    grid-row: span 1;
+  }
+}
+@media (max-width: 768px) {
+  .gallery-item.wide-short {
+    grid-row: span 1;
+  }
+}
+@media (max-width: 480px) {
+  .gallery-item.wide-short {
+    grid-row: span 1;
+  }
+}
+/* --- Gallery overlay: keep header above overlay, nudge image down so navbar doesn't clip it --- */
+.gallery-overlay {
+  /* keep existing visual behavior, don't change stacking with header */
+  place-items: center; /* center horizontally/vertically as before */
+}
+
+/* move the overlay content slightly down from true center.
+   Uses --header-h (already defined in your :root) so it adapts if you change header height */
+.overlay-content {
+  /* slide content downward from the centered position */
+  transform: translateY(calc(var(--header-h) / 2));
+  /* ensure content never grows so tall its top disappears under header */
+  max-height: calc(88vh - var(--header-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* keep the image inside the overlay sized to viewport but account for header height */
+#gallery-overlay-img {
+  max-height: calc(88vh - var(--header-h) - 20px);
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+/* ===== Service Points: vertically center stats + map ===== */
+.map-inner {
+  /* grid already set in your file; this centers both columns vertically */
+  align-items: center;
+  gap: 24px; /* small gap between columns */
+}
+
+/* Make the right-side card keep the map centered inside the white rectangle */
+.map-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px; /* gives breathing room inside the rectangle */
+  background: #fff; /* keep the white rectangle look */
+  border-radius: 10px;
+  box-shadow: var(--shadow); /* optional — matches site style */
+}
+
+/* Make the embed responsive and not top-aligned */
+.map-embed {
+  width: 100%;
+  max-width: 900px; /* matches your inline max-width */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure iframe doesn't force top alignment and respects the card padding */
+.map-embed iframe,
+.map-card .map-embed iframe {
+  width: 100% !important;
+  height: 420px !important; /* your compact desktop height */
+  max-height: 60vh; /* keeps it from getting too tall */
+  min-height: 360px !important;
+  display: block !important;
+  border-radius: 8px; /* soften corners to match card */
+  overflow: hidden !important;
+}
+.map-inner .map-card {
+  display: flex !important;
+  flex-direction: column !important; /* keep items stacked if card has multiple children */
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 18px !important; /* preserve original padding */
+  box-sizing: border-box !important;
+}
+
+/* Ensure the embed container is a centered flexbox */
+.map-inner .map-card .map-embed,
+.map-inner .map-card > .map-embed {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Force the iframe to be centered visually inside the white rectangle */
+.map-inner .map-card .map-embed iframe,
+.map-inner .map-card iframe,
+.map-card iframe,
+#servicepoints-map {
+  display: block !important;
+  margin: 0 auto !important;
+  width: 100% !important; /* fill card width */
+  max-width: 900px !important; /* cap width so card padding is visible */
+  height: 400px !important; /* desktop height — tweak if you want taller/shorter */
+  max-height: 72vh !important;
+  min-height: 360px !important;
+  border: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Remove the earlier big min-height forcing the whole block to top-align */
+.map-embed,
+.map-card,
+.map-inner,
+.map-container {
+  min-height: auto !important;
+  height: auto !important;
+}
+
+/* Small screens: keep centered and a usable height */
+@media (max-width: 768px) {
+  .map-inner .map-card .map-embed iframe,
+  .map-inner .map-card iframe,
+  #servicepoints-map {
+    height: 40vh !important;
+    min-height: 280px !important;
+  }
+}

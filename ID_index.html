@@ -338,28 +338,141 @@
       </div>
     </section>
 
-    <!-- Goal Section -->
-    <section id="goal" class="section goal">
-      <div class="goal-inner">
-        <div class="goal-copy">
-          <p class="goal-kicker">Apa yang Ingin Kami Capai?</p>
-          <h2 class="goal-title">Tujuan</h2>
-          <p class="goal-text">
-            Menyediakan layanan ATM yang andal, cepat, dan aman di seluruh
-            Indonesia untuk memaksimalkan waktu aktif (uptime) serta kepuasan
-            mitra dan pemegang kartu.
-          </p>
+    <!-- Our Gallery (replace the Goal section) -->
+    <section id="our-gallery" class="section gallery" aria-label="Our Gallery">
+      <div class="gallery-inner" style="max-width: 1100px; margin: 0 auto">
+        <div
+          style="
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 18px;
+          "
+        >
+          <div>
+            <p class="goal-kicker" style="margin: 0 0 8px">
+              Peek Into Our Work
+            </p>
+            <h2 class="goal-title" style="margin: 0 0 8px">Our Gallery</h2>
+            <p class="goal-text" style="max-width: 56ch">
+              A selection of photos from our projects and events. Click any
+              image to enlarge.
+            </p>
+          </div>
         </div>
 
-        <figure class="goal-figure">
-          <img
-            src="images/goalIllustration.svg"
-            alt="Team aiming at a target to represent organizational goal"
-            loading="lazy"
-            width="700"
-            height="520"
-          />
-        </figure>
+        <div class="gallery-grid" role="list">
+          <!-- 12 images. adjust classes 'wide' / 'tall' to change layout -->
+          <button
+            class="gallery-item"
+            data-src="images/gallery1.jpg"
+            aria-label="Open gallery image 1"
+          >
+            <img src="images/gallery1.jpg" alt="Gallery 1" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item tall"
+            data-src="images/gallery2.jpg"
+            aria-label="Open gallery image 2"
+          >
+            <img src="images/gallery2.jpg" alt="Gallery 2" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item"
+            data-src="images/gallery3.jpg"
+            aria-label="Open gallery image 3"
+          >
+            <img src="images/gallery3.jpg" alt="Gallery 3" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item"
+            data-src="images/gallery4.jpg"
+            aria-label="Open gallery image 4"
+          >
+            <img src="images/gallery4.jpg" alt="Gallery 4" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item wide"
+            data-src="images/gallery5.jpg"
+            aria-label="Open gallery image 5"
+          >
+            <img src="images/gallery5.jpg" alt="Gallery 5" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item"
+            data-src="images/gallery6.jpg"
+            aria-label="Open gallery image 6"
+          >
+            <img src="images/gallery6.jpg" alt="Gallery 6" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item"
+            data-src="images/gallery7.jpg"
+            aria-label="Open gallery image 7"
+          >
+            <img src="images/gallery7.jpg" alt="Gallery 7" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item tall"
+            data-src="images/gallery8.jpg"
+            aria-label="Open gallery image 8"
+          >
+            <img src="images/gallery8.jpg" alt="Gallery 8" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item"
+            data-src="images/gallery9.jpg"
+            aria-label="Open gallery image 9"
+          >
+            <img src="images/gallery9.jpg" alt="Gallery 9" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item"
+            data-src="images/gallery10.jpg"
+            aria-label="Open gallery image 10"
+          >
+            <img src="images/gallery10.jpg" alt="Gallery 10" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item"
+            data-src="images/gallery11.jpg"
+            aria-label="Open gallery image 11"
+          >
+            <img src="images/gallery11.jpg" alt="Gallery 11" loading="lazy" />
+          </button>
+
+          <button
+            class="gallery-item wide-short"
+            data-src="images/gallery12.jpg"
+            aria-label="Open gallery image 12"
+          >
+            <img src="images/gallery12.jpg" alt="Gallery 12" loading="lazy" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery overlay (click anywhere to close) -->
+      <div
+        id="gallery-overlay"
+        class="gallery-overlay"
+        aria-hidden="true"
+        role="dialog"
+        aria-label="Image preview"
+      >
+        <div class="overlay-content" role="document">
+          <img id="gallery-overlay-img" src="" alt="Enlarged gallery image" />
+        </div>
       </div>
     </section>
 
@@ -2616,6 +2729,87 @@
         window.addEventListener("resize", sync);
         window.addEventListener("load", sync);
         sync();
+      })();
+      (function () {
+        const overlay = document.getElementById("gallery-overlay");
+        const overlayImg = document.getElementById("gallery-overlay-img");
+        const closeBtn = overlay && overlay.querySelector(".overlay-close");
+        const items = document.querySelectorAll(".gallery-item");
+
+        if (!overlay || !overlayImg) return;
+
+        let docClickHandler = null;
+
+        function openImage(src, alt) {
+          overlayImg.src = src;
+          overlayImg.alt = alt || "Gallery image";
+          overlay.classList.add("open");
+          overlay.setAttribute("aria-hidden", "false");
+          if (closeBtn) closeBtn.focus();
+          document.body.style.overflow = "hidden";
+
+          // Attach a document click handler *after* this call stack so the original click doesn't close immediately
+          docClickHandler = function (e) {
+            // any click anywhere should close (no conditions)
+            closeImage();
+          };
+          setTimeout(() => {
+            document.addEventListener("click", docClickHandler);
+          }, 0);
+        }
+
+        function closeImage() {
+          overlay.classList.remove("open");
+          overlay.setAttribute("aria-hidden", "true");
+          overlayImg.src = "";
+          document.body.style.overflow = "";
+
+          // remove global click handler if attached
+          if (docClickHandler) {
+            document.removeEventListener("click", docClickHandler);
+            docClickHandler = null;
+          }
+        }
+
+        items.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            // stop immediate propagation so the click opening the overlay won't be seen by the doc handler in the same tick
+            e.stopPropagation();
+            const src =
+              btn.dataset.src ||
+              (btn.querySelector("img") && btn.querySelector("img").src);
+            const alt = btn.querySelector("img")
+              ? btn.querySelector("img").alt
+              : "";
+            if (!src) return;
+            openImage(src, alt);
+          });
+          // keyboard: Enter/Space open
+          btn.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              btn.click();
+            }
+          });
+        });
+
+        // Clicking anywhere on the overlay (background or image) will also close — redundant with doc handler but kept for reliability
+        overlay.addEventListener("click", (e) => {
+          closeImage();
+        });
+
+        if (closeBtn)
+          closeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeImage();
+          });
+
+        // ESC closes
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && overlay.classList.contains("open")) {
+            closeImage();
+          }
+        });
       })();
     </script>
   </body>
