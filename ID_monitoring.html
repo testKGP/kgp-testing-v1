@@ -43,7 +43,7 @@
     </style>
   </head>
   <body class="mechanical-page">
-
+    <!-- Header -->
     <header class="site-header" role="banner" id="home">
       <div class="topbar">
         <div class="brand" aria-label="Guna Cipta Sinergi">
@@ -57,45 +57,36 @@
           </div>
         </div>
 
-        <div class="partners" aria-label="Partners">
-          <picture>
-            <a
-              href="https://instagram.com/kevin.gunapratama"
-              target="_blank"
-              aria-label="Instagram"
-            >
-              <img src="images/logoKGP.png" alt="Instagram" />
-            </a>
-            <a
-              href="https://indokontraktor.com/business/guna-cahaya-synergie-kota-adm-jakarta-barat"
-              target="_blank"
-              rel="noopener"
-              aria-label="Guna Cahaya Synergie"
-            >
-              <img
-                class="partner-plain"
-                src="images/logoCahaya.png"
-                alt="Guna Cahaya Synergie"
-                loading="lazy"
-                decoding="async"
+        <div class="partners-search" aria-label="Pencarian situs">
+          <form id="siteSearchForm" role="search" onsubmit="return false;">
+            <label for="siteSearchInput" class="visually-hidden">
+              Cari di halaman ini
+            </label>
+            <div class="search-input-wrap">
+              <input
+                id="siteSearchInput"
+                type="search"
+                placeholder="Cari di halaman ini..."
+                aria-label="Cari di halaman ini"
+                autocomplete="off"
+                spellcheck="false"
               />
-            </a>
+              <button
+                id="siteSearchBtn"
+                type="submit"
+                aria-label="Cari di halaman"
+              >
+                🔎
+              </button>
+            </div>
+          </form>
 
-            <a
-              href="https://hakaes.com/home"
-              target="_blank"
-              rel="noopener"
-              aria-label="HAKAES (HKS)"
-            >
-              <img
-                class="partner-plain"
-                src="images/logoHKS.png"
-                alt="KHS"
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-          </picture>
+          <div
+            id="searchResults"
+            class="search-results"
+            role="listbox"
+            aria-hidden="true"
+          ></div>
         </div>
       </div>
 
@@ -165,6 +156,7 @@
       </nav>
     </header>
 
+    <!-- HERO -->
     <section class="mechanical-hero">
       <div class="mechanical-hero-image">
         <img src="images/monitoring-bg.jpg" alt="Latar Belakang Monitoring" />
@@ -180,6 +172,7 @@
       </div>
     </section>
 
+    <!-- SERVICES -->
     <section class="section">
       <div class="services-container">
         <h2>Layanan Kami</h2>
@@ -239,6 +232,7 @@
       <img src="images/monitoringWorkflow.jpg" alt="" style="width: 100%" />
     </section>
 
+    <!-- CTA -->
     <section class="section cta-section">
       <div class="cta-container">
         <h2>Butuh Layanan Monitoring?</h2>
@@ -260,9 +254,10 @@
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-content">
-
+        <!-- Company Info Section -->
         <div class="footer-section">
           <img
             src="images/logoGCS.png"
@@ -285,6 +280,7 @@
           </p>
         </div>
 
+        <!-- Navigation Section -->
         <div class="footer-section footer-nav">
           <h3>Navigation</h3>
           <ul>
@@ -295,6 +291,7 @@
           </ul>
         </div>
 
+        <!-- Products & Services Section -->
         <div class="footer-section footer-services">
           <h3>Products & Services</h3>
           <ul>
@@ -322,6 +319,7 @@
           </ul>
         </div>
 
+        <!-- Contact Section -->
         <div class="footer-section">
           <h3>Kontak</h3>
           <div class="contact-item">
@@ -340,6 +338,7 @@
             </div>
           </div>
 
+          <!-- replace the existing .social-buttons block in the footer with this -->
           <div class="social-buttons">
             <a
               href="https://wa.me/6285282801856"
@@ -359,6 +358,7 @@
               <img src="images/logoInstagram.png" alt="Instagram" />
             </a>
 
+            <!-- Maps button (same footer style) -->
             <a
               href="https://www.google.com/maps/place/PT+Guna+Cipta+Sinergi/@-6.2128023,106.7616473,20z/data=!4m9!1m2!2m1!1sJl.+Karya+Utama+No.19,+Srengseng,+Kembangan,+Jakarta+11630!3m5!1s0x2e69f780b9330a39:0xcd39d797dcfe30d9!8m2!3d-6.2129073!4d106.7618909!16s%2Fg%2F11svsc1d87?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
@@ -390,6 +390,272 @@
           navList.classList.toggle("open");
         });
       }
+      (function () {
+        const form = document.getElementById("siteSearchForm");
+        const input = document.getElementById("siteSearchInput");
+        const resultsBox = document.getElementById("searchResults");
+        const btn = document.getElementById("siteSearchBtn");
+
+        // Utility: is an element visible (basic)
+        function isElementVisible(el) {
+          if (!el || el === document.documentElement) return false;
+          // skip elements with hidden attributes
+          if (el.closest('[aria-hidden="true"], [hidden]')) return false;
+          const style = window.getComputedStyle(el);
+          if (
+            style.display === "none" ||
+            style.visibility === "hidden" ||
+            parseFloat(style.opacity) === 0
+          )
+            return false;
+          if (!el.getClientRects().length) return false;
+          return true;
+        }
+
+        function buildSearchIndex() {
+          const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            {
+              acceptNode: function (node) {
+                if (!node.nodeValue || !node.nodeValue.trim())
+                  return NodeFilter.FILTER_REJECT;
+                let parent = node.parentElement;
+                while (parent && parent !== document.body) {
+                  if (!isElementVisible(parent))
+                    return NodeFilter.FILTER_REJECT;
+                  parent = parent.parentElement;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+              },
+            }
+          );
+
+          const map = new Map();
+          let node;
+          let counter = 0;
+          while (walker.nextNode()) {
+            node = walker.currentNode;
+            const parent = node.parentElement;
+            if (!parent) continue;
+            let container = parent;
+            while (
+              container.parentElement &&
+              container.parentElement !== document.body
+            ) {
+              const t = container.tagName && container.tagName.toLowerCase();
+              if (
+                /(article|section|p|li|td|th|header|footer|main|nav|figure|blockquote|h[1-6])/i.test(
+                  t
+                )
+              )
+                break;
+              container = container.parentElement;
+            }
+            if (!isElementVisible(container)) continue;
+            const text = container.textContent.replace(/\s+/g, " ").trim();
+            if (!text || text.length < 3) continue;
+
+            if (!map.has(container)) {
+              if (!container.id) {
+                container.id = "search-hit-" + ++counter;
+              }
+              const heading =
+                container.querySelector("h1,h2,h3,h4") ||
+                container.closest("h1,h2,h3,h4");
+              const title =
+                (heading && heading.textContent.trim()) ||
+                container.getAttribute("aria-label") ||
+                document.title ||
+                "Bagian";
+              map.set(container, {
+                id: container.id,
+                title: title.trim(),
+                text,
+              });
+            }
+          }
+          return Array.from(map.values());
+        }
+
+        let index = buildSearchIndex();
+
+        function snippetFor(text, q, radius = 60) {
+          const idx = text.toLowerCase().indexOf(q.toLowerCase());
+          if (idx === -1)
+            return (
+              text.slice(0, Math.min(140, text.length)) +
+              (text.length > 140 ? "…" : "")
+            );
+          const start = Math.max(0, idx - radius);
+          const end = Math.min(text.length, idx + q.length + radius);
+          return (
+            (start ? "…" : "") +
+            text.slice(start, end).trim() +
+            (end < text.length ? "…" : "")
+          );
+        }
+
+        function escapeHtml(s) {
+          return (s || "")
+            .toString()
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+
+        function showResults(items, query) {
+          resultsBox.innerHTML = "";
+          if (!items.length) {
+            resultsBox.innerHTML =
+              '<div class="result-item"><div class="result-title">Tidak ada hasil</div><div class="result-snippet">Coba kata kunci lain.</div></div>';
+            resultsBox.style.display = "block";
+            resultsBox.setAttribute("aria-hidden", "false");
+            return;
+          }
+          const frag = document.createDocumentFragment();
+          items.forEach((it) => {
+            const a = document.createElement("a");
+            a.className = "result-item";
+            a.href = "#" + it.id;
+            a.setAttribute("role", "option");
+            a.dataset.targetId = it.id;
+            a.innerHTML = `
+        <div class="result-title">${escapeHtml(it.title)}</div>
+        <div class="result-snippet">${escapeHtml(
+          snippetFor(it.text, query)
+        )}</div>
+      `;
+            frag.appendChild(a);
+          });
+          resultsBox.appendChild(frag);
+          resultsBox.style.display = "block";
+          resultsBox.setAttribute("aria-hidden", "false");
+        }
+
+        function hideResults() {
+          resultsBox.style.display = "none";
+          resultsBox.setAttribute("aria-hidden", "true");
+        }
+
+        async function performSearch(query) {
+          if (!query || query.trim().length < 2) {
+            hideResults();
+            return;
+          }
+          const q = query.trim().toLowerCase();
+          const results = index
+            .map((item) => {
+              const idx = item.text.toLowerCase().indexOf(q);
+              return { item, idx };
+            })
+            .filter((r) => r.idx !== -1)
+            .sort((a, b) => a.idx - b.idx)
+            .map((r) => r.item);
+
+          showResults(results.slice(0, 20), q);
+          positionResults();
+        }
+
+        function positionResults() {
+          const rect = input.getBoundingClientRect();
+          resultsBox.style.left = "0px";
+          resultsBox.style.top = rect.height + 12 + "px";
+        }
+
+        let debounceTimer = null;
+        input.addEventListener("input", (e) => {
+          clearTimeout(debounceTimer);
+          const q = e.target.value;
+          debounceTimer = setTimeout(() => performSearch(q), 180);
+        });
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const first = resultsBox.querySelector(".result-item");
+          if (first) {
+            const id = first.dataset.targetId;
+            goToAndHighlight(id);
+          }
+        });
+
+        resultsBox.addEventListener("click", (e) => {
+          const a = e.target.closest(".result-item");
+          if (!a) return;
+          e.preventDefault();
+          const id = a.dataset.targetId;
+          goToAndHighlight(id);
+          hideResults();
+        });
+
+        input.addEventListener("keydown", (e) => {
+          const items = Array.from(resultsBox.querySelectorAll(".result-item"));
+          if (!items.length) return;
+          const idx = items.findIndex((x) => x.classList.contains("focus"));
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            const next = idx === -1 ? 0 : Math.min(items.length - 1, idx + 1);
+            items.forEach((it) => it.classList.remove("focus"));
+            items[next].classList.add("focus");
+            items[next].focus();
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (idx <= 0) {
+              items.forEach((it) => it.classList.remove("focus"));
+              input.focus();
+              return;
+            }
+            const prev = idx - 1;
+            items.forEach((it) => it.classList.remove("focus"));
+            items[prev].classList.add("focus");
+            items[prev].focus();
+          } else if (e.key === "Escape") {
+            hideResults();
+          } else if (e.key === "Enter") {
+            const focused = items[idx] || items[0];
+            if (focused) {
+              e.preventDefault();
+              const id = focused.dataset.targetId;
+              goToAndHighlight(id);
+              hideResults();
+            }
+          }
+        });
+
+        document.addEventListener("click", (e) => {
+          if (
+            !resultsBox.contains(e.target) &&
+            e.target !== input &&
+            e.target !== btn
+          ) {
+            hideResults();
+          }
+        });
+
+        function goToAndHighlight(id) {
+          if (!id) return;
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("search-highlight");
+          setTimeout(() => {
+            el.classList.remove("search-highlight");
+          }, 1800);
+        }
+
+        const domObserver = new MutationObserver((mut) => {
+          if (mut.length > 10) {
+            index = buildSearchIndex();
+          }
+        });
+        domObserver.observe(document.body, { childList: true, subtree: true });
+
+        hideResults();
+
+        window.__rebuildPageSearchIndex = function () {
+          index = buildSearchIndex();
+        };
+      })();
     </script>
   </body>
 </html>
