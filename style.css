@@ -4217,3 +4217,28 @@ html.at-top .nav {
 .header .partners-search {
   right: 32px !important; /* <-- change this value to move it further left (bigger = more space) */
 }
+/* Service Points map – hampir full di mobile */
+@media (max-width: 640px) {
+  .service-points .map-inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .service-points .map-container {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .service-points .map-card {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .service-points .map-embed {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+  }
+  .service-points .map-embed iframe {
+    width: 100% !important;
+  }
+}
