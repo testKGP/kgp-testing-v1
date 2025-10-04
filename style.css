@@ -4280,3 +4280,12 @@ html.at-top .nav {
     padding-top: var(--header-h);
   }
 }
+.carousel {
+  /* Best for modern browsers:
+     - 100dvh = dynamic viewport height; adjusts when toolbars hide/show.
+     - 100svh = smallest viewport height (keeps content inside with toolbars collapsed)
+  */
+  height: calc(100dvh - var(--header-h));
+  min-height: 60vh;
+  margin-top: 0;
+}
