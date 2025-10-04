@@ -1029,16 +1029,41 @@
           // Hide on downward scroll; unhide on upward scroll anywhere on the page
           let lastY = window.scrollY || 0;
           const DOWN_HIDE_OFFSET = 80;
-          const DIR_THRESHOLD = 6;
+          const DIR_THRESHOLD = 6; // used on non-touch
+          const isTouch =
+            "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+          // ignore tiny noise on touch devices and debounce momentary viewport shifts
+          let ignoreScrollUntil = 0;
+
+          window.addEventListener(
+            "touchstart",
+            () => {
+              // immediately ensure header visible when user touches the screen
+              header.classList.remove("hide");
+              // ignore scroll changes for a short window to avoid address-bar jitter hiding header
+              ignoreScrollUntil = Date.now() + 300; // ms, tweak as needed
+            },
+            { passive: true }
+          );
 
           function onScroll() {
+            if (!header) return;
+            const now = Date.now();
+            if (now < ignoreScrollUntil) {
+              // temporary ignore period after touch
+              lastY = window.scrollY || 0;
+              return;
+            }
+
             const y = window.scrollY || 0;
             if (y < DOWN_HIDE_OFFSET) {
               header.classList.remove("hide");
             } else {
-              if (y > lastY + DIR_THRESHOLD) header.classList.add("hide");
-              else if (y < lastY - DIR_THRESHOLD)
-                header.classList.remove("hide");
+              const delta = y - lastY;
+              const threshold = isTouch ? 12 : DIR_THRESHOLD; // bigger threshold on touch
+              if (delta > threshold) header.classList.add("hide");
+              else if (delta < -threshold) header.classList.remove("hide");
             }
             lastY = y;
           }
@@ -1046,7 +1071,7 @@
           window.addEventListener(
             "scroll",
             () => requestAnimationFrame(onScroll),
-            { passive: true } // keeps scrolling smooth; we never call preventDefault
+            { passive: true }
           );
         } else {
           // Ensure dependent layouts have a sane value when no header exists
