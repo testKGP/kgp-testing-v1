@@ -1029,20 +1029,63 @@
           // Hide on downward scroll; unhide on upward scroll anywhere on the page
           let lastY = window.scrollY || 0;
           const DOWN_HIDE_OFFSET = 80;
-          const DIR_THRESHOLD = 6; // used on non-touch
+          const DIR_THRESHOLD = 6;
           const isTouch =
             "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-          // ignore tiny noise on touch devices and debounce momentary viewport shifts
+          // more conservative thresholds for touch
+          const TOUCH_DIR_THRESHOLD = 18; // bigger on touch to avoid false hides
           let ignoreScrollUntil = 0;
+
+          // touch/tap detection
+          let touchStartY = 0;
+          let touchMoved = false;
 
           window.addEventListener(
             "touchstart",
-            () => {
-              // immediately ensure header visible when user touches the screen
+            (e) => {
+              touchMoved = false;
+              touchStartY =
+                (e.touches && e.touches[0] && e.touches[0].clientY) || 0;
+              // show header immediately on touch
               header.classList.remove("hide");
-              // ignore scroll changes for a short window to avoid address-bar jitter hiding header
-              ignoreScrollUntil = Date.now() + 300; // ms, tweak as needed
+              // ignore the next small scrolls (address-bar / reflow delays)
+              ignoreScrollUntil = Date.now() + 600; // ms; tweak down/up if needed
+            },
+            { passive: true }
+          );
+
+          window.addEventListener(
+            "touchmove",
+            (e) => {
+              const y =
+                (e.touches && e.touches[0] && e.touches[0].clientY) || 0;
+              if (Math.abs(y - touchStartY) > 8) touchMoved = true; // user actually moved
+            },
+            { passive: true }
+          );
+
+          window.addEventListener(
+            "touchend",
+            () => {
+              if (!touchMoved) {
+                // a tap — keep header visible and extend ignore window
+                header.classList.remove("hide");
+                ignoreScrollUntil = Date.now() + 700;
+              } else {
+                // user scrolled — allow normal behavior after a short delay
+                ignoreScrollUntil = Date.now() + 120;
+              }
+            },
+            { passive: true }
+          );
+
+          // also honour clicks (some devices fire click without touch events)
+          window.addEventListener(
+            "click",
+            () => {
+              header.classList.remove("hide");
+              ignoreScrollUntil = Date.now() + 500;
             },
             { passive: true }
           );
@@ -1051,7 +1094,6 @@
             if (!header) return;
             const now = Date.now();
             if (now < ignoreScrollUntil) {
-              // temporary ignore period after touch
               lastY = window.scrollY || 0;
               return;
             }
@@ -1061,7 +1103,7 @@
               header.classList.remove("hide");
             } else {
               const delta = y - lastY;
-              const threshold = isTouch ? 12 : DIR_THRESHOLD; // bigger threshold on touch
+              const threshold = isTouch ? TOUCH_DIR_THRESHOLD : DIR_THRESHOLD;
               if (delta > threshold) header.classList.add("hide");
               else if (delta < -threshold) header.classList.remove("hide");
             }
