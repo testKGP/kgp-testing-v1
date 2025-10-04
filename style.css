@@ -4242,3 +4242,23 @@ html.at-top .nav {
     width: 100% !important;
   }
 }
+/* Quick mobile-fix: use fixed header where sticky is unreliable */
+@media (max-width: 900px) {
+  .site-header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100000 !important; /* very high so nothing overlays it */
+    transform: translateY(
+      0
+    ) !important; /* prevent .hide transform interfering visually */
+    -webkit-transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* ensure body content doesn't hide under the fixed header */
+  body {
+    padding-top: var(--header-h);
+  }
+}
