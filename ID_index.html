@@ -1016,10 +1016,37 @@
         const header = document.querySelector(".site-header");
 
         // Measure header height only if a header exists
+        // Replace the old setHeaderHeight() and resize wiring with this debounced, tolerant version
         function setHeaderHeight() {
-          const h = header ? header.offsetHeight || 0 : 0;
-          root.style.setProperty("--header-h", h + "px");
+          const h = header
+            ? Math.round(header.getBoundingClientRect().height) || 0
+            : 0;
+          const current = (
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--header-h"
+            ) || ""
+          ).trim();
+          const currentPx = current
+            ? parseInt(current.replace("px", ""))
+            : null;
+
+          // only update CSS variable when the measured height actually changed by >1px
+          if (currentPx === null || Math.abs(currentPx - h) > 1) {
+            document.documentElement.style.setProperty("--header-h", h + "px");
+          }
         }
+
+        let resizeTimer = null;
+        window.addEventListener("load", setHeaderHeight, { passive: true });
+        window.addEventListener(
+          "resize",
+          () => {
+            // debounce to avoid rapid reflows on mobile address-bar show/hide
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(setHeaderHeight, 120);
+          },
+          { passive: true }
+        );
 
         if (header) {
           window.addEventListener("load", setHeaderHeight, { passive: true });

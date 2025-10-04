@@ -4262,3 +4262,31 @@ html.at-top .nav {
     padding-top: var(--header-h);
   }
 }
+/* REPLACE existing .carousel rules with this block */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: #0b1024;
+
+  /* Use viewport minus header to avoid layout jumps when header/URL bar changes */
+  height: calc(100svh - var(--header-h));
+  min-height: 60vh; /* safe fallback for tiny viewports */
+  max-height: 100dvh;
+
+  /* don't pull the carousel up with a negative margin — keep header sticky above it */
+  margin-top: 0;
+  /* keep a top padding so first slide content sits below the sticky header */
+  padding-top: 0; /* caption will be spaced separately (see next change) */
+}
+/* Replace the existing caption top spacing */
+.slide .caption {
+  margin-top: 0;
+  /* Only leave space for the safe-area + a small gap — do NOT double-apply header height */
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+  width: min(1100px, 92vw);
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding-inline: var(--padX);
+}
