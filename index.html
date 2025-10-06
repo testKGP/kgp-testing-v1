@@ -3462,6 +3462,137 @@
           }, 300);
         });
       })();
+      (function () {
+        const HEADER_LOCK_KEY = "header_visible_locked_v1";
+        const USE_SESSION_PERSIST = true; // set false to disable persistence
+        const MOBILE_WIDTH_CUTOFF = 900; // <= this is considered mobile-ish
+        const TOUCH =
+          "ontouchstart" in window ||
+          (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+        const isMobile = TOUCH || window.innerWidth <= MOBILE_WIDTH_CUTOFF;
+
+        const header =
+          document.querySelector(".site-header") ||
+          document.querySelector("header") ||
+          null;
+        const jumbotron =
+          document.querySelector(".jumbotron, .hero, .carousel") || null;
+        const DOWN_HIDE_OFFSET = jumbotron
+          ? Math.round(jumbotron.getBoundingClientRect().height)
+          : 80;
+
+        if (!header || !isMobile) return;
+
+        let locked = false;
+        try {
+          if (
+            USE_SESSION_PERSIST &&
+            sessionStorage.getItem(HEADER_LOCK_KEY) === "1"
+          ) {
+            locked = true;
+            // immediately enforce visuals
+            header.classList.remove("hide");
+            header.classList.remove("at-top");
+            header.classList.add("locked-visible");
+            document.documentElement.classList.add("header-locked-visible");
+          }
+        } catch (e) {
+          // ignore storage errors
+        }
+
+        function enforceLockedVisuals() {
+          header.classList.remove("at-top");
+          header.classList.remove("hide");
+          header.classList.add("locked-visible");
+          document.documentElement.classList.add("header-locked-visible");
+
+          // MutationObserver to strip any 'at-top' or 'hide' attempts
+          if (!window.__headerLockObserver) {
+            try {
+              const mo = new MutationObserver((mutations) => {
+                for (const m of mutations) {
+                  if (m.type === "attributes" && m.attributeName === "class") {
+                    if (header.classList.contains("at-top"))
+                      header.classList.remove("at-top");
+                    if (header.classList.contains("hide"))
+                      header.classList.remove("hide");
+                  }
+                }
+              });
+              mo.observe(header, { attributes: true });
+              window.__headerLockObserver = mo;
+            } catch (e) {
+              /* ignore */
+            }
+          }
+        }
+
+        function lockHeader() {
+          if (locked) return;
+          locked = true;
+          try {
+            if (USE_SESSION_PERSIST)
+              sessionStorage.setItem(HEADER_LOCK_KEY, "1");
+          } catch (e) {}
+          enforceLockedVisuals();
+        }
+
+        // DEV helper to clear lock
+        window.__unlockHeaderLock = function () {
+          try {
+            sessionStorage.removeItem(HEADER_LOCK_KEY);
+          } catch (e) {}
+          locked = false;
+          header.classList.remove("locked-visible");
+          document.documentElement.classList.remove("header-locked-visible");
+          header.classList.remove("hide");
+          if (window.__headerLockObserver) {
+            try {
+              window.__headerLockObserver.disconnect();
+            } catch (e) {}
+            window.__headerLockObserver = null;
+          }
+          console.info("[header-lock] unlocked");
+        };
+
+        // If already locked, nothing more to do
+        if (locked) {
+          enforceLockedVisuals();
+          return;
+        }
+
+        // Watch scroll / first user interaction
+        let deb = null;
+        function onScrollOrInteraction() {
+          if (locked) return;
+          clearTimeout(deb);
+          deb = setTimeout(() => {
+            const y = window.scrollY || window.pageYOffset || 0;
+            if (y >= DOWN_HIDE_OFFSET) {
+              lockHeader();
+              // remove listener (no more work to do)
+              window.removeEventListener("scroll", onScrollOrInteraction);
+              window.removeEventListener("touchstart", onScrollOrInteraction);
+              window.removeEventListener("touchmove", onScrollOrInteraction);
+            }
+          }, 60); // slight debounce
+        }
+
+        window.addEventListener("scroll", onScrollOrInteraction, {
+          passive: true,
+        });
+        window.addEventListener("touchstart", onScrollOrInteraction, {
+          passive: true,
+        });
+        window.addEventListener("touchmove", onScrollOrInteraction, {
+          passive: true,
+        });
+
+        // safety: also run after page becomes interactive
+        document.addEventListener("DOMContentLoaded", function () {
+          setTimeout(onScrollOrInteraction, 300);
+        });
+      })();
     </script>
   </body>
 </html>
