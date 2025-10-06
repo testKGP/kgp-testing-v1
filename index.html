@@ -1154,11 +1154,17 @@
 
           function onScroll() {
             if (!header) return;
-            const now = Date.now();
-            if (now < ignoreScrollUntil) {
+
+            // Always keep header visible on small screens or touch devices
+            const alwaysVisible = window.innerWidth <= 900 || isTouch;
+            if (alwaysVisible) {
+              header.classList.remove("hide");
               lastY = window.scrollY || 0;
               return;
             }
+
+            const now = Date.now();
+            if (now < ignoreScrollUntil || lastY === window.scrollY) return;
 
             const y = window.scrollY || 0;
             if (y < DOWN_HIDE_OFFSET) {

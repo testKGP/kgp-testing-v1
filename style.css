@@ -4280,3 +4280,156 @@ html.at-top .nav {
     padding-top: var(--header-h);
   }
 }
+/* Mobile: keep header opaque and visible */
+@media (max-width: 900px) {
+  .site-header.at-top .topbar,
+  .site-header.at-top .nav {
+    background: var(--brand) !important;
+    border-top-color: rgba(255, 255, 255, 0.15) !important;
+  }
+  /* Never slide the header away on mobile */
+  .site-header.hide {
+    transform: none !important;
+  }
+}
+/* Mobile: put language + contact next to burger (top-right) */
+@media (max-width: 980px) {
+  /* Turn the nav bar into a 2-row grid:
+     Row 1: right tools + burger on the right
+     Row 2: the collapsible nav list */
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto auto; /* ... [spacer] [tools] [burger] */
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Language pills + Contact immediately to the left of burger */
+  .right-tools {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Menu list spans full width on its own row when opened */
+  .nav-list {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+  .nav-list.open {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Slightly tighter chip sizing on phones */
+  .right-tools .lang-switch button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .right-tools .btn.contact {
+    padding: 6px 12px;
+    font-size: 16px;
+  }
+}
+/* Mobile: shrink bottom navbar from the bottom up */
+@media (max-width: 980px) {
+  .nav {
+    padding-top: var(--nav-y); /* keep current top spacing */
+    padding-bottom: 2px; /* trim height from the bottom */
+  }
+
+  /* keep items centered after the height change */
+  .right-tools,
+  .burger {
+    align-self: center;
+  }
+}
+/* ----- Mobile navbar: match index pages (apply site-wide) ----- */
+@media (max-width: 980px) {
+  /* Put tools next to burger; menu list drops below */
+  .site-header .nav {
+    display: grid !important;
+    grid-template-columns: 1fr auto auto; /* spacer | tools | burger */
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 8px;
+    padding-top: var(--nav-y);
+    padding-bottom: 2px; /* shrink height from bottom */
+  }
+
+  /* Language + Contact immediately left of burger */
+  .site-header .right-tools {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Nav list spans full width on second row when open */
+  .site-header .nav-list {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+  .site-header .nav-list.open {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Tighter chip sizing on phones */
+  .site-header .right-tools .lang-switch button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .site-header .right-tools .btn.contact {
+    padding: 6px 12px;
+    font-size: 16px;
+  }
+}
+/* === Normalize mobile navbar on alt pages to match index === */
+@media (max-width: 768px) {
+  /* Match overall navbar height and padding */
+  .site-header .nav {
+    padding: 8px var(--padX) !important;
+  }
+
+  /* Fix right-tools layout so language switch and button align properly */
+  .site-header .nav .right-tools {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+  }
+
+  /* Compact Contact Us button — same as index */
+  .site-header .nav .btn.contact {
+    min-width: 0 !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    padding: 6px 12px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    border-radius: 999px !important;
+  }
+
+  /* Compact language switch buttons */
+  .site-header .lang-switch button {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+  }
+
+  /* Prevent the alt pages’ double .right-tools wrapping from breaking layout */
+  .site-header .lang-switch .right-tools {
+    display: contents !important;
+  }
+}
