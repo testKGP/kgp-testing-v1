@@ -1121,11 +1121,17 @@
             if (!header) return;
             const now = Date.now();
             if (now < ignoreScrollUntil) {
-              lastY = window.scrollY || 0;
+              lastY =
+                (window.visualViewport
+                  ? window.visualViewport.pageTop
+                  : window.scrollY) || 0;
               return;
             }
 
-            const y = window.scrollY || 0;
+            const y =
+              (window.visualViewport
+                ? window.visualViewport.pageTop
+                : window.scrollY) || 0;
             if (y < DOWN_HIDE_OFFSET) {
               header.classList.remove("hide");
             } else {
