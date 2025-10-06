@@ -1036,51 +1036,6 @@
           }
         }
 
-        // paste inside initHeaderModule() near setHeaderHeight()/resize wiring
-        (function attachKeepHeaderOnResize() {
-          let settleTimer = null;
-          function protectHeaderDuringViewportChange() {
-            if (!header) return;
-            header.classList.remove("hide"); // force visible
-            header.classList.add("viewport-resizing"); // small flag you can check in onScroll
-            // reuse ignoreScrollUntil used elsewhere to block hide logic
-            if (typeof ignoreScrollUntil !== "undefined")
-              ignoreScrollUntil = Date.now() + 700;
-
-            clearTimeout(settleTimer);
-            settleTimer = setTimeout(() => {
-              // viewport likely settled; re-measure
-              try {
-                setHeaderHeight();
-              } catch (e) {}
-              header.classList.remove("viewport-resizing");
-              if (typeof ignoreScrollUntil !== "undefined")
-                ignoreScrollUntil = Date.now() + 120;
-            }, 350); // tweak 300-700ms depending on devices
-          }
-
-          if (window.visualViewport) {
-            window.visualViewport.addEventListener(
-              "resize",
-              protectHeaderDuringViewportChange,
-              { passive: true }
-            );
-            window.visualViewport.addEventListener(
-              "scroll",
-              protectHeaderDuringViewportChange,
-              { passive: true }
-            );
-          }
-          window.addEventListener("resize", protectHeaderDuringViewportChange, {
-            passive: true,
-          });
-          window.addEventListener(
-            "orientationchange",
-            protectHeaderDuringViewportChange,
-            { passive: true }
-          );
-        })();
-
         let resizeTimer = null;
         window.addEventListener("load", setHeaderHeight, { passive: true });
         window.addEventListener(
@@ -1100,91 +1055,6 @@
 
           // Hide on downward scroll; unhide on upward scroll anywhere on the page
           let lastY = window.scrollY || 0;
-
-          // --- ADD after: let lastY = window.scrollY || 0; ---
-          const HEADER_LOCK_KEY = "header_visible_locked_v1"; // session-only lock key
-          const USE_SESSION_PERSIST = true; // set false to disable persistence
-          const MOBILE_WIDTH_CUTOFF = 900; // treat narrower viewports as mobile
-          const _isTouch =
-            "ontouchstart" in window || navigator.maxTouchPoints > 0;
-          const isMobileContext =
-            _isTouch || window.innerWidth <= MOBILE_WIDTH_CUTOFF;
-
-          let headerLockedVisible = false;
-          // restore lock if already set in this session (keeps behavior stable across reloads)
-          try {
-            if (
-              USE_SESSION_PERSIST &&
-              isMobileContext &&
-              sessionStorage.getItem(HEADER_LOCK_KEY) === "1"
-            ) {
-              headerLockedVisible = true;
-              if (header) header.classList.remove("hide");
-            }
-          } catch (e) {
-            // storage might be blocked; ignore failures gracefully
-          }
-
-          // helper for dev/testing to clear the lock
-          window.__unlockHeaderLock = function () {
-            try {
-              sessionStorage.removeItem(HEADER_LOCK_KEY);
-            } catch (e) {}
-            headerLockedVisible = false;
-            if (header) header.classList.remove("hide");
-            console.info("[header-lock] unlocked (sessionStorage cleared)");
-          };
-
-          // --- REPLACE your existing onScroll() with this version ---
-          function onScroll() {
-            if (!header) return;
-
-            // if the viewport is animating (address bar) or we are within ignore window, do nothing
-            if (header.classList.contains("viewport-resizing")) {
-              lastY = window.scrollY || 0;
-              return;
-            }
-            const now = Date.now();
-            if (now < ignoreScrollUntil) {
-              lastY = window.scrollY || 0;
-              return;
-            }
-
-            const y = window.scrollY || 0;
-
-            // If we've already locked header visible for this session, keep it visible and bail
-            if (headerLockedVisible) {
-              header.classList.remove("hide");
-              lastY = y;
-              return;
-            }
-
-            // If on mobile and the user has scrolled past the jumbotron threshold for the FIRST time,
-            // lock header visible for the rest of the session.
-            if (isMobileContext && y >= DOWN_HIDE_OFFSET) {
-              headerLockedVisible = true;
-              header.classList.remove("hide");
-              try {
-                if (USE_SESSION_PERSIST)
-                  sessionStorage.setItem(HEADER_LOCK_KEY, "1");
-              } catch (e) {}
-              lastY = y;
-              return;
-            }
-
-            // --- existing behavior preserved for non-locked state ---
-            if (y < DOWN_HIDE_OFFSET) {
-              header.classList.remove("hide");
-            } else {
-              const delta = y - lastY;
-              const threshold = _isTouch ? TOUCH_DIR_THRESHOLD : DIR_THRESHOLD;
-              if (delta > threshold) header.classList.add("hide");
-              else if (delta < -threshold) header.classList.remove("hide");
-            }
-
-            lastY = y;
-          }
-
           const DOWN_HIDE_OFFSET = 80;
           const DIR_THRESHOLD = 6;
           const isTouch =
@@ -1249,7 +1119,8 @@
 
           function onScroll() {
             if (!header) return;
-            if (header.classList.contains("viewport-resizing")) {
+            const now = Date.now();
+            if (now < ignoreScrollUntil) {
               lastY = window.scrollY || 0;
               return;
             }
@@ -3254,328 +3125,361 @@
           index = buildSearchIndex();
         };
       })();
-      /* ---------- Jumbotron Resize Lock (mobile) ----------
-   Behavior:
-   - If on mobile, watch for the FIRST meaningful jumbotron height change.
-   - When detected, set inline height (px) and persist in localStorage so it never resizes again.
-   - Provides window.__unlockJumbotron() to clear the lock for testing.
------------------------------------------------------*/
+
+      /**
+       * Mobile Navbar Lock Solution
+       *
+       * Prevents navbar from becoming transparent or hidden after user scrolls past jumbotron
+       * on mobile devices. Once locked, navbar stays visible and opaque for the session.
+       *
+       * Features:
+       * - Detects mobile devices (touch + width <= 900px)
+       * - Locks navbar after first scroll past jumbotron height
+       * - Uses sessionStorage to persist lock state
+       * - Prevents other scripts from overriding with MutationObserver
+       * - Works with existing .at-top and .hide classes
+       */
 
       (function () {
-        const LS_KEY_LOCKED = "jb_resize_locked_v1";
-        const LS_KEY_HEIGHT = "jb_locked_height_v1";
-        const MOBILE_MIN_WIDTH = 900; // only consider widths <= this as mobile-ish
-        const HEIGHT_JITTER_PX = 6; // ignore tiny jitter < 6px
+        "use strict";
 
-        // Basic mobile detection: either touch-capable OR UA mobile OR narrow viewport.
-        const isTouch =
-          "ontouchstart" in window ||
-          (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
-        const uaMobile = /Mobi|Android|iPhone|iPad|iPod|webOS/i.test(
-          navigator.userAgent || ""
-        );
-        const isMobileContext =
-          isTouch || uaMobile || window.innerWidth <= MOBILE_MIN_WIDTH;
+        // Configuration
+        const CONFIG = {
+          // Mobile detection thresholds
+          MAX_MOBILE_WIDTH: 900,
 
-        // Choose your jumbotron selector(s) - adapt to your markup if necessary
-        const jumbotronSelector = ".jumbotron, .hero, .carousel";
-        const jb = document.querySelector(jumbotronSelector);
+          // Storage keys
+          STORAGE_KEY: "navbarLocked",
 
-        if (!jb) {
-          // no jumbotron found — nothing to do
-          return;
-        }
+          // CSS classes used by existing navbar system
+          HEADER_SELECTOR: ".site-header",
+          AT_TOP_CLASS: "at-top",
+          HIDE_CLASS: "hide",
+          LOCKED_CLASS: "navbar-locked",
 
-        // unlock helper for dev/testing
-        window.__unlockJumbotron = function () {
-          localStorage.removeItem(LS_KEY_LOCKED);
-          localStorage.removeItem(LS_KEY_HEIGHT);
-          console.info("[jb-lock] unlocked — reload to see changes");
+          // Jumbotron/carousel detection
+          JUMBOTRON_SELECTORS: [
+            ".carousel",
+            ".hero",
+            "[data-carousel]",
+            ".jumbotron",
+          ],
+
+          // Debug mode - set to true for console logging
+          DEBUG: false,
         };
 
-        // If already locked from previous visit -> apply stored height and exit early.
-        const lockedFlag = localStorage.getItem(LS_KEY_LOCKED);
-        const lockedHeight = localStorage.getItem(LS_KEY_HEIGHT);
-        if (lockedFlag && lockedHeight) {
-          // apply stored pixel height immediately to prevent any repaint/resizing
-          jb.style.height = parseInt(lockedHeight, 10) + "px";
-          jb.style.maxHeight = parseInt(lockedHeight, 10) + "px";
-          jb.dataset.jbLocked = "true";
-          // done — do not attach listeners
-          return;
-        }
+        let headerElement = null;
+        let jumbotronElement = null;
+        let isLocked = false;
+        let mutationObserver = null;
+        let scrollListener = null;
+        let resizeListener = null;
 
-        // only run the detection on mobile-like contexts
-        if (!isMobileContext) return;
-
-        // measure initial height
-        let initialRect = jb.getBoundingClientRect();
-        let initialHeight = Math.round(
-          initialRect.height || jb.offsetHeight || 0
-        );
-
-        // guard so we only lock once per page load
-        let locked = false;
-
-        function lockToHeight(px) {
-          // inline-set the height so CSS won't change it across viewport changes
-          jb.style.height = Math.round(px) + "px";
-          jb.style.maxHeight = Math.round(px) + "px";
-          jb.dataset.jbLocked = "true";
-          localStorage.setItem(LS_KEY_LOCKED, "1");
-          localStorage.setItem(LS_KEY_HEIGHT, String(Math.round(px)));
-          locked = true;
-          // detach listeners
-          detachListeners();
-          console.info("[jb-lock] jumbotron locked at", Math.round(px), "px");
-        }
-
-        // Listener logic: on the first meaningful change in height -> lock.
-        function checkForResize() {
-          if (locked) return;
-          const rect = jb.getBoundingClientRect();
-          const nowH = Math.round(rect.height || jb.offsetHeight || 0);
-          // if the jumbotron already changed meaningfully compare to initial
-          if (Math.abs(nowH - initialHeight) >= HEIGHT_JITTER_PX) {
-            // lock to the new observed height
-            lockToHeight(nowH);
+        /**
+         * Debug logging utility
+         */
+        function debug(...args) {
+          if (CONFIG.DEBUG) {
+            console.log("[Navbar Lock]", ...args);
           }
         }
 
-        // We should observe both visualViewport resize (mobile chrome hide/show)
-        // and window resize as a fallback. Debounce to avoid multiple locks in quick succession.
-        let deb = null;
-        function onVVChange() {
-          clearTimeout(deb);
-          deb = setTimeout(checkForResize, 80); // small debounce: adjust if necessary
+        /**
+         * Detect if current device/viewport should be treated as mobile
+         */
+        function isMobileDevice() {
+          // Check touch capability
+          const hasTouch =
+            "ontouchstart" in window ||
+            navigator.maxTouchPoints > 0 ||
+            window.matchMedia("(pointer: coarse)").matches;
+
+          // Check viewport width
+          const isMobileWidth = window.innerWidth <= CONFIG.MAX_MOBILE_WIDTH;
+
+          return hasTouch && isMobileWidth;
         }
 
-        function detachListeners() {
-          if (window.visualViewport) {
-            try {
-              window.visualViewport.removeEventListener("resize", onVVChange);
-            } catch (e) {}
-            try {
-              window.visualViewport.removeEventListener("scroll", onVVChange);
-            } catch (e) {}
-          }
-          window.removeEventListener("resize", onVVChange);
-          // also remove MutationObserver if used (not used here)
-        }
+        /**
+         * Get jumbotron/hero element height
+         */
+        function getJumbotronHeight() {
+          if (!jumbotronElement) return 0;
 
-        // Attach listeners
-        if (window.visualViewport) {
-          window.visualViewport.addEventListener("resize", onVVChange, {
-            passive: true,
-          });
-          window.visualViewport.addEventListener("scroll", onVVChange, {
-            passive: true,
-          });
-        }
-        window.addEventListener("resize", onVVChange, { passive: true });
-
-        // Also check once after first user interaction - some browsers delay chrome hide until user scrolls
-        function onFirstScrollOrTouch() {
-          onVVChange();
-          // remove the one-time listeners
-          window.removeEventListener("scroll", onFirstScrollOrTouch);
-          window.removeEventListener("touchstart", onFirstScrollOrTouch);
-        }
-        window.addEventListener("scroll", onFirstScrollOrTouch, {
-          passive: true,
-        });
-        window.addEventListener("touchstart", onFirstScrollOrTouch, {
-          passive: true,
-        });
-
-        // Finally, as a safety-net: check again after DOM load + small delay
-        document.addEventListener("DOMContentLoaded", function () {
-          setTimeout(function () {
-            checkForResize();
-          }, 300);
-        });
-      })();
-      /* Strong header lock (mobile) — paste before </body>. Replaces previous header-lock snippet. */
-      (function () {
-        const KEY = "header_visible_locked_v1";
-        const USE_SESSION = true;
-        const TOUCH =
-          "ontouchstart" in window ||
-          (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
-        const MOBILE_CUTOFF = 900;
-        const isMobile = TOUCH || window.innerWidth <= MOBILE_CUTOFF;
-
-        const header =
-          document.querySelector(".site-header") ||
-          document.querySelector("header");
-        const jb = document.querySelector(".carousel, .jumbotron, .hero");
-
-        if (!header || !jb || !isMobile) return;
-
-        // compute an absolute scroll threshold: when pageScrollY >= jbBottomAbs -> user scrolled past jumbotron
-        const jbRect = jb.getBoundingClientRect();
-        const thresholdAbs =
-          (window.scrollY || window.pageYOffset || 0) + jbRect.bottom - 2;
-
-        // inject strong CSS override to force opaque header when locked
-        const STYLE_ID = "header-lock-style";
-        const existingStyle = document.getElementById(STYLE_ID);
-        if (!existingStyle) {
-          const style = document.createElement("style");
-          style.id = STYLE_ID;
-          style.textContent = `
-/* enforced when header locked */
-.header-locked-visible .site-header,
-.site-header.locked-visible,
-.header-locked-visible header.site-header {
-  background: var(--brand, rgba(26,53,125,0.98)) !important;
-  color: var(--text-on-brand, #fff) !important;
-  opacity: 1 !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  transition: none !important;
-}
-.header-locked-visible .site-header * { color: inherit !important; }
-.header-locked-visible .site-header.at-top,
-.header-locked-visible .site-header.hide { background: var(--brand, rgba(26,53,125,0.98)) !important; opacity:1 !important; }
-`;
-          document.head.appendChild(style);
-        }
-
-        // MutationObserver helper that strips classes we don't want
-        function makeStripObserver(targetEl) {
-          if (!targetEl) return null;
           try {
-            const mo = new MutationObserver((mutations) => {
-              for (const m of mutations) {
-                if (m.type === "attributes" && m.attributeName === "class") {
-                  // remove these classes immediately if present
-                  if (targetEl.classList.contains("at-top"))
-                    targetEl.classList.remove("at-top");
-                  if (targetEl.classList.contains("hide"))
-                    targetEl.classList.remove("hide");
-                  // also remove 'transparent' or similar variants if you use them
-                  if (targetEl.classList.contains("transparent"))
-                    targetEl.classList.remove("transparent");
+            return jumbotronElement.getBoundingClientRect().height;
+          } catch (e) {
+            debug("Error getting jumbotron height:", e);
+            return 0;
+          }
+        }
+
+        /**
+         * Check if user has scrolled past the jumbotron
+         */
+        function hasScrolledPastJumbotron() {
+          const scrollY =
+            window.scrollY ||
+            window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            0;
+          const jumbotronHeight = getJumbotronHeight();
+
+          // Consider "past" as 70% of jumbotron height to avoid edge cases
+          return scrollY > jumbotronHeight * 0.7;
+        }
+
+        /**
+         * Lock the navbar - make it permanently visible and opaque
+         */
+        function lockNavbar() {
+          if (isLocked || !headerElement) return;
+
+          debug("Locking navbar");
+
+          isLocked = true;
+
+          // Add locked class
+          headerElement.classList.add(CONFIG.LOCKED_CLASS);
+
+          // Force remove transparency and hide classes
+          headerElement.classList.remove(
+            CONFIG.AT_TOP_CLASS,
+            CONFIG.HIDE_CLASS
+          );
+
+          // Also remove from body/html if they exist
+          document.body.classList.remove(CONFIG.AT_TOP_CLASS);
+          document.documentElement.classList.remove(CONFIG.AT_TOP_CLASS);
+
+          // Store lock state in sessionStorage
+          try {
+            sessionStorage.setItem(CONFIG.STORAGE_KEY, "true");
+          } catch (e) {
+            debug("Could not save to sessionStorage:", e);
+          }
+
+          // Start mutation observer to prevent other scripts from overriding
+          startMutationObserver();
+
+          debug("Navbar locked successfully");
+        }
+
+        /**
+         * Start mutation observer to prevent other scripts from making navbar transparent/hidden
+         */
+        function startMutationObserver() {
+          if (mutationObserver || !headerElement) return;
+
+          mutationObserver = new MutationObserver(function (mutations) {
+            if (!isLocked) return;
+
+            let needsIntervention = false;
+
+            mutations.forEach(function (mutation) {
+              if (
+                mutation.type === "attributes" &&
+                mutation.attributeName === "class"
+              ) {
+                const target = mutation.target;
+
+                // Check if someone added at-top or hide classes
+                if (target === headerElement) {
+                  if (
+                    target.classList.contains(CONFIG.AT_TOP_CLASS) ||
+                    target.classList.contains(CONFIG.HIDE_CLASS)
+                  ) {
+                    needsIntervention = true;
+                  }
+                }
+
+                // Check if someone added at-top to body/html
+                if (
+                  target === document.body ||
+                  target === document.documentElement
+                ) {
+                  if (target.classList.contains(CONFIG.AT_TOP_CLASS)) {
+                    needsIntervention = true;
+                  }
                 }
               }
             });
-            mo.observe(targetEl, {
-              attributes: true,
-              attributeFilter: ["class"],
-            });
-            return mo;
-          } catch (e) {
-            return null;
-          }
-        }
 
-        // enforce visuals and attach observers
-        let observers = [];
-        function enforceLockVisuals() {
-          // strong enforcement
-          header.classList.remove("at-top", "hide", "transparent");
-          header.classList.add("locked-visible");
-          document.documentElement.classList.remove("at-top");
-          document.body.classList.remove("at-top");
-          document.documentElement.classList.add("header-locked-visible");
+            if (needsIntervention) {
+              debug("Preventing navbar transparency/hide override");
 
-          // set inline safety styles to avoid flicker in some browsers
-          try {
-            header.style.transition = "none";
-            header.style.opacity = "1";
-            // if you want an explicit background color override (uncomment):
-            // header.style.background = getComputedStyle(header).getPropertyValue('--brand') || 'rgba(26,53,125,0.98)';
-          } catch (e) {}
+              // Remove problematic classes
+              headerElement.classList.remove(
+                CONFIG.AT_TOP_CLASS,
+                CONFIG.HIDE_CLASS
+              );
+              document.body.classList.remove(CONFIG.AT_TOP_CLASS);
+              document.documentElement.classList.remove(CONFIG.AT_TOP_CLASS);
 
-          // attach mutation observers to prevent re-adding of classes
-          if (observers.length === 0) {
-            const hMo = makeStripObserver(header);
-            const htmlMo = makeStripObserver(document.documentElement);
-            const bodyMo = makeStripObserver(document.body);
-            observers = [hMo, htmlMo, bodyMo].filter(Boolean);
-            window.__headerLockObservers = observers;
-          }
-        }
-
-        function lockHeader() {
-          enforceLockVisuals();
-          try {
-            if (USE_SESSION) sessionStorage.setItem(KEY, "1");
-          } catch (e) {}
-        }
-
-        // restore if lock already present in this session
-        try {
-          if (USE_SESSION && sessionStorage.getItem(KEY) === "1") {
-            lockHeader();
-            return;
-          }
-        } catch (e) {
-          /* ignore storage errors */
-        }
-
-        // one-shot watcher: when user scrolls past thresholdAbs, lock and detach listeners
-        let deb = null;
-        function onScrollCheck() {
-          if (sessionStorage.getItem(KEY) === "1") {
-            lockHeader();
-            detach();
-            return;
-          }
-          clearTimeout(deb);
-          deb = setTimeout(() => {
-            const y = window.scrollY || window.pageYOffset || 0;
-            if (y >= thresholdAbs) {
-              lockHeader();
-              detach();
+              // Ensure locked class is still there
+              headerElement.classList.add(CONFIG.LOCKED_CLASS);
             }
-          }, 60);
+          });
+
+          // Observe header, body, and html for class changes
+          mutationObserver.observe(headerElement, {
+            attributes: true,
+            attributeFilter: ["class"],
+          });
+
+          mutationObserver.observe(document.body, {
+            attributes: true,
+            attributeFilter: ["class"],
+          });
+
+          mutationObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"],
+          });
         }
 
-        function detach() {
-          window.removeEventListener("scroll", onScrollCheck, {
-            passive: true,
-          });
-          window.removeEventListener("touchstart", onScrollCheck, {
-            passive: true,
-          });
-          window.removeEventListener("touchmove", onScrollCheck, {
-            passive: true,
-          });
-          window.removeEventListener("resize", onScrollCheck, {
-            passive: true,
-          });
-        }
+        /**
+         * Handle scroll events - check if we should lock the navbar
+         */
+        function handleScroll() {
+          // Only check on mobile devices
+          if (!isMobileDevice()) return;
 
-        // DEV helper to clear lock
-        window.__unlockHeaderLock = function () {
-          try {
-            sessionStorage.removeItem(KEY);
-          } catch (e) {}
-          header.classList.remove("locked-visible");
-          document.documentElement.classList.remove("header-locked-visible");
-          header.style.transition = "";
-          header.style.opacity = "";
-          if (window.__headerLockObservers) {
-            try {
-              window.__headerLockObservers.forEach((m) => m.disconnect());
-            } catch (e) {}
-            window.__headerLockObservers = null;
+          // Skip if already locked
+          if (isLocked) return;
+
+          // Check if scrolled past jumbotron
+          if (hasScrolledPastJumbotron()) {
+            lockNavbar();
           }
-          console.info("[header-lock] unlocked");
-        };
+        }
 
-        // attach listeners
-        window.addEventListener("scroll", onScrollCheck, { passive: true });
-        window.addEventListener("touchstart", onScrollCheck, { passive: true });
-        window.addEventListener("touchmove", onScrollCheck, { passive: true });
-        window.addEventListener("resize", onScrollCheck, { passive: true });
+        /**
+         * Handle resize events - check if mobile state changed
+         */
+        function handleResize() {
+          // If we were locked but no longer mobile, we could optionally unlock
+          // But for simplicity and safety, we'll keep the lock for the session
+          debug("Window resized, mobile:", isMobileDevice());
+        }
 
-        // also run a safety check after DOM load (in case page already scrolled)
-        document.addEventListener("DOMContentLoaded", () =>
-          setTimeout(onScrollCheck, 200)
-        );
+        /**
+         * Find jumbotron/hero element
+         */
+        function findJumbotronElement() {
+          for (let selector of CONFIG.JUMBOTRON_SELECTORS) {
+            const element = document.querySelector(selector);
+            if (element) {
+              debug("Found jumbotron element:", selector);
+              return element;
+            }
+          }
+
+          debug("No jumbotron element found");
+          return null;
+        }
+
+        /**
+         * Check if navbar was previously locked in this session
+         */
+        function wasNavbarLocked() {
+          try {
+            return sessionStorage.getItem(CONFIG.STORAGE_KEY) === "true";
+          } catch (e) {
+            debug("Could not access sessionStorage:", e);
+            return false;
+          }
+        }
+
+        /**
+         * Initialize the navbar lock system
+         */
+        function initialize() {
+          debug("Initializing mobile navbar lock");
+
+          // Find header element
+          headerElement = document.querySelector(CONFIG.HEADER_SELECTOR);
+          if (!headerElement) {
+            debug("Header element not found:", CONFIG.HEADER_SELECTOR);
+            return;
+          }
+
+          // Find jumbotron element
+          jumbotronElement = findJumbotronElement();
+          if (!jumbotronElement) {
+            debug("Warning: No jumbotron found, will use fallback detection");
+          }
+
+          // Check if navbar was already locked in this session
+          if (wasNavbarLocked()) {
+            debug("Navbar was previously locked in this session");
+            lockNavbar();
+            return;
+          }
+
+          // Only proceed if on mobile device
+          if (!isMobileDevice()) {
+            debug("Not a mobile device, skipping navbar lock");
+            return;
+          }
+
+          // Set up event listeners
+          scrollListener = function () {
+            requestAnimationFrame(handleScroll);
+          };
+
+          resizeListener = function () {
+            // Debounce resize events
+            clearTimeout(resizeListener.timeout);
+            resizeListener.timeout = setTimeout(handleResize, 100);
+          };
+
+          window.addEventListener("scroll", scrollListener, { passive: true });
+          window.addEventListener("resize", resizeListener, { passive: true });
+
+          // Initial check in case user refreshed page while scrolled down
+          setTimeout(function () {
+            if (hasScrolledPastJumbotron()) {
+              lockNavbar();
+            }
+          }, 100);
+
+          debug("Mobile navbar lock initialized");
+        }
+
+        /**
+         * Cleanup function
+         */
+        function cleanup() {
+          if (mutationObserver) {
+            mutationObserver.disconnect();
+            mutationObserver = null;
+          }
+
+          if (scrollListener) {
+            window.removeEventListener("scroll", scrollListener);
+            scrollListener = null;
+          }
+
+          if (resizeListener) {
+            window.removeEventListener("resize", resizeListener);
+            resizeListener = null;
+          }
+        }
+
+        // Auto-initialize when DOM is ready
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initialize);
+        } else {
+          // DOM is already ready
+          initialize();
+        }
+
+        // Expose cleanup for debugging
+        if (CONFIG.DEBUG) {
+          window.navbarLockCleanup = cleanup;
+        }
       })();
     </script>
   </body>

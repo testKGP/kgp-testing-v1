@@ -4280,3 +4280,100 @@ html.at-top .nav {
     padding-top: var(--header-h);
   }
 }
+
+/**
+ * Mobile Navbar Lock CSS Overrides
+ * 
+ * These styles ensure the locked navbar stays visible and opaque,
+ * overriding any transparency or hide states with !important declarations.
+ */
+
+/* Locked navbar overrides - highest priority */
+.site-header.navbar-locked {
+  /* Force visible position */
+  transform: translateY(0) !important;
+  -webkit-transform: translateY(0) !important;
+
+  /* Ensure it stays in place */
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+
+  /* High z-index to stay above everything */
+  z-index: 10000 !important;
+}
+
+/* Force opaque backgrounds when locked */
+.site-header.navbar-locked .topbar {
+  background: var(--brand, #1a357d) !important;
+  background-color: var(--brand, #1a357d) !important;
+}
+
+.site-header.navbar-locked .nav {
+  background: var(--brand, #1a357d) !important;
+  background-color: var(--brand, #1a357d) !important;
+  border-top-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Override any at-top transparency when locked */
+.site-header.navbar-locked.at-top .topbar,
+body.at-top .site-header.navbar-locked .topbar,
+html.at-top .site-header.navbar-locked .topbar {
+  background: var(--brand, #1a357d) !important;
+  background-color: var(--brand, #1a357d) !important;
+}
+
+.site-header.navbar-locked.at-top .nav,
+body.at-top .site-header.navbar-locked .nav,
+html.at-top .site-header.navbar-locked .nav {
+  background: var(--brand, #1a357d) !important;
+  background-color: var(--brand, #1a357d) !important;
+  border-top-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Ensure hide class doesn't work when locked */
+.site-header.navbar-locked.hide {
+  transform: translateY(0) !important;
+  -webkit-transform: translateY(0) !important;
+}
+
+/* Optional: Add a subtle visual indicator that navbar is locked (for debugging) */
+.site-header.navbar-locked::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: none; /* Set to 'block' for debugging */
+  z-index: 1;
+}
+
+/* Ensure locked navbar content remains readable */
+.site-header.navbar-locked,
+.site-header.navbar-locked * {
+  color: white !important;
+}
+
+/* Fix any contrast issues with buttons/links in locked state */
+.site-header.navbar-locked .btn.contact {
+  background: white !important;
+  color: var(--brand, #1a357d) !important;
+  border-color: white !important;
+}
+
+.site-header.navbar-locked .btn.contact:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: var(--brand, #1a357d) !important;
+}
+
+/* Ensure nav links remain visible */
+.site-header.navbar-locked .nav-list a {
+  color: white !important;
+}
+
+.site-header.navbar-locked .nav-list a:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
