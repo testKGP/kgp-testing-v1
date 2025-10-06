@@ -1156,17 +1156,11 @@
             if (!header) return;
             const now = Date.now();
             if (now < ignoreScrollUntil) {
-              lastY =
-                (window.visualViewport
-                  ? window.visualViewport.pageTop
-                  : window.scrollY) || 0;
+              lastY = window.scrollY || 0;
               return;
             }
 
-            const y =
-              (window.visualViewport
-                ? window.visualViewport.pageTop
-                : window.scrollY) || 0;
+            const y = window.scrollY || 0;
             if (y < DOWN_HIDE_OFFSET) {
               header.classList.remove("hide");
             } else {
@@ -3199,6 +3193,147 @@
         window.__rebuildPageSearchIndex = function () {
           index = buildSearchIndex();
         };
+      })();
+      /* ---------- Jumbotron Resize Lock (mobile) ----------
+   Behavior:
+   - If on mobile, watch for the FIRST meaningful jumbotron height change.
+   - When detected, set inline height (px) and persist in localStorage so it never resizes again.
+   - Provides window.__unlockJumbotron() to clear the lock for testing.
+-----------------------------------------------------*/
+
+      (function () {
+        const LS_KEY_LOCKED = "jb_resize_locked_v1";
+        const LS_KEY_HEIGHT = "jb_locked_height_v1";
+        const MOBILE_MIN_WIDTH = 900; // only consider widths <= this as mobile-ish
+        const HEIGHT_JITTER_PX = 6; // ignore tiny jitter < 6px
+
+        // Basic mobile detection: either touch-capable OR UA mobile OR narrow viewport.
+        const isTouch =
+          "ontouchstart" in window ||
+          (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+        const uaMobile = /Mobi|Android|iPhone|iPad|iPod|webOS/i.test(
+          navigator.userAgent || ""
+        );
+        const isMobileContext =
+          isTouch || uaMobile || window.innerWidth <= MOBILE_MIN_WIDTH;
+
+        // Choose your jumbotron selector(s) - adapt to your markup if necessary
+        const jumbotronSelector = ".jumbotron, .hero, .carousel";
+        const jb = document.querySelector(jumbotronSelector);
+
+        if (!jb) {
+          // no jumbotron found — nothing to do
+          return;
+        }
+
+        // unlock helper for dev/testing
+        window.__unlockJumbotron = function () {
+          localStorage.removeItem(LS_KEY_LOCKED);
+          localStorage.removeItem(LS_KEY_HEIGHT);
+          console.info("[jb-lock] unlocked — reload to see changes");
+        };
+
+        // If already locked from previous visit -> apply stored height and exit early.
+        const lockedFlag = localStorage.getItem(LS_KEY_LOCKED);
+        const lockedHeight = localStorage.getItem(LS_KEY_HEIGHT);
+        if (lockedFlag && lockedHeight) {
+          // apply stored pixel height immediately to prevent any repaint/resizing
+          jb.style.height = parseInt(lockedHeight, 10) + "px";
+          jb.style.maxHeight = parseInt(lockedHeight, 10) + "px";
+          jb.dataset.jbLocked = "true";
+          // done — do not attach listeners
+          return;
+        }
+
+        // only run the detection on mobile-like contexts
+        if (!isMobileContext) return;
+
+        // measure initial height
+        let initialRect = jb.getBoundingClientRect();
+        let initialHeight = Math.round(
+          initialRect.height || jb.offsetHeight || 0
+        );
+
+        // guard so we only lock once per page load
+        let locked = false;
+
+        function lockToHeight(px) {
+          // inline-set the height so CSS won't change it across viewport changes
+          jb.style.height = Math.round(px) + "px";
+          jb.style.maxHeight = Math.round(px) + "px";
+          jb.dataset.jbLocked = "true";
+          localStorage.setItem(LS_KEY_LOCKED, "1");
+          localStorage.setItem(LS_KEY_HEIGHT, String(Math.round(px)));
+          locked = true;
+          // detach listeners
+          detachListeners();
+          console.info("[jb-lock] jumbotron locked at", Math.round(px), "px");
+        }
+
+        // Listener logic: on the first meaningful change in height -> lock.
+        function checkForResize() {
+          if (locked) return;
+          const rect = jb.getBoundingClientRect();
+          const nowH = Math.round(rect.height || jb.offsetHeight || 0);
+          // if the jumbotron already changed meaningfully compare to initial
+          if (Math.abs(nowH - initialHeight) >= HEIGHT_JITTER_PX) {
+            // lock to the new observed height
+            lockToHeight(nowH);
+          }
+        }
+
+        // We should observe both visualViewport resize (mobile chrome hide/show)
+        // and window resize as a fallback. Debounce to avoid multiple locks in quick succession.
+        let deb = null;
+        function onVVChange() {
+          clearTimeout(deb);
+          deb = setTimeout(checkForResize, 80); // small debounce: adjust if necessary
+        }
+
+        function detachListeners() {
+          if (window.visualViewport) {
+            try {
+              window.visualViewport.removeEventListener("resize", onVVChange);
+            } catch (e) {}
+            try {
+              window.visualViewport.removeEventListener("scroll", onVVChange);
+            } catch (e) {}
+          }
+          window.removeEventListener("resize", onVVChange);
+          // also remove MutationObserver if used (not used here)
+        }
+
+        // Attach listeners
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener("resize", onVVChange, {
+            passive: true,
+          });
+          window.visualViewport.addEventListener("scroll", onVVChange, {
+            passive: true,
+          });
+        }
+        window.addEventListener("resize", onVVChange, { passive: true });
+
+        // Also check once after first user interaction - some browsers delay chrome hide until user scrolls
+        function onFirstScrollOrTouch() {
+          onVVChange();
+          // remove the one-time listeners
+          window.removeEventListener("scroll", onFirstScrollOrTouch);
+          window.removeEventListener("touchstart", onFirstScrollOrTouch);
+        }
+        window.addEventListener("scroll", onFirstScrollOrTouch, {
+          passive: true,
+        });
+        window.addEventListener("touchstart", onFirstScrollOrTouch, {
+          passive: true,
+        });
+
+        // Finally, as a safety-net: check again after DOM load + small delay
+        document.addEventListener("DOMContentLoaded", function () {
+          setTimeout(function () {
+            checkForResize();
+          }, 300);
+        });
       })();
     </script>
   </body>
