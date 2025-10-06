@@ -1036,6 +1036,51 @@
           }
         }
 
+        // paste inside initHeaderModule() near setHeaderHeight()/resize wiring
+        (function attachKeepHeaderOnResize() {
+          let settleTimer = null;
+          function protectHeaderDuringViewportChange() {
+            if (!header) return;
+            header.classList.remove("hide"); // force visible
+            header.classList.add("viewport-resizing"); // small flag you can check in onScroll
+            // reuse ignoreScrollUntil used elsewhere to block hide logic
+            if (typeof ignoreScrollUntil !== "undefined")
+              ignoreScrollUntil = Date.now() + 700;
+
+            clearTimeout(settleTimer);
+            settleTimer = setTimeout(() => {
+              // viewport likely settled; re-measure
+              try {
+                setHeaderHeight();
+              } catch (e) {}
+              header.classList.remove("viewport-resizing");
+              if (typeof ignoreScrollUntil !== "undefined")
+                ignoreScrollUntil = Date.now() + 120;
+            }, 350); // tweak 300-700ms depending on devices
+          }
+
+          if (window.visualViewport) {
+            window.visualViewport.addEventListener(
+              "resize",
+              protectHeaderDuringViewportChange,
+              { passive: true }
+            );
+            window.visualViewport.addEventListener(
+              "scroll",
+              protectHeaderDuringViewportChange,
+              { passive: true }
+            );
+          }
+          window.addEventListener("resize", protectHeaderDuringViewportChange, {
+            passive: true,
+          });
+          window.addEventListener(
+            "orientationchange",
+            protectHeaderDuringViewportChange,
+            { passive: true }
+          );
+        })();
+
         let resizeTimer = null;
         window.addEventListener("load", setHeaderHeight, { passive: true });
         window.addEventListener(
@@ -1047,68 +1092,6 @@
           },
           { passive: true }
         );
-
-        /* ---------- viewport-resize safe-guard: keep header visible while screen size changes ---------- */
-        /* Insert inside initHeaderModule(), near setHeaderHeight() / resize wiring */
-
-        (function attachViewportSafety() {
-          if (!window) return;
-          let settleTimer = null;
-
-          function beginViewportResizeProtection() {
-            if (!header) return;
-            // force header visible immediately
-            header.classList.remove("hide");
-
-            // extend existing ignore window so tiny scroll deltas won't hide the header
-            // this reuses your ignoreScrollUntil variable used elsewhere in the module
-            // (if ignoreScrollUntil isn't in scope, this block must be put where it is available)
-            if (typeof ignoreScrollUntil !== "undefined") {
-              ignoreScrollUntil = Date.now() + 600; // keep header visible for 600ms
-            }
-
-            // mark header so onScroll can early-return (extra safety)
-            header.classList.add("viewport-resizing");
-
-            // clear previous settle timer and set a new one
-            clearTimeout(settleTimer);
-            settleTimer = setTimeout(() => {
-              // viewport likely settled — re-measure header and allow normal behavior
-              try {
-                if (typeof setHeaderHeight === "function") setHeaderHeight();
-              } catch (e) {}
-              header.classList.remove("viewport-resizing");
-              // small extra padding on ignore to avoid immediate re-hide
-              if (typeof ignoreScrollUntil !== "undefined") {
-                ignoreScrollUntil = Date.now() + 120;
-              }
-            }, 300); // 300ms after the last resize event — tweak higher if devices still flicker
-          }
-
-          // Prefer visualViewport events where supported (fires on address-bar hide/show)
-          if (window.visualViewport) {
-            window.visualViewport.addEventListener(
-              "resize",
-              beginViewportResizeProtection,
-              { passive: true }
-            );
-            window.visualViewport.addEventListener(
-              "scroll",
-              beginViewportResizeProtection,
-              { passive: true }
-            );
-          }
-
-          // Fallback for browsers without visualViewport
-          window.addEventListener("resize", beginViewportResizeProtection, {
-            passive: true,
-          });
-          window.addEventListener(
-            "orientationchange",
-            beginViewportResizeProtection,
-            { passive: true }
-          );
-        })();
 
         if (header) {
           window.addEventListener("load", setHeaderHeight, { passive: true });
@@ -1181,15 +1164,7 @@
 
           function onScroll() {
             if (!header) return;
-
-            // Avoid hide behavior while viewport is animating (address bar show/hide)
             if (header.classList.contains("viewport-resizing")) {
-              lastY = window.scrollY || 0;
-              return;
-            }
-
-            const now = Date.now();
-            if (now < ignoreScrollUntil) {
               lastY = window.scrollY || 0;
               return;
             }
